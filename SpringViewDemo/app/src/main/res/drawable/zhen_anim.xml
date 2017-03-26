@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item android:drawable="@drawable/mt_loading01" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_loading02" android:duration="100"></item>
+
+    <item android:drawable="@drawable/mt_pull" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_pull01" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_pull02" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_pull03" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_pull04" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_pull05" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_refreshing01" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_refreshing02" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_refreshing03" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_refreshing04" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_refreshing05" android:duration="100"></item>
+    <item android:drawable="@drawable/mt_refreshing06" android:duration="100"></item>
+
+
+
+
+
+</animation-list>
