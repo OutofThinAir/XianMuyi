@@ -1,0 +1,1009 @@
+<script type="text/javascript">
+    var username = "qq_20521573";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/qq_20521573";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+
+    var fileName = '52655570';
+    var commentscount = 0;
+    var islock = false
+
+   window.quickReplyflag = true;
+            
+             var isBole = false;
+            
+
+</script>
+
+<!DOCTYPE html>
+<html>
+  <head>    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script> 
+   <!-- <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>-->
+     <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />    
+     <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+
+
+    <script src="http://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+     <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+      <script src="//csdnimg.cn/rabbit/tracking-ad/main.js"></script>
+
+    <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">
+    <link rel="stylesheet" href="http://csdnimg.cn/public/common/libs/bootstrap/css/bootstrap.css">
+ 	<link rel="stylesheet" href="http://csdnimg.cn/public/static/css/avatar.css">
+    <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/common.css">
+    <!-- [if IE 7]-->
+    <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/font-awesome.min.css">
+    <!-- [endif]-->
+    <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/main.css">
+    
+     <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/jquery.rollbar.css">
+    <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/style.css">
+    
+    
+    <!-- [if lt IE 9]-->
+    <script src="http://static.blog.csdn.net/skin/skin2-template/js/libs/html5shiv.min.js"></script>
+    <!-- [endif]-->
+	<script src="http://static.blog.csdn.net/scripts/skintemplatecommon.js" type="text/javascript"></script>
+
+    <script src="http://static.blog.csdn.net/scripts/skintemplateprovider.js" type="text/javascript"></script>      
+	<script src="http://static.blog.csdn.net/scripts/skintemplatecomment.js" type="text/javascript"></script>
+
+    <script src="http://c.csdnimg.cn/rabbit/cnick/cnick.js" type="text/javascript"></script>      
+   
+       
+    
+
+      <script type="text/javascript">
+          $(function () {
+              setTimeout(function () {
+                  $(".mess_name").each(function (index, item) {
+                      var u = $(this).text().split('：')[0].toString().replace("回复", "")
+                      var thisComment = $(this);
+                      if (u) {
+                          $.getJSON("https://passport.csdn.net/get/nick?callback=?", { users: u }, function (a) {
+                              if (a != null && a.data != null && a.data.length > 0) {
+                                  nick = a.data[0].n;
+                                  if (u != nick) {
+                                      thisComment.text(thisComment.text().replace(u, nick));
+                                  }
+                              }
+                          });
+                      }
+                  });
+
+                  $(".username").each(function (index, item) {
+                      var u = $(this).text().split('：')[0].toString().replace("回复", "")
+                      var thisComment = $(this);
+                      if (u) {
+                          $.getJSON("https://passport.csdn.net/get/nick?callback=?", { users: u }, function (a) {
+                              if (a != null && a.data != null && a.data.length > 0) {
+                                  nick = a.data[0].n;
+                                  if (u != nick) {
+                                      thisComment.text(thisComment.text().replace(u, nick));
+                                  }
+                              }
+                          });
+                      }
+                  });
+
+              }, 200);
+
+          });
+      </script>
+
+    <title>ListView嵌套CheckBox滑动时CheckBox选中状态错乱 - 博客频道 - CSDN.NET</title>	
+  </head>
+  <body>
+
+       <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+   <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+    <div class="blog_left">
+      <div class="blog_l_c">
+        <h2 class="blog_l_t">smily的博客</h2>
+        <h6 class="blog_l_sign"></h6>
+        <div class="item_wrap">
+          <dl class="item_l">
+            <dt class="item">21</dt>
+            <dd class="item_name">原创</dd>
+          </dl>
+          <dl class="item_l">
+            <dt class="item">6</dt>
+            <dd class="item_name">转载</dd>
+          </dl>
+          <dl class="item_l">
+            <dt class="item">0</dt>
+            <dd class="item_name">译文</dd>
+          </dl>
+          <dl class="item_l">
+            <dt class="item">35</dt>
+            <dd class="item_name">评论</dd>
+          </dl>
+          <dl class="item_l">
+            <dt class="item">13944</dt>
+            <dd class="item_name">访问</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="blog_copyright">
+        <p><span>京 ICP 证 070598 号</span><img src="http://static.blog.csdn.net/skin/skin2-template/images/copyright.png" alt="img"></p>
+        <p>
+          Copyright © 1999-2016,
+          <br/>
+          CSDN.NET, All Rights Reserved
+        </p>
+       </div>
+    </div>
+    <div id="skin_m" class="skin_m">
+      <div id="skin_center" class="skin_center">
+          <div class="skin_center_t">
+                <h2 class="mod_most"></h2>
+                <!--include ../modules/mod_list.jade-->
+                <div class="skin_list">
+                  <dl class="list_c clearfix detail_list">
+                    <dt>
+                      <div class="date">
+                        <div class="date_t"><span>2016</span><em>九月</em></div>
+                        <div class="date_b">25</div>
+                      </div>
+                    </dt>
+                    <dd>
+                      <div class="skin_icon"><a href="javascript:;" class="set_old">原</a></div>
+                      <h3 class="list_c_t"><a href="/qq_20521573/article/details/52655570">ListView嵌套CheckBox滑动时CheckBox选中状态错乱</a></h3>  
+                        <div class="list_c_Title">
+                          <p class="detail_p">
+                            <label></label>
+                         </p>
+                         <p class="read_r">
+                            <label><i class="fa fa-eye" style="cursor:default"></i><span style="cursor:default"> （566）</span></label>
+                            <label><i class="fa fa-comment-o"style="cursor:default"></i><span  style="cursor:default"> （0）</span></label>
+                             
+                             
+
+                             
+                          </p>
+                        </div>
+                      <div class="skin_detail" id="article_content">
+                        <div class="markdown_views"><p>在讨论这个问题之前应该先了解ListView的复用机制 <br>
+ListView复用的原理：ListView中的每一个Item显示都需要Adapter调用一次getView的方法，这个方法会传入一个convertView的参数，返回的View就是这个Item显示的View。如果当Item的数量足够大，再为每一个Item都创建一个View对象，必将占用很多内存，创建View对象（mInflater.inflate(R.layout.lv_item, null);从xml中生成View，这是属于IO操作）也是耗时操作，所以必将影响性能。Android提供了一个叫做Recycler(反复循环器)的构件，就是当ListView的Item从上方滚出屏幕视角之外，对应Item的View会被缓存到Recycler中，相应的会从下方生成一个Item，而此时调用的getView中的convertView参数就是滚出屏幕的Item的View，所以说如果能重用这个convertView，就会大大改善性能。 <br>
+如果一个屏幕最多显示7个Item，当Item1滑出屏幕，此时Item1 的View被添加进Recycler中，相应的在下部要产生一个Item8，这时调用getView方法，convertView参数就是Item1 的View。  <br>
+ListView的复用虽然大大提升了性能，但是却也带来很多问题。比如在加载图片时，由于下边的item复用了上边的item，造成下边item刚加载出来时显示的还是上边被复用的item的图片，等到这个新的item加载图片完毕时才会正常显示，这就是convert view复用造成listview图片加载错乱的问题。 <br>
+与上边问题相似，在listview的item中存在CheckBox时也会由于复用convert view导致CheckBox的选中状态错乱，本片内容将解决由于复用导致CheckBox选中状态错乱的问题。 <br>
+先看下存在问题的效果图 <br>
+<img src="http://img.blog.csdn.net/20160925004056904" alt="这里写图片描述" title=""></p>
+
+<p>上图中只选中了北京市和天津市，当下滑ListView时发现下边的河南省和山东省也被选中了，再往下滑四川省和台湾省也被选中。其实可以发现一个规律，每一屏都会有两个条目被选中，其实这两个被选中的条目就是因为复用了第一屏的两个被选中的条目所导致的。 <br>
+先看下ListView没有优化前的代码：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">package</span> com.example.edianzu.mycheckbox;
+
+<span class="hljs-keyword">import</span> android.support.v7.app.AppCompatActivity;
+<span class="hljs-keyword">import</span> android.os.Bundle;
+<span class="hljs-keyword">import</span> android.widget.ListView;
+
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> {</span>
+    <span class="hljs-keyword">private</span> ListView mListView;
+    <span class="hljs-keyword">private</span> List&lt;String&gt; mStringList;
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span>(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mStringList=<span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+        mStringList.add(<span class="hljs-string">"北京市"</span>);mStringList.add(<span class="hljs-string">"天津市"</span>);mStringList.add(<span class="hljs-string">"上海市"</span>);mStringList.add(<span class="hljs-string">"重庆市"</span>);
+        mStringList.add(<span class="hljs-string">"河北省"</span>);mStringList.add(<span class="hljs-string">"山西省"</span>);mStringList.add(<span class="hljs-string">"辽宁省"</span>);mStringList.add(<span class="hljs-string">"河南省"</span>);
+        mStringList.add(<span class="hljs-string">"山东省"</span>);mStringList.add(<span class="hljs-string">"湖北省"</span>);mStringList.add(<span class="hljs-string">"湖南省"</span>);mStringList.add(<span class="hljs-string">"江西省"</span>);
+        mStringList.add(<span class="hljs-string">"福建省"</span>);mStringList.add(<span class="hljs-string">"陕西省"</span>);mStringList.add(<span class="hljs-string">"四川省"</span>);mStringList.add(<span class="hljs-string">"台湾省"</span>);
+        mListView= (ListView) findViewById(R.id.lv_main);
+        MyAdapter adapter=<span class="hljs-keyword">new</span> MyAdapter(<span class="hljs-keyword">this</span>,mStringList);
+        mListView.setAdapter(adapter);
+
+    }
+}</code></pre>
+
+<p>MainActivity中的代码为ListView适配数据和适配Adapter，不作过多解释。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">package</span> com.example.edianzu.mycheckbox;
+
+<span class="hljs-keyword">import</span> android.content.Context;
+<span class="hljs-keyword">import</span> android.view.View;
+<span class="hljs-keyword">import</span> android.view.ViewGroup;
+<span class="hljs-keyword">import</span> android.widget.BaseAdapter;
+<span class="hljs-keyword">import</span> android.widget.CheckBox;
+<span class="hljs-keyword">import</span> android.widget.CompoundButton;
+<span class="hljs-keyword">import</span> android.widget.TextView;
+<span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.Map;
+
+<span class="hljs-javadoc">/**
+ * Created by zhpan on 2016/9/24.
+ */</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyAdapter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseAdapter</span> {</span>
+
+    List&lt;String&gt; mStringList;
+    Context mContext;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">MyAdapter</span>(Context context, List&lt;String&gt; stringList) {
+        mStringList = stringList;
+        mContext=context;
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">getItemId</span>(<span class="hljs-keyword">int</span> position) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> View <span class="hljs-title">getView</span>(<span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> position, View convertView, ViewGroup parent) {
+        MyViewHolder holder;
+        <span class="hljs-keyword">if</span>(convertView==<span class="hljs-keyword">null</span>){
+            convertView=View.inflate(mContext,R.layout.item,<span class="hljs-keyword">null</span>);
+            holder=<span class="hljs-keyword">new</span> MyViewHolder();
+            holder.mTextView= (TextView) convertView.findViewById(R.id.tv_item);
+            holder.mCheckBox= (CheckBox) convertView.findViewById(R.id.cb_item);
+            convertView.setTag(holder);
+        }<span class="hljs-keyword">else</span> {
+            holder= (MyViewHolder) convertView.getTag();
+        }
+
+        holder.mTextView.setText(mStringList.get(position));
+
+        <span class="hljs-keyword">return</span> convertView;
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getCount</span>() {
+        <span class="hljs-keyword">return</span> mStringList.size();
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> Object <span class="hljs-title">getItem</span>(<span class="hljs-keyword">int</span> position) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span>  <span class="hljs-title">MyViewHolder</span> {</span>
+        TextView mTextView;
+        CheckBox mCheckBox;
+    }
+}
+</code></pre>
+
+<p>在Adapter中只是复用了convertView,没有对CheckBox做任何处理，那么这样写的代码是存在上图中的CheckBox选中状态错乱问题的。为了解决这个问题我们需要对CheckBox的选中状态做下保存，可以在Adapter中声明一个Map集合用来保存被选中的CheckBox。修改后代码如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">package</span> com.example.edianzu.mycheckbox;
+
+<span class="hljs-keyword">import</span> android.content.Context;
+<span class="hljs-keyword">import</span> android.view.View;
+<span class="hljs-keyword">import</span> android.view.ViewGroup;
+<span class="hljs-keyword">import</span> android.widget.BaseAdapter;
+<span class="hljs-keyword">import</span> android.widget.CheckBox;
+<span class="hljs-keyword">import</span> android.widget.CompoundButton;
+<span class="hljs-keyword">import</span> android.widget.TextView;
+<span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.Map;
+
+<span class="hljs-javadoc">/**
+ * Created by zhpan on 2016/9/24.
+ */</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyAdapter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseAdapter</span> {</span>
+
+    List&lt;String&gt; mStringList;
+    Context mContext;
+    <span class="hljs-keyword">private</span> Map&lt;Integer,Boolean&gt; map=<span class="hljs-keyword">new</span> HashMap&lt;&gt;();<span class="hljs-comment">// 存放已被选中的CheckBox</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">MyAdapter</span>(Context context, List&lt;String&gt; stringList) {
+        mStringList = stringList;
+        mContext=context;
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">getItemId</span>(<span class="hljs-keyword">int</span> position) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> View <span class="hljs-title">getView</span>(<span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> position, View convertView, ViewGroup parent) {
+        MyViewHolder holder;
+        <span class="hljs-keyword">if</span>(convertView==<span class="hljs-keyword">null</span>){
+            convertView=View.inflate(mContext,R.layout.item,<span class="hljs-keyword">null</span>);
+            holder=<span class="hljs-keyword">new</span> MyViewHolder();
+            holder.mTextView= (TextView) convertView.findViewById(R.id.tv_item);
+            holder.mCheckBox= (CheckBox) convertView.findViewById(R.id.cb_item);
+            convertView.setTag(holder);
+        }<span class="hljs-keyword">else</span> {
+            holder= (MyViewHolder) convertView.getTag();
+        }
+
+        holder.mTextView.setText(mStringList.get(position));
+        holder.mCheckBox.setOnCheckedChangeListener(<span class="hljs-keyword">new</span> CompoundButton.OnCheckedChangeListener() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCheckedChanged</span>(CompoundButton buttonView, <span class="hljs-keyword">boolean</span> isChecked) {
+                <span class="hljs-keyword">if</span>(isChecked==<span class="hljs-keyword">true</span>){
+                    map.put(position,<span class="hljs-keyword">true</span>);
+                }<span class="hljs-keyword">else</span> {
+                    map.remove(position);
+                }
+            }
+        });
+
+        <span class="hljs-keyword">if</span>(map!=<span class="hljs-keyword">null</span>&amp;&amp;map.containsKey(position)){
+            holder.mCheckBox.setChecked(<span class="hljs-keyword">true</span>);
+        }<span class="hljs-keyword">else</span> {
+            holder.mCheckBox.setChecked(<span class="hljs-keyword">false</span>);
+        }
+
+        <span class="hljs-keyword">return</span> convertView;
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getCount</span>() {
+        <span class="hljs-keyword">return</span> mStringList.size();
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> Object <span class="hljs-title">getItem</span>(<span class="hljs-keyword">int</span> position) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span>  <span class="hljs-title">MyViewHolder</span> {</span>
+        TextView mTextView;
+        CheckBox mCheckBox;
+    }
+}
+</code></pre>
+
+<p>针对这个问题我们子Adapter中加入了一个Map集合，其中Map的key用来存储条被选中的checkbox的position，value用来存储checkbox被选中。代码中还添加了checkbox的监听事件，在监听事件中判断点击的checkbox是否被选中，如果被选中了则将position添加到集合，并设置状态未true，否则就将该checkbox从集合中移除。然后通过if语句判断集合中是否存在该checkbox，如果存在则证明是被选中的,遂将该checkbox设置为选中状态setChecked(true)，否则证明checkbox没有选中则设置setChecked(false)。这样就解决了checkbox选中状态错乱的问题。 <br>
+看下优化后的效果图 <br>
+<img src="http://img.blog.csdn.net/20160925010523851" alt="这里写图片描述" title=""></p>
+
+<p>优化后不会再出现错乱问题了。</p>
+
+<p><a href="http://download.csdn.net/detail/qq_20521573/9639225">源码下载</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+                      </div>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="skin_nav">        
+                     <div class="skin_edit"><i class="fa fa-th-list"></i>
+                     <div class="nav_list nav_list_edit"><a href="/qq_20521573">文章列表</a></div>
+                  </div>
+                     
+                </div>
+                <div class="rssFix">
+        	        <a href="http://blog.csdn.net/qq_20521573/rss/list" class="column"  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])"><i class="fa fa-rss"></i></a>
+                </div>        
+
+                <div id="goTopBtn" class="skin_backTop"><i class="fa fa-chevron-up"></i></div>
+        </div>
+        <div class="detail_b">
+          <p class="reprint_copy" style="display:none" id="copyright">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>  
+		   <!--      
+          <div class="bole" style="display:none">
+            <h2 class="bole_t clearfix"><span>伯乐推荐</span>
+              <label>一共有<em>{bolecount}</em>位博乐进行推荐</label>
+            </h2>
+           {bolecomment}              
+          </div>		
+          -->  
+           <!-- style=""style=""-->
+          <h2 class="praise" >
+            <label id="digg" ArticleId="52655570" onclick="btndigga();" ><span id="btnDigg">顶</span><em>0</em></label>
+            <label id="bury" onclick="btnburya();"><span id="btnBury"   >踩</span><em>0</em></label>
+          </h2>           
+                <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+                <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+           
+             <script type="text/javascript">
+                 function btndigga() {
+                     $(".tracking-ad[data-mod='popu_222'] a").click();
+                 }
+                 function btnburya() {
+                     $(".tracking-ad[data-mod='popu_223'] a").click();
+                 }
+
+                 $(function () {
+                     if ($(".markdown_views").length > 0) {
+                         $('pre.prettyprint code').each(function () {
+                             var lines = $(this).text().split('\n').length;
+                             var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                             $(this).addClass('has-numbering').parent().append($numbering);
+                             for (i = 1; i <= lines; i++) {
+                                 $numbering.append($('<li/>').text(i));
+                             };
+                             $numbering.fadeIn(1700);
+                         });
+                     }
+                     else {
+                         $("#article_content pre").each(function () {
+                             var $this = $(this);
+                             if ($this.attr("class") != undefined) {
+                                 if ($this.attr("class").indexOf("brush:") != -1) {
+                                     var lang = $this.attr("class").split(';')[0].split(':')[1];
+                                     $this.attr('name', 'code');
+                                     $this.attr('class', lang);
+                                 }
+                                 if ($this.attr("class")) {
+                                     $this.attr('name', 'code');
+                                 }
+                             }
+                         });
+                         $('#article_content textarea[name=code]').each(function () {
+                             var $this = $(this);
+                             if ($this.attr("class").indexOf(":") != -1) {
+                                 $this.attr("class", $this.attr("class").split(':')[0]);
+                             }
+                         });
+                         dp.SyntaxHighlighter.HighlightAll('code');
+                         $('.highlighter').addClass('dp-highlighter');
+                         if (!window.clipboardData) {
+                             setTimeout("setCopyBtn()", 500);
+                         }
+
+                         function __get_code_toolbar(snippet_id) {
+                             return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                                     + snippet_id
+                                     + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                                     + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                                     + snippet_id
+                                     + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+                         }
+
+                         $("[code_snippet_id]").each(function () {
+                             __s_id = $(this).attr("code_snippet_id");
+                             if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                                 __code_tool = __get_code_toolbar(__s_id);
+                                 $(this).prev().find(".tools").append(__code_tool);
+                             }
+                         });
+
+                         $(".bar").show();
+                     }
+                 });
+            </script>
+          <div class="blog_share">
+              <!--<i class="fa fa-qq"></i><i class="fa fa-weixin"></i><i class="fa fa-weibo"></i><i class="fa fa-renren"></i><i class="fa fa-qq"></i><i class="fa fa-weixin"></i>
+              <i class="fa fa-weibo"></i><i class="fa fa-renren"></i>-->                
+               <div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+                <a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+                <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+                <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+                </div>
+                <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+                <!-- Baidu Button END -->
+          </div>
+          <div class="forward_back">
+            <div class="back fl"><a href="javascript:void(0);" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/qq_20521573/article/details/52566994';"><span><i class="fa fa-arrow-left"></i></span><em>Android中的CoordinatorLayout初体验</em></a></div><div class="forward fr"><a href="javascript:void(0);" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/qq_20521573/article/details/52665196';"><em>ExpandableListView实现可展开的ListView（取自真实项目）</em><span><i class="fa fa-arrow-right"></i></span></a></div>
+          </div>
+            <div>
+                <ins data-revive-zoneid="71" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+            </div>            
+        <!--  
+		{articleinsamecategory}
+            -->
+          <div class="comment" id="comment_form">
+              <div id="commentsbmitarear">
+                    <h2 class="comment_t">发表评论</h2>
+                    <dl class="publish_comment clearfix" id="commentbox">
+                      <dt><a href="http://my.csdn.net/"><img src=""></a></dt>
+                      <dd>                 
+			          <form action="/qq_20521573/comment/submit?id=52655570" method="post" onsubmit="return subform(this);" id="commentform">
+					        <textarea class="publish_txt" id="comment_content"></textarea>
+					        <div class="publish clearfix">
+					
+					          <div class="publish_l"><i class="fa fa-code J_code"></i></div>
+
+					          <input type="hidden" id="comment_replyId" name="comment_replyId">
+					          <input type="hidden" id="comment_userId" name="comment_userId" value="">
+					          <input type="hidden" id="commentId" name="commentId" value="">
+					  
+					          <a href="javascript:void(0);" class="publish_btn"> 发表评论</a>&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span>
+					
+					          <div class="comment-code-pop J_lang_list" id="lang_list" code="code"><a href="#html" style="width:95px;" class="long_name">HTML/XML</a><a href="#objc" style="width:95px;" class="long_name">objective-c</a><a href="#delphi" style="width:58px;" class="zhong_name">Delphi</a><a href="#ruby" class="zhong_name">Ruby</a><a href="#php">PHP</a><a href="#csharp" class="duan_name">C#</a><a style=" border-right: none;" href="#cpp" class="duan_name">C++</a><a style=" border-bottom:none;width:95px;" href="#javascript" class="long_name">JavaScript</a><a style=" border-bottom:none;width:95px;" href="#vb" class="long_name">Visual Basic</a><a style=" border-bottom:none;" href="#python" class="zhong_name">Python</a><a style=" border-bottom:none;" href="#java" class="zhong_name">Java</a><a style="border-bottom:none;" href="#css" class="duan_name">CSS</a><a style="border-bottom:none;" href="#sql" class="duan_name">SQL</a><a style="border:none; " href="#plain" class="duan_name">其它</a><span class="arrb"></span></div>
+					        </div>
+			         </form>
+                      </dd>
+                    </dl>
+               </div>
+              <a name="comments"></a>
+            <div class="comment_list" id="comment_list"></div>
+            <div  style="height:60px">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="skin_right">
+      <div id="skin_r_wrap" class="skin_r_wrap">
+        <div id="skin_r" class="skin_r"><i id="arrow_r" class="fa fa-arrow-right"></i>
+          <div class="mess"><a href="http://my.csdn.net/qq_20521573"><img src="http://avatar.csdn.net/C/5/1/1_qq_20521573.jpg" alt="img" class="head"></a>
+            <p class="mess_name">qq_20521573</p>
+            <div class="grade">
+                <p  title="积分：394"><span>等级：</span><img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog2.png"></p>
+                <p><span>排名：</span><span>千里之外</span></p>
+            </div>
+            <div class="blog_medal"><a href="http://blog.csdn.net/experts/rule.html"></a>
+              <div class="medal_c"><a href='javascript:void(0);'><img src='http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/chizhiyiheng.png' alt='img'></a></div>
+              <div class="attention">
+			  <a href="javascript:void(0);" id="span_add_follow"><i class="fa fa-plus"></i><span>加关注</span></a>
+			  <a href="javascript:void(0);" onClick="window.open('http://msg.csdn.net/letters/model?receiver=qq_20521573','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"><i class="fa fa-envelope-o"></i><span>发私信</span></a>			  			 
+			  </div>   
+			   <div class="contact"></div>         
+            </div>
+          </div>
+          <div class="classify">     
+             <!--
+            <dl class="classify_list js_list">
+	             <dt>
+	                  <div class="js_column"><i class="fa fa-th"></i><a href="#" class="column">文章分类</a></div>
+	            </dt>
+            </dl>
+
+                  <dl class="classify_list">
+              <dt><i class="fa fa-play-circle"></i><a  href="/qq_20521573/blog/course" class="column">我的课程</a></dt>
+            </dl> 
+		    -->	    	
+            
+            
+                
+               
+               <dl class="classify_list">
+                     <div class="article_search">
+                         <div class="article_search_c">
+                            <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+                                <input type="text" id="inputSearch" placeholder="文章搜索"><i class="fa fa-search" id="btnSubmit"></i>
+                            </form>
+                         </div>
+                     </div>
+               </dl>  
+                    
+            <dl class="classify_list">
+              <dt><i class="fa fa-file-text"></i><a  href="/qq_20521573/blog/column" class="column">博客专栏</a> </dt>
+            </dl>  
+                    
+           <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-th"></i><span class="column">文章分类</span></div>
+                <ul id="article_list0" class="article_list">
+				  <li><a href="/qq_20521573/article/category/6466229" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">自定义View</a><span>（6）</span></li><li><a href="/qq_20521573/article/category/6466230" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Material Design</a><span>（3）</span></li>                  
+                </ul>
+              </dt>
+              <dd style="display:none"><a href="#" class="article_add"><i class="fa fa-plus"></i></a></dd>
+            </dl>
+            
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-calendar"></i><span class="column">文章存档</span></div>
+                <ul id="article_list1" class="article_list">
+                 
+                    <li><a href="/qq_20521573/article/month/2016/12">2016年12月</a><span>(5)</span></li>
+                
+                    <li><a href="/qq_20521573/article/month/2016/10">2016年10月</a><span>(1)</span></li>
+                
+                    <li><a href="/qq_20521573/article/month/2016/09">2016年09月</a><span>(5)</span></li>
+                
+                    <li><a href="/qq_20521573/article/month/2016/08">2016年08月</a><span>(7)</span></li>
+                
+                    <li><a href="/qq_20521573/article/month/2016/07">2016年07月</a><span>(11)</span></li>
+                
+                </ul>
+              </dt>
+            </dl>
+                 
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-eye"></i><span class="column">阅读排行</span></div>
+                <ul class="article_list">
+                
+                 <li><a href="/qq_20521573/article/details/51914180">Android实现省市区三级联动效果</a><span>（5673）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52037929">ViewPager实现图片自动轮播无限循环（完美流畅版）</a><span>（2248）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52665196">ExpandableListView实现可展开的ListView（取自真实项目）</a><span>（732）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52833992">自定义View之仿支付宝输入六位密码</a><span>（683）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52655570">ListView嵌套CheckBox滑动时CheckBox选中状态错乱</a><span>（561）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52714191">仿支付宝提现选择到账银行卡页面实现</a><span>（437）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52014848">Android通过请求网络数据实现ListView,ListView的优化、图片的缓存、子控件的点击事件。</a><span>（433）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52054774">由浅入深理解Android中的回调机制（二）【实现简易购物车功能】</a><span>（348）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52455642">EventBus在项目中的简单应用</a><span>（309）</span></li>
+                 
+                 <li><a href="/qq_20521573/article/details/52566994">Android中的CoordinatorLayout初体验</a><span>（299）</span></li>
+                 
+                </ul>
+              </dt>
+            </dl>
+            
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-comments"></i><span class="column">评论排行</span></div>
+                <ul class="article_list">
+                  
+                  <li><a href="/qq_20521573/article/details/51914180">Android实现省市区三级联动效果</a><span>（25）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/52037929">ViewPager实现图片自动轮播无限循环（完美流畅版）</a><span>（10）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/52833992">自定义View之仿支付宝输入六位密码</a><span>（1）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/52054774">由浅入深理解Android中的回调机制（二）【实现简易购物车功能】</a><span>（1）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/52078703">自定义Vew概述</a><span>（0）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/52073472">Android中的Toolbar详解</a><span>（0）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/52069316">Android中的Attr、Style和Theme详解</a><span>（0）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/52045715">由浅入深理解Android中的回调机制（一）</a><span>（0）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/53730196">Android获取星期、阳历日期、及农历日期</a><span>（0）</span></li>
+                  
+                  <li><a href="/qq_20521573/article/details/52021204">Android中用面向对象思想实现AsyncTask类的复用</a><span>（0）</span></li>
+                  
+                </ul>
+              </dt>
+            </dl>
+                
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-list-ol"></i><span class="column">推荐文章</span></div>
+                <ul class="article_list">
+                 <ul>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/60576936" target="_blank">* CSDN日报20170306——《程序员转行为什么这么难》</a></li>
+<li><a href="http://blog.csdn.net/hejjunlin/article/details/60480109" 
+target="_blank">* 直播技术总结（四）音视频数据压缩及编解码基础 </a></li>
+<li><a href="http://blog.csdn.net/qibin0506/article/details/60478869"target="_blank">* 第一个PWA程序-聊天室</a></li>
+<li><a href="http://blog.csdn.net/cyq1162/article/details/60578454" target="_blank">* 一个想法照进现实-《IT连》创业项目：万事开头难</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/54879836" 
+target="_blank">* Android"挂逼"修炼之行---防自动抢红包外挂原理解析</a></li>
+
+
+</ul>
+                </ul>
+              </dt>
+            </dl>
+                  
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-commenting"></i><span class="column">最新评论</span></div>
+                <ul class="article_list new_comment">
+                  
+                    <li>                    
+                    <p><a href="/qq_20521573/article/details/51914180">Android实现省市区三级联动效果</a></p>                   
+                    <p><a href="/qq_26554909" class="reply_name">qq_26554909</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>楼主为什么生那一列显示为英文啊？下面说的几种方式都没有解决，要怎么处理啊？</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">Android实现省市区三级联动效果</a></p>                   
+                    <p><a href="/qq_26554909" class="reply_name">qq_26554909</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>博主，为什么省那一级显示为英文啊？试了下面说的几种方式都没有解决</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="/qq_20521573/article/details/52833992">自定义View之仿支付宝输入六位密码</a></p>                   
+                    <p><a href="/qq_37327000" class="reply_name">qq_37327000</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>怎么下载啊作者</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">Android实现省市区三级联动效果</a></p>                   
+                    <p><a href="/qq_36670145" class="reply_name">qq_36670145</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>@qq_36670145:好吧，找到原因了，省份的javaBean对象用到了反射，对他进行混淆了，所...</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">Android实现省市区三级联动效果</a></p>                   
+                    <p><a href="/qq_36670145" class="reply_name">qq_36670145</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>代码混淆过后，省一行显示包名，不混淆可以正常显示，why？</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">Android实现省市区三级联动效果</a></p>                   
+                    <p><a href="/yangpeng_liao" class="reply_name">yangpeng_liao</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>@lxy369198347:你把添加依赖那一句 改成博主demo里面的那个依赖，文章里面的依赖版本和...</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">Android实现省市区三级联动效果</a></p>                   
+                    <p><a href="/yangpeng_liao" class="reply_name">yangpeng_liao</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>@lxy369198347:我也遇到这个问题，不知道怎么改</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">Android实现省市区三级联动效果</a></p>                   
+                    <p><a href="/lxy369198347" class="reply_name">lxy369198347</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>为什么只显示市，区，但没有显示省，省的那一栏显示的都是英文</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">Android实现省市区三级联动效果</a></p>                   
+                    <p><a href="/qq_34679614" class="reply_name">qq_34679614</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>为什么只显示市，区，但没有显示省，省的那一栏显示的都是英文</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="/qq_20521573/article/details/52037929">ViewPager实现图片自动轮播无限循环（完美流畅版）</a></p>                   
+                    <p><a href="/qq_20521573" class="reply_name">qq_20521573</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>@qq_27531813:会吗？你看的我的还是自已又写的？</i></p>                    
+                  </li>      
+                           
+                </ul>
+              </dt>
+            </dl>
+                
+
+            <!--
+           [startblogcolumn]            
+             [startsearch]   
+               <dl class="classify_list">
+                     <div class="article_search">
+                         <div class="article_search_c">
+                            <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+                                <input type="text" id="inputSearch" placeholder="文章搜索"><i class="fa fa-search" id="btnSubmit"></i>
+                            </form>
+                         </div>
+                     </div>
+               </dl>  
+            [endsearch]   
+            
+            [startspecialcolumn]        
+            <dl class="classify_list">
+              <dt><i class="fa fa-file-text"></i><a  href="/qq_20521573/blog/column" class="column">博客专栏</a> </dt>
+            </dl>  
+            [endspecialcolumn]   
+            
+             [startcategory]        
+           <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-th"></i><span class="column">文章分类</span></div>
+                <ul id="article_list0" class="article_list">
+				  {articlecategorys}                  
+                </ul>
+              </dt>
+              <dd style="display:none"><a href="#" class="article_add"><i class="fa fa-plus"></i></a></dd>
+            </dl>
+            [endcategory]
+
+            [startarchive]
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-calendar"></i><span class="column">文章存档</span></div>
+                <ul id="article_list1" class="article_list">
+                 [startlist]
+                    <li><a href="/{0}/article/month/{1}/{2}">{1}年{2}月</a><span>({3})</span></li>
+                [endlist]
+                </ul>
+              </dt>
+            </dl>
+             [endarchive]    
+                [startviewcountarticles]    
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-eye"></i><span class="column">阅读排行</span></div>
+                <ul class="article_list">
+                [startlist]
+                 <li><a href="{columnarticleurl}">{columnarticletitle}</a><span>（{columnarticlecount}）</span></li>
+                 [endlist]
+                </ul>
+              </dt>
+            </dl>
+            [endviewcountarticles]
+                [startcommentcountarticles]
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-comments"></i><span class="column">评论排行</span></div>
+                <ul class="article_list">
+                  [startlist]
+                  <li><a href="{columnarticleurl}">{columnarticletitle}</a><span>（{columnarticlecommentcount}）</span></li>
+                  [endlist]
+                </ul>
+              </dt>
+            </dl>
+                [endcommentcountarticles]
+                [starthomepagearticles]
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-list-ol"></i><span class="column">推荐文章</span></div>
+                <ul class="article_list">
+                 {cloumcontent}
+                </ul>
+              </dt>
+            </dl>
+                  [endhomepagearticles]
+                [startnewcomments]
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-commenting"></i><span class="column">最新评论</span></div>
+                <ul class="article_list new_comment">
+                  [startlist]
+                    <li>                    
+                    <p><a href="{articleurl}">ListView嵌套CheckBox滑动时CheckBox选中状态错乱</a></p>                   
+                    <p><a href="/{commentusername}" class="reply_name">{commentusername}</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>{commentcontent}</i></p>                    
+                  </li>      
+                 [endlist]          
+                </ul>
+              </dt>
+            </dl>
+                [endnewcomments]
+                [startcustom]
+                   <dl class="classify_list js_list">
+                      <dt>
+                        <div class="js_column_wrap"><i class="fa fa-cube"></i><span class="column">{columntitle}</span></div>
+                        <ul class="article_list">
+                         {columcontent}
+                        </ul>
+                      </dt>
+                    </dl>
+                [endcustom]
+         [endblogcolumn]    
+            -->
+
+            <!--
+            <dl class="classify_list">
+              <dt class="rss"><i class="fa fa-rss"></i>			 
+			  <span class="column">
+			   	<a href="http://blog.csdn.net/qq_20521573/rss/list" class="column"  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">RSS订阅</a>
+			   </span>
+			  </dt>
+            </dl>
+            -->
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="skin_right_small" class="skin_right_small">
+      <div class="skin_r_small"><i id="faNavicon" class="fa fa-navicon"></i>
+        <div class="head_small"><a href="http://my.csdn.net/qq_20521573"><img src="http://avatar.csdn.net/C/5/1/1_qq_20521573.jpg" alt="img"></a></div>
+        <ul class="rSmallList">  
+           
+                
+                  <li class="small_article"><i class="fa fa-file-text"></i><a href="/qq_20521573/blog/column" class="small_column">博客专栏</a></li>
+                    
+                  <li class="small_article js_smallArticle"><i class="fa fa-th"></i><a href="#" class="small_column">文章分类</a></li>
+                
+                  <li class="small_article js_smallArticle"><i class="fa fa-calendar"></i><a href="#" class="small_column">文章存档</a></li>
+                
+                  <li class="small_article js_smallArticle"><i class="fa fa-eye"></i><a href="#" class="small_column">阅读排行</a></li>
+              
+                  <li class="small_article js_smallArticle"><i class="fa fa-comments"></i><a href="#" class="small_column">评论排行</a></li>
+              
+                  <li class="small_article js_smallArticle"><i class="fa fa-list-ol"></i><a href="#" class="small_column">推荐文章</a></li>
+              
+                  <li class="small_article js_smallArticle"><i class="fa fa-commenting"></i><a href="#" class="small_column">最新评论</a></li>
+                      
+          <!-- 
+           [startblogcolumnsmall]   
+               [startspecialcolumn]    
+                  <li class="small_article"><i class="fa fa-file-text"></i><a href="/qq_20521573/blog/column" class="small_column">博客专栏</a></li>
+               [endspecialcolumn]  
+                [startcategory]     
+                  <li class="small_article js_smallArticle"><i class="fa fa-th"></i><a href="#" class="small_column">文章分类</a></li>
+                [endcategory]     
+              [startarchive]
+                  <li class="small_article js_smallArticle"><i class="fa fa-calendar"></i><a href="#" class="small_column">文章存档</a></li>
+              [endarchive]
+              [startviewcountarticles]  
+                  <li class="small_article js_smallArticle"><i class="fa fa-eye"></i><a href="#" class="small_column">阅读排行</a></li>
+              [endviewcountarticles]  
+              [startcommentcountarticles]
+                  <li class="small_article js_smallArticle"><i class="fa fa-comments"></i><a href="#" class="small_column">评论排行</a></li>
+              [endcommentcountarticles]
+              [starthomepagearticles]
+                  <li class="small_article js_smallArticle"><i class="fa fa-list-ol"></i><a href="#" class="small_column">推荐文章</a></li>
+              [endhomepagearticles]
+              [startnewcomments]
+                  <li class="small_article js_smallArticle"><i class="fa fa-commenting"></i><a href="#" class="small_column">最新评论</a></li>
+              [endnewcomments]
+              [startcustom]
+                  <li class="small_article js_smallArticle"><i class="fa fa-cube"></i><a href="#" class="small_column">{columntitle}</a></li>
+              [endcustom]
+          [endblogcolumnsmall]    
+          -->         
+        </ul>        
+      </div>
+    </div>
+    <div id="mask"></div>
+    <script type="text/javascript" src="http://static.blog.csdn.net/skin/skin2-template/js/apps/accordion.js"></script>
+    
+    <script type="text/javascript" src="http://static.blog.csdn.net/skin/skin2-template/js/apps/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/skin/skin2-template/js/apps/jquery.rollbar.min.js"></script>
+    
+    <script type="text/javascript" src="http://static.blog.csdn.net/skin/skin2-template/js/apps/transition.js"></script>  
+     <script id="noticeScript" type="text/javascript" charset="utf-8" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" src="http://c.csdnimg.cn/public/common/toolbar/js/notify.js"></script>  
+    <!--script( type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js" )-->
+    <!--script( type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js" )-->
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>
+
+     <div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+    </div>
+    <div id="report_dialog">
+    </div>
+
+    <div id="popup_mask"></div>
+    <style  type="text/css">
+        #popup_mask
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            left: 0px;
+            top: 0px;
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+            display: none;
+        }
+
+         .skin_list  dl dd div ol {  
+        margin-left:15px;
+            }  
+
+       .skin_list dl dd div ol li {  
+         display:list-item;list-style-type:decimal;margin-left:15px;
+            }       
+
+    </style>     
+      
+        <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+        </div> 
+
+       <!-- 广告位开始 -->
+        <ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_code.css" />
+            <script type="text/javascript" src="http://static.blog.csdn.net/scripts/saveToCode.js"></script>     
+	<script type="text/javascript" src="//csdnimg.cn/rabbit/tracking-ad/main.js?75eacd8></script>
+  </body>
+</html>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+<script  type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },500);
+    });
+</script>
+

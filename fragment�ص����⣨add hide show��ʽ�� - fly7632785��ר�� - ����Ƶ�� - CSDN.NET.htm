@@ -1,0 +1,1163 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>  
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>fragment重叠问题（add hide show方式） - fly7632785的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="底部导航加fragment的方式很常见，通过add hide show方式来实现切换。但是我们有时候会遇到重叠的现象，让我们一起来看看吧" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="http://static.blog.csdn.net/scripts/jquery-version.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/fly7632785/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</head>
+<body>
+
+
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/fly7632785">fly7632785的专栏</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/fly7632785?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/fly7632785?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/fly7632785/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "fly7632785";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/fly7632785";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/62045843">
+<font color=red>CSDN日报20170314——《40岁程序员真的要被淘汰了么？》</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp
+
+<a href="http://blog.csdn.net/turingbooks/article/details/58072986">
+<font color=blue>程序员2月书讯
+</font></a>
+
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://edu.csdn.net/huiyiCourse/detail/284">
+<font color=red>【直播】用面向协议的思想简化网络请求
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/60961185">
+<font color=blue>博客一键搬家活动开始啦
+</font></a>
+
+</div>                        </div>
+                        
+
+
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/replace.min.js"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=fragment%e9%87%8d%e5%8f%a0%e9%97%ae%e9%a2%98%ef%bc%88add+hide+show%e6%96%b9%e5%bc%8f%ef%bc%89&u=http://blog.csdn.net/fly7632785/article/details/48295741"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/fly7632785/article/details/48295741">
+        fragment重叠问题（add hide show方式）            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/android' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">android</a><a href='http://www.csdn.net/tag/android%e5%bc%80%e5%8f%91' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">android开发</a><a href='http://www.csdn.net/tag/%e5%af%bc%e8%88%aa' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">导航</a><a href='http://www.csdn.net/tag/%e7%95%8c%e9%9d%a2' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">界面</a><a href='http://www.csdn.net/tag/fragment' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">fragment</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2015-09-08 19:40</span>
+            <span class="link_view" title="阅读次数">2076人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(3)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('fragment%e9%87%8d%e5%8f%a0%e9%97%ae%e9%a2%98%ef%bc%88add+hide+show%e6%96%b9%e5%bc%8f%ef%bc%89','48295741');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(48295741,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label>
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">fragment重叠<em></em></span>                       
+                    </label>      
+                    <label>
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">fragment<em></em></span>                       
+                    </label>      
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+        <div   class="bog_copyright">         
+            <p  class="copyright_p" >版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+        <div class="markdown_views"><h2 id="问题描述"><strong>问题描述</strong></h2>
+
+<p>想必各位Android开发者们，目前为止使用<strong>导航加fragment</strong>分模块的主界面的方式已经很常见了吧。</p>
+
+<p>一般都是几个fragment在同一个activity里面，然后通过<strong>add hide show</strong>的方式去进行切换，这是最常见也是最实用的，因为这种方式不同于<strong>replace</strong>的切换方式，这种方式能保存fragment的状态，能带来更好的用户体验。</p>
+
+<p>而使用<strong>add hide show</strong>这种方式来实现也是存在一些问题的，诸如这个我们要解决的问题。</p>
+
+<p>—-<strong>fragment重叠问题</strong></p>
+
+<p>问题出现的场景就是：当你的APP按home键到后台之后，你再去打开别的APP进行一些很耗费内存的操作，比如，打开相机，打开系统图库等等，就会挤占很多的内存。这时候Android系统就会把你原来的APP给强制杀掉，然而它实际上并没有被完全杀死回收掉。如果你现在重新打开你的APP，就会出现fragment的重叠现象，就是你的几个fragment重叠在一起了。</p>
+
+<h2 id="解决办法"><strong>解决办法</strong></h2>
+
+<p>目前为止，我在百度上搜罗了很多资料，也看过很多的文献，大致发现了2种方法，然后我就跟我们群里的大神交流，一个一个地去亲测了那2种方法。先大致看一下，后面再详细描述。</p>
+
+<p>先说，这里<strong>推荐大家使用第二种方法</strong>，简单明了。如果还想看看第二种方法以及详细推敲原理可以继续看下去。</p>
+
+
+
+<h4 id="方法一">—-<strong>方法一：</strong></h4>
+
+<p><strong>注释掉几个fragment所在的宿主activity里面的onSaveInstanceState方法的super.onSaveInstanceState,或者onRestoreInstanceState方法的super.onSaveInstanceState.</strong></p>
+
+<p>大致代码如下：</p>
+
+<pre class="prettyprint"><code class=" hljs java">    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSaveInstanceState</span>(Bundle outState) {
+    <span class="hljs-comment">//    super.onSaveInstanceState(outState);  </span>
+    }
+
+    或者
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onRestoreInstanceState</span>(Bundle savedInstanceState) {
+    <span class="hljs-comment">//    super.onRestoreInstanceState(savedInstanceState); </span>
+    }</code></pre>
+
+
+
+<h4 id="方法二">—-<strong>方法二：</strong></h4>
+
+<p><strong>利用activity里onCreate方法里面判断savedInstanceState是否为空，如果不为空，就用fragmentManager通过之前绑定的TAG找到相应的fragment，然后赋值，不再去重新add这几个fragment。</strong></p>
+
+<p>大致代码如下：</p>
+
+<pre class="prettyprint"><code class=" hljs avrasm"> if(savedInstanceState != null){
+            mChide= (ChideFragment)manager<span class="hljs-preprocessor">.findFragmentByTag</span>(ChideFragment<span class="hljs-preprocessor">.class</span><span class="hljs-preprocessor">.getName</span>())<span class="hljs-comment">;</span>
+            mGuangde = (GuangdeFragment) manager<span class="hljs-preprocessor">.findFragmentByTag</span>(GuangdeFragment<span class="hljs-preprocessor">.class</span><span class="hljs-preprocessor">.getName</span>())<span class="hljs-comment">;</span>
+            mWode = (WodeFragment) manager<span class="hljs-preprocessor">.findFragmentByTag</span>(WodeFragment<span class="hljs-preprocessor">.class</span><span class="hljs-preprocessor">.getName</span>())<span class="hljs-comment">;</span>
+            mLiaode = (LiaodeFragment) manager<span class="hljs-preprocessor">.findFragmentByTag</span>(LiaodeFragment<span class="hljs-preprocessor">.class</span><span class="hljs-preprocessor">.getName</span>())<span class="hljs-comment">; </span>
+   }else {
+            mChide = new ChideFragment()<span class="hljs-comment">;</span>
+            mGuangde = new GuangdeFragment()<span class="hljs-comment">;</span>
+            mWode = new WodeFragment()<span class="hljs-comment">;</span>
+            mLiaode = new LiaodeFragment()<span class="hljs-comment">;</span>
+   }</code></pre>
+
+<h2 id="详细流程"><strong>详细流程</strong></h2>
+
+<p>好吧，现在我来详细地解释一下问题出现的原因。</p>
+
+<p>我们的APP在后台<strong>因为内存不足或者放置了很久的时间</strong>，被系统销毁了，<strong>activity的视图view以及里面装的fragment</strong>也是被销毁了,但是实例是没有的。</p>
+
+<p>当APP到后台之后，<strong>activity和fragment</strong>会执行onSaveInstanceState去保存数据，比如，里面各种子view的实例，当然也是包括fragment。</p>
+
+<p><img src="http://img.blog.csdn.net/20150908201750990" alt="这里写图片描述" title=""></p>
+
+<p>当我们重新打开APP的时候，activity会执行onRestoreInstanceState。</p>
+
+<p>在问题没有出现的情况下，一切正常，onCreate里面的参数saveInstanceBundle是为空的，一切安基本流程走，就如同第一次打开APP的情况一样。</p>
+
+<p>然而，如果是出现了我们现在所说的这样问题的话，saveInstanceBundle就不为空了。在<strong>onCreate的父方法</strong>执行的时候，就会去<strong>回滚一些数据</strong>，具体怎么实现的要去看activity的源码。</p>
+
+<pre class="prettyprint"><code class=" hljs java"> <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span>(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);</code></pre>
+
+<p>所以，其实我们重新打开APP的时候，它<strong>已经存在了原来的4个fragment</strong>，在fragmentManager里面，然而又走了一遍自己的实例化和初始化流程，<strong>又重新创建了4个</strong>，如果看fragmentManager里面的话会有8个fragment。</p>
+
+<p><img src="http://img.blog.csdn.net/20150908201344334" alt="创建了8个fragment的视图" title=""></p>
+
+<p>然而前面4个被数据回滚回来的fragment在manager里面，<strong>但是之前的hide show 方法就失效了</strong>，所有的都是显示出来的，而且是按onCreateView的顺序，比如从导航栏第一到第四个按钮的顺序，就会出现<strong>一层一层的重叠</strong>。后面加进来的4个因为和他们一样，其实也看不出来了，反正就是重叠过来，重叠过去。</p>
+
+<p>所以第一种办法就很简单，原理就是，<strong>阻止activity去保存或者回滚数据</strong>，这样前面的4个被数据回滚出来的fragment就不会存在或者不会创建。</p>
+
+<p>就相当于重新走了一遍APP刚打开的流程，很多APP都是这样做的，如果从其他地方跳转回来，内存不足，它就会重新打开APP入口显示主界面。</p>
+
+<p><strong>第一种</strong>方法<strong>很简单</strong>，轻松就能解决，不过有点小风险就是，因为你注释掉了super的方法，以至于以后如果需要用到这个方法就有点麻烦了。</p>
+
+<hr>
+
+<p>然而，<strong>第二种</strong>方法就有点麻烦了。</p>
+
+<p>第二种方法是，从储存的数据中去回滚出来，然后重新使用，然而，这种方法的话是吃力不讨好的。</p>
+
+<p>因为这4个回滚fragment实例的视图<strong>也是会被重新创建</strong>的，而且显示出来的时候也是4个一起，也会出现重叠现象，你要想不重叠，你需要自己再去hide ALL ,然后show你想要显示的那个。</p>
+
+<p>相应的底部导航栏的checked状态也要对应，还有比如标题栏的图标或者其他什么一切都要跟你要想显示的那个对应。</p>
+
+<p>我测试过了，其实这几个被保存下来的fragment实例，他们的状态是没有被保存的。也就是有点像新的，所以啊，第二种方法真的是吃力不讨好，太麻烦，不推荐使用。</p>
+
+<h3 id="最后">最后</h3>
+
+<p>小小总结一下。 <br>
+这次写这个博客也是因为感触有点深，因为为了解决这个问题还是花了很多心思，调试了很久的程序，为了达到内存的饱和，你要跳转到别的APP完成很多占内存的操作，比如，打开相机，打开图库，我都不晓得测试了多少次了，有点心累啊，啊哈哈。</p>
+
+<p>不过在一次又一次的测试中，你就像在探索迷宫一样，每一次的尝试都在预示着你在成功之前遇到的岔路又少了一条。最后，终于探索出了自己的一片明亮的天地，过程中收获了很多，打印了很多log，跟着程序调试了很多很多遍。虽然结果很简单，但是探明结果的过程是很艰辛的，没事儿，继续加油！</p>
+
+<p>希望能对大家有点帮助，我也算为这个圈子做出了一点点贡献，如有问题还希望大家提出来，我们一起探讨。</p>
+
+<p>最后的最后要感谢一下 <a href="http://blog.csdn.net/coder_pig?viewmode=contents">coder-pig</a>大神的一起努力探讨，大家可以去光顾一下他的博客，写得很棒。</p></div>
+        <script  type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.14-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+
+        <div id="digg" ArticleId="48295741" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>6</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/fly7632785/article/details/45700525';">上一篇</span><a href="/fly7632785/article/details/45700525" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">eclipse转手Android studio 要注意的地方</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/fly7632785/article/details/48462989';">下一篇</span><a href="/fly7632785/article/details/48462989" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">Android listView同时展示多种不同数据的item</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('0', 'fly7632785','foot','48295741');
+        });
+    </script>
+      
+</div>
+
+    <div>
+            <script type="text/javascript">
+                /*博客内容页下方Banner1-728*90，创建于2016-12-13*/
+                var cpro_id = "u2843949";
+            </script>
+            <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+     </div>
+
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/fly7632785/svc/GetSuggestContent/48295741",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="http://static.blog.csdn.net/css/replace.css"/>
+<div id="relate" data-mod="popu_218"  class="tracking-ad">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "48295741",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+            
+            setEduLoc();
+
+            function setEduLoc() {               
+                var edus = $("#adCollege div dd a");
+                if (edus.length == 0) {
+                    setTimeout(function () {
+                        setEduLoc();
+                    }, 500);
+                }
+                else {
+                    var eduLoc = "?ref=blog&loc=0";
+                    $.each(edus, function (index,item) {
+                        var href = $(this).attr("href") + eduLoc;
+                        $(this).attr("href", href);
+                    });
+                }
+            }
+
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'fragment重叠问题（add hide show方式）' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+
+    <div id="ad_cen">        
+                    <script type="text/javascript">
+                        /*博客内容页下方Banner-728*90，创建于2014-7-3*/
+                        var cpro_id = "u1607657";
+                    </script>
+                    <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+    </div>  
+
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '48295741';
+    var commentscount = 3;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/fly7632785/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/fly7632785" target="_blank">
+    <img src="http://avatar.csdn.net/6/9/C/1_fly7632785.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/fly7632785" class="user_name" target="_blank">fly7632785</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=fly7632785','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>6649次</span></li>
+    <li>积分：<span>123</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog2.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：123 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>4篇</span></li>
+    <li>转载：<span>0篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>12条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/fly7632785/article/category/2834231" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">回调</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/fly7632785/article/category/3219251" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">工具</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/fly7632785/article/category/5800247" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">fragment</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/fly7632785/article/category/5800413" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">fragment重叠</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/fly7632785/article/category/5816033" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">listview</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/fly7632785/article/category/5816035" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">adapter</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/fly7632785/article/category/5816037" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">item</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/fly7632785/article/month/2015/09">2015年09月</a><span>(2)</span></li><li><a href="/fly7632785/article/month/2015/05">2015年05月</a><span>(1)</span></li><li><a href="/fly7632785/article/month/2015/01">2015年01月</a><span>(1)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/fly7632785/article/details/48462989" title="Android listView同时展示多种不同数据的item">Android listView同时展示多种不同数据的item</a><span>(3888)</span>
+</li>
+<li>
+<a href="/fly7632785/article/details/48295741" title="fragment重叠问题（add hide show方式）">fragment重叠问题（add hide show方式）</a><span>(2074)</span>
+</li>
+<li>
+<a href="/fly7632785/article/details/42680553" title="用了这么久的组件监听类，看了无数博文，终于真正理解回调机制">用了这么久的组件监听类，看了无数博文，终于真正理解回调机制</a><span>(365)</span>
+</li>
+<li>
+<a href="/fly7632785/article/details/45700525" title="eclipse转手Android studio 要注意的地方">eclipse转手Android studio 要注意的地方</a><span>(234)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/fly7632785/article/details/48462989" title="Android listView同时展示多种不同数据的item">Android listView同时展示多种不同数据的item</a><span>(9)</span>
+</li>
+<li>
+<a href="/fly7632785/article/details/48295741" title="fragment重叠问题（add hide show方式）">fragment重叠问题（add hide show方式）</a><span>(3)</span>
+</li>
+<li>
+<a href="/fly7632785/article/details/42680553" title="用了这么久的组件监听类，看了无数博文，终于真正理解回调机制">用了这么久的组件监听类，看了无数博文，终于真正理解回调机制</a><span>(0)</span>
+</li>
+<li>
+<a href="/fly7632785/article/details/45700525" title="eclipse转手Android studio 要注意的地方">eclipse转手Android studio 要注意的地方</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/cyq1162/article/details/62041884" target="_blank">* 一个想法照进现实-《IT连》创业项目：三天的风投对接活动内幕分享</a></li>
+<li><a href="http://blog.csdn.net/baron_leizhang/article/details/59532530" target="_blank">* 神兵利器Dagger2</a></li>
+<li><a href="http://blog.csdn.net/wireless_com/article/details/61912260" 
+target="_blank">* 从CAP 到编程语言的猜想</a></li>
+<li><a href="http://blog.csdn.net/shenjie12345678/article/details/62039363"target="_blank">*  iWatch开发：WatchOS 消息推送教程</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/53000565" 
+target="_blank">* iOS狂暴之路---iOS中应用的数据存储方式解析</a></li>
+
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/fly7632785/article/details/48462989#comments">Android listView同时展示多种不同数据的item</a>
+    <p style="margin:0px;"><a href="/iamZ2z" class="user_name">iamZ2z</a>:
+用法完全不知道写什么
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48462989#comments">Android listView同时展示多种不同数据的item</a>
+    <p style="margin:0px;"><a href="/jifashi4" class="user_name">jifashi4</a>:
+项目源码有没？
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48295741#comments">fragment重叠问题（add hide show方式）</a>
+    <p style="margin:0px;"><a href="/verbuhu" class="user_name">verbuhu</a>:
+@u013402684:哈哈哈 重点调的好
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48295741#comments">Android listView同时展示多种不同数据的item</a>
+    <p style="margin:0px;"><a href="/qq_35863384" class="user_name">qq_35863384</a>:
+我在使用楼主上面方法的时候遇到一个问题，在listview下滑的时候无法根据Tag获取Viewhol...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48295741#comments">Android listView同时展示多种不同数据的item</a>
+    <p style="margin:0px;"><a href="/qq_28795751" class="user_name">qq_28795751</a>:
+博主有项目源码么
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48295741#comments">Android listView同时展示多种不同数据的item</a>
+    <p style="margin:0px;"><a href="/qq_28795751" class="user_name">qq_28795751</a>:
+博主有项目源码么
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48295741#comments">Android listView同时展示多种不同数据的item</a>
+    <p style="margin:0px;"><a href="/qq_28795751" class="user_name">qq_28795751</a>:
+博主有项目源码么
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48295741#comments">Android listView同时展示多种不同数据的item</a>
+    <p style="margin:0px;"><a href="/weixin_36244391" class="user_name">weixin_36244391</a>:
+楼主，如果两种数据接口里没有相同项该怎么搞？最近碰到类似难题，请指教
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48295741#comments">fragment重叠问题（add hide show方式）</a>
+    <p style="margin:0px;"><a href="/u013402684" class="user_name">u013402684</a>:
+先说，这里推荐大家使用第二种方法，简单明了。如果还想看看第二种方法以及详细推敲原理可以继续看下去。我...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/fly7632785/article/details/48295741#comments">Android listView同时展示多种不同数据的item</a>
+    <p style="margin:0px;"><a href="/a375537831" class="user_name">a375537831</a>:
+那主界面的请求怎么弄呀，你是请求的两个接口，怎么设置adapter呢
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+
+
+                   <!-- 广告位开始 --> 
+                    <ins data-revive-zoneid="190" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins> 
+                    <!-- 广告位结束 -->
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=4934359"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_code.css" />
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/saveToCode.js"></script>
+      <script type="text/javascript" src="//csdnimg.cn/rabbit/tracking-ad/main.js?75eacd8"></script>
+
+     <link rel="stylesheet" href="http://static.blog.csdn.net/css/fa.css" />
+
+    <div class="pop_CA_cover"  style="display:none"></div>
+    <div class="pop pop_CA"  style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon"  id="fapancle"  onclick="$('.pop_CA').hide();$('.pop_CA_cover').hide();"></span>
+          </div>
+          <iframe src="" id="fa" frameborder="0" width="100%" height="360"  scrolling="no" />
+    </div>
+</body>
+</html>   
+ 
